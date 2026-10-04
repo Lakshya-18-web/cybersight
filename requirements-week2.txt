@@ -1,0 +1,5 @@
+# Week 2 additions. Install with: pip install -r requirements-week2.txt
+# Your Week 1 requirements.txt is not touched.
+pydantic>=2.5
+python-dotenv>=1.0
+google-genai>=1.0
