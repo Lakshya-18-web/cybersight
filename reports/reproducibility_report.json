@@ -1,0 +1,190 @@
+{
+  "status": "PASS",
+  "mode": "full",
+  "clone_dir": "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage-repro",
+  "started_utc": "2026-10-04T09:58:07Z",
+  "finished_utc": "2026-10-04T10:06:38Z",
+  "environment": {
+    "python": "3.10.11",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "pandas": "2.3.3",
+    "numpy": "2.2.6",
+    "sklearn": "1.7.2",
+    "xgboost": "3.2.0",
+    "pyarrow": "25.0.1"
+  },
+  "tuning_repeated": false,
+  "best_params_reused": true,
+  "steps": [
+    {
+      "step": 1,
+      "name": "clean",
+      "command": "",
+      "returncode": 0,
+      "seconds": 146.4
+    },
+    {
+      "step": 2,
+      "name": "split",
+      "command": "",
+      "returncode": 0,
+      "seconds": 45.8
+    },
+    {
+      "step": 3,
+      "name": "features",
+      "command": "",
+      "returncode": 0,
+      "seconds": 20.7
+    },
+    {
+      "step": 4,
+      "name": "baselines",
+      "command": "",
+      "returncode": 0,
+      "seconds": 118.8
+    },
+    {
+      "step": 5,
+      "name": "detector_with_port",
+      "command": "",
+      "returncode": 0,
+      "seconds": 39.0
+    },
+    {
+      "step": 6,
+      "name": "detector_no_port",
+      "command": "--no-dest-port",
+      "returncode": 0,
+      "seconds": 66.3
+    },
+    {
+      "step": 7,
+      "name": "adopt_no_port",
+      "command": "--adopt-no-dest-port",
+      "returncode": 0,
+      "seconds": 3.7
+    },
+    {
+      "step": 8,
+      "name": "alerts",
+      "command": "--threshold 0.00459436746314168",
+      "returncode": 0,
+      "seconds": 13.2
+    },
+    {
+      "step": 9,
+      "name": "eval_sets",
+      "command": "",
+      "returncode": 0,
+      "seconds": 15.9
+    }
+  ],
+  "checks": [
+    {
+      "name": "flows_clean.parquet has identical content",
+      "passed": true,
+      "required": true,
+      "detail": "2519415 vs 2519415 rows"
+    },
+    {
+      "name": "train.parquet has identical content",
+      "passed": true,
+      "required": true,
+      "detail": "1511650 vs 1511650 rows"
+    },
+    {
+      "name": "val.parquet has identical content",
+      "passed": true,
+      "required": true,
+      "detail": "478687 vs 478687 rows"
+    },
+    {
+      "name": "test.parquet has identical content",
+      "passed": true,
+      "required": true,
+      "detail": "478692 vs 478692 rows"
+    },
+    {
+      "name": "feature_list.json is identical",
+      "passed": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "detector validation PR-AUC matches",
+      "passed": true,
+      "required": true,
+      "detail": "real 0.99959203, clone 0.99959203"
+    },
+    {
+      "name": "detector uses the same number of trees",
+      "passed": true,
+      "required": true,
+      "detail": "346 vs 346"
+    },
+    {
+      "name": "model file is byte-identical",
+      "passed": true,
+      "required": false,
+      "detail": "different bytes are acceptable if the alerts below match"
+    },
+    {
+      "name": "reports/cleaning_log.md has the same text",
+      "passed": true,
+      "required": false,
+      "detail": "after replacing project paths"
+    },
+    {
+      "name": "reports/split_report.md has the same text",
+      "passed": true,
+      "required": false,
+      "detail": "after replacing project paths"
+    },
+    {
+      "name": "threshold is the accepted value",
+      "passed": true,
+      "required": true,
+      "detail": "0.00459436746314168"
+    },
+    {
+      "name": "Day 5 validation_alerts_hash is identical",
+      "passed": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "Day 5 validation_labels_hash is identical",
+      "passed": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "Day 5 test_alerts_hash is identical",
+      "passed": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "Day 5 test_labels_hash is identical",
+      "passed": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "validation confusion counts are identical",
+      "passed": true,
+      "required": true,
+      "detail": ""
+    },
+    {
+      "name": "rebuilt eval files match the real MANIFEST.json (verify_eval.py)",
+      "passed": true,
+      "required": true,
+      "detail": "exit 0"
+    }
+  ],
+  "protected_files_unchanged": true,
+  "protected_files_changed": [],
+  "manifest_sha256": "e0aa07db7a739b31765c50ec2fd3ff94e02ff4907b6ba00002b0847bdda57f7f"
+}

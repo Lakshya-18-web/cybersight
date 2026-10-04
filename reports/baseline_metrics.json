@@ -1,0 +1,73 @@
+{
+  "logistic_regression": {
+    "pr_auc": 0.9079908428939166,
+    "roc_auc": 0.9794313166185491,
+    "brier": 0.04104856436624862,
+    "threshold": 0.5,
+    "at_threshold": {
+      "tp": 69428,
+      "fp": 17859,
+      "tn": 380080,
+      "fn": 11320,
+      "precision": 0.795399085774514,
+      "recall": 0.8598107693069797,
+      "f1": 0.8263516529294492,
+      "false_positive_rate": 0.04487873769597853,
+      "alerts_per_1000_flows": 182.34671089877102,
+      "fp_share_of_alerts": 0.20460091422548604
+    },
+    "per_class": {
+      "BENIGN": 0.9551212623040215,
+      "Bot": 0.27297297297297296,
+      "DDoS": 0.7641230161993258,
+      "DoS GoldenEye": 0.7047082906857728,
+      "DoS Hulk": 0.9678205753291077,
+      "DoS Slowhttptest": 0.797583081570997,
+      "DoS slowloris": 0.9804496578690127,
+      "FTP-Patator": 0.6770186335403726,
+      "PortScan": 0.8785985401459854,
+      "SSH-Patator": 0.0016339869281045752,
+      "Web Attack - Brute Force": 0.0,
+      "Web Attack - XSS/SQLi": 0.0
+    },
+    "worst_attack_class": "Web Attack - Brute Force",
+    "worst_attack_recall": 0.0,
+    "iterations_used": 246,
+    "seconds": 34.0
+  },
+  "decision_tree": {
+    "pr_auc": 0.9935832443238448,
+    "roc_auc": 0.9965576906011843,
+    "brier": 0.002730917903209298,
+    "threshold": 0.5,
+    "at_threshold": {
+      "tp": 79677,
+      "fp": 518,
+      "tn": 397421,
+      "fn": 1071,
+      "precision": 0.9935407444354386,
+      "recall": 0.98673651359786,
+      "f1": 0.9901269393511989,
+      "false_positive_rate": 0.0013017070455522077,
+      "alerts_per_1000_flows": 167.53118426027865,
+      "fp_share_of_alerts": 0.006459255564561382
+    },
+    "per_class": {
+      "BENIGN": 0.9986982929544478,
+      "Bot": 0.34324324324324323,
+      "DDoS": 0.9990132390428419,
+      "DoS GoldenEye": 0.7737973387922211,
+      "DoS Hulk": 0.999512432959532,
+      "DoS Slowhttptest": 0.7875125881168177,
+      "DoS slowloris": 1.0,
+      "FTP-Patator": 1.0,
+      "PortScan": 0.9956788321167883,
+      "SSH-Patator": 0.9803921568627451,
+      "Web Attack - Brute Force": 0.8351254480286738,
+      "Web Attack - XSS/SQLi": 0.9763779527559056
+    },
+    "worst_attack_class": "Bot",
+    "worst_attack_recall": 0.34324324324324323,
+    "seconds": 75.0
+  }
+}

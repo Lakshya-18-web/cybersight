@@ -3,3 +3,5 @@ data/processed/
 .venv/
 __pycache__/
 .ipynb_checkpoints/
+venv/
+eval/flow_store_*.parquet

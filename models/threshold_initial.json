@@ -1,0 +1,66 @@
+{
+  "threshold": 0.9775605201721191,
+  "rule": "highest score threshold whose validation recall is at least 0.95",
+  "target_recall": 0.95,
+  "alert_condition": "detector_score >= threshold",
+  "model_path": "models/detector_xgb.json",
+  "trees_used": 346,
+  "n_features": 53,
+  "uses_destination_port": false,
+  "validation": {
+    "rows": 478687,
+    "attack_flows": 80748,
+    "recall": 0.9500916431366722,
+    "precision": 0.9999739311783108,
+    "f1": 0.974394797673178,
+    "false_positive_rate": 5.025895928773003e-06,
+    "tp": 76718,
+    "fp": 2,
+    "fn": 4030,
+    "tn": 397937,
+    "alerts": 76720,
+    "fp_share_of_alerts": 2.6068821689259645e-05,
+    "per_class_rate": {
+      "BENIGN": 0.9999949741040712,
+      "Bot": 0.005405405405405406,
+      "DDoS": 0.9657922868185183,
+      "DoS GoldenEye": 0.6397134083930399,
+      "DoS Hulk": 0.9847330570453438,
+      "DoS Slowhttptest": 0.11782477341389729,
+      "DoS slowloris": 0.6705767350928641,
+      "FTP-Patator": 0.966282165039929,
+      "PortScan": 0.9841751824817518,
+      "SSH-Patator": 0.9738562091503268,
+      "Web Attack - Brute Force": 0.7311827956989247,
+      "Web Attack - XSS/SQLi": 0.905511811023622
+    },
+    "worst_attack_class": "Bot",
+    "worst_attack_recall": 0.005405405405405406,
+    "attack_classes_under_target": [
+      "Bot",
+      "DoS GoldenEye",
+      "DoS Slowhttptest",
+      "DoS slowloris",
+      "Web Attack - Brute Force",
+      "Web Attack - XSS/SQLi"
+    ],
+    "pr_auc_recomputed": 0.9995920287672397
+  },
+  "fp_share_check": {
+    "range": [
+      0.3,
+      0.5
+    ],
+    "status": "BELOW",
+    "suggested_threshold_for_min_share": 0.00459436746314168
+  },
+  "alerts": {
+    "validation": 76720,
+    "test": 62726,
+    "validation_alerts_hash": "5da3f351cdf7760bf20de050eaabece7d5e90a80ae8895ba73696fe58c81c738",
+    "validation_labels_hash": "b9333044b847d0d9af168e49b0dc5b149a8204f0b0662c5407e7d0f33a7bca10",
+    "test_alerts_hash": "389cf9022d61e072486a5fd3df22bdc52b2bbb0d207609ed7108853eed6176a1",
+    "test_labels_hash": "52ecb2ff6efcb07703dfa5c72a2a294bfc430a2dc55854113e70265ca81262d5"
+  },
+  "seed": 42
+}

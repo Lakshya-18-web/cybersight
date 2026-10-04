@@ -1,0 +1,59 @@
+{
+  "threshold": 0.00459436746314168,
+  "rule": "manual override from the command line",
+  "target_recall": 0.95,
+  "alert_condition": "detector_score >= threshold",
+  "model_path": "models/detector_xgb.json",
+  "trees_used": 346,
+  "n_features": 53,
+  "uses_destination_port": false,
+  "validation": {
+    "rows": 478687,
+    "attack_flows": 80748,
+    "recall": 0.9999628473770248,
+    "precision": 0.6992967626833874,
+    "f1": 0.8230299570876697,
+    "false_positive_rate": 0.08725206627146372,
+    "tp": 80745,
+    "fp": 34721,
+    "fn": 3,
+    "tn": 363218,
+    "alerts": 115466,
+    "fp_share_of_alerts": 0.3007032373166127,
+    "per_class_rate": {
+      "BENIGN": 0.9127479337285362,
+      "Bot": 0.9945945945945946,
+      "DDoS": 1.0,
+      "DoS GoldenEye": 1.0,
+      "DoS Hulk": 1.0,
+      "DoS Slowhttptest": 0.998992950654582,
+      "DoS slowloris": 1.0,
+      "FTP-Patator": 1.0,
+      "PortScan": 1.0,
+      "SSH-Patator": 1.0,
+      "Web Attack - Brute Force": 1.0,
+      "Web Attack - XSS/SQLi": 1.0
+    },
+    "worst_attack_class": "Bot",
+    "worst_attack_recall": 0.9945945945945946,
+    "attack_classes_under_target": [],
+    "pr_auc_recomputed": 0.9995920287672397
+  },
+  "fp_share_check": {
+    "range": [
+      0.3,
+      0.5
+    ],
+    "status": "IN RANGE",
+    "suggested_threshold_for_min_share": null
+  },
+  "alerts": {
+    "validation": 115466,
+    "test": 111903,
+    "validation_alerts_hash": "0e4eb01b1317ff89a9fe2c414864d3ee06c63068ec43fdc476eb69ef2aeb74bc",
+    "validation_labels_hash": "2e91a72d420dd2511c606c3f192f441eaaf3a66eb7d7b0388dd550c5cc74cb76",
+    "test_alerts_hash": "81872dbb9de6911e720bf8cd5161f9495768214ca2660982eea505c7ab31c3a6",
+    "test_labels_hash": "b18dc6445c4e228c33a0e190b746f9ce87b434d209a68c8d045d12545e644772"
+  },
+  "seed": 42
+}

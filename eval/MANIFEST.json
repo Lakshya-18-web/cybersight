@@ -1,0 +1,94 @@
+{
+  "built_at_utc": "2026-10-03T13:44:44Z",
+  "git_commit": "898891483982070d42f175caac520de015047ba1",
+  "seed": 42,
+  "threshold": 0.00459436746314168,
+  "sizes": {
+    "dev_target": 300,
+    "frozen_target": 2500,
+    "fp_share": 0.35,
+    "dev_cap_per_class": 25,
+    "frozen_cap_per_class": 200
+  },
+  "inputs": {
+    "validation_alerts_hash": "0e4eb01b1317ff89a9fe2c414864d3ee06c63068ec43fdc476eb69ef2aeb74bc",
+    "validation_labels_hash": "2e91a72d420dd2511c606c3f192f441eaaf3a66eb7d7b0388dd550c5cc74cb76",
+    "test_alerts_hash": "81872dbb9de6911e720bf8cd5161f9495768214ca2660982eea505c7ab31c3a6",
+    "test_labels_hash": "b18dc6445c4e228c33a0e190b746f9ce87b434d209a68c8d045d12545e644772"
+  },
+  "composition": {
+    "dev": {
+      "BENIGN": 105,
+      "Bot": 18,
+      "DDoS": 18,
+      "DoS GoldenEye": 18,
+      "DoS Hulk": 18,
+      "DoS Slowhttptest": 18,
+      "DoS slowloris": 18,
+      "FTP-Patator": 18,
+      "PortScan": 18,
+      "SSH-Patator": 17,
+      "Web Attack - Brute Force": 17,
+      "Web Attack - XSS/SQLi": 17
+    },
+    "frozen": {
+      "BENIGN": 875,
+      "Bot": 150,
+      "DDoS": 150,
+      "DoS GoldenEye": 150,
+      "DoS Hulk": 150,
+      "DoS Slowhttptest": 150,
+      "DoS slowloris": 150,
+      "FTP-Patator": 150,
+      "PortScan": 150,
+      "SSH-Patator": 149,
+      "Web Attack - Brute Force": 149,
+      "Web Attack - XSS/SQLi": 127
+    }
+  },
+  "files": {
+    "dev_alerts": {
+      "file": "dev_alerts.parquet",
+      "rows": 300,
+      "content_hash": "1b55133d3fe787c74fd503a8cf794ecd1a6511d2e443604f46e2b74a530a050d",
+      "file_sha256": "7de717eddd6763f635e2365a1adcde07089462be7e3290747fee8b53e18b0e59"
+    },
+    "dev_labels": {
+      "file": "dev_labels.parquet",
+      "rows": 300,
+      "content_hash": "12321172ea022b3888561eb615eb22ec511278ea2ad99f7a04a85182dcb022b6",
+      "file_sha256": "7ee45be27bff205b5568d7ec52284aef586b5c0681096c95a06f2b4ea2b8c257"
+    },
+    "frozen_alerts": {
+      "file": "frozen_alerts.parquet",
+      "rows": 2500,
+      "content_hash": "ca0efa87580cdb9d382ab3460918ca6aa92cf59d0903d519f61d6105357b430a",
+      "file_sha256": "36b6e560ceadc9e29bdc2e2be70e91358ce6bbf627ceeb9544d60419661ad808"
+    },
+    "frozen_labels": {
+      "file": "frozen_labels.parquet",
+      "rows": 2500,
+      "content_hash": "c6bd07c77cd85b70fb904d9cad380eca54a841a719160985b4e03891b7378a91",
+      "file_sha256": "1af9d1d34ae551d859314a56e494951f27b0d84eb1624b8af945c0b250fefe11"
+    },
+    "flow_store_dev": {
+      "file": "flow_store_dev.parquet",
+      "rows": 478687,
+      "content_hash": "f0527a8d809ca9bdab0f9e8d9bdfe65d3b7bdb3e881f2c0163768415f0c8e1fe",
+      "file_sha256": "e3df785fe091e8817e23c4a83e293e7db5837b85cf653e8214bd3cc42aa63800"
+    },
+    "flow_store_frozen": {
+      "file": "flow_store_frozen.parquet",
+      "rows": 478692,
+      "content_hash": "37e77d65218dd346732155c90312592ed3c068793f16478f07d8788c927f71b2",
+      "file_sha256": "8e66fac9d3ea18bf4725c91b6a91a0c449d2ec422eefdb6fdd7f542bffbb9ffb"
+    },
+    "mitre_map": {
+      "file": "mitre_map.csv",
+      "rows": 12,
+      "content_hash": null,
+      "file_sha256": "3d11350faf04f0795e072f8b1bb9094dad42e4c3b92a5a04a150b520a5f78a24"
+    }
+  },
+  "frozen_rule": "Frozen alerts, labels and flow store were frozen on Week 1, Day 6. Read them only for the final evaluation runs, through src/eval_io.py."
+}

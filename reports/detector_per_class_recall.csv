@@ -1,0 +1,13 @@
+label,kind,validation_rows,rate_at_0.5
+BENIGN,specificity,397939,0.9994119701763335
+Bot,recall,370,0.7027027027027027
+DDoS,recall,24322,0.9988487788833155
+DoS GoldenEye,recall,1954,0.9611054247697032
+DoS Hulk,recall,32816,0.9944234519746465
+DoS Slowhttptest,recall,993,0.9536757301107754
+DoS slowloris,recall,1023,1.0
+FTP-Patator,recall,1127,1.0
+PortScan,recall,17125,1.0
+SSH-Patator,recall,612,0.9967320261437909
+Web Attack - Brute Force,recall,279,0.9713261648745519
+Web Attack - XSS/SQLi,recall,127,0.9763779527559056
