@@ -13,7 +13,7 @@ import os
 PROVIDER = "gemini"
 API_KEY_ENV = "GEMINI_API_KEY"
 
-DEFAULT_SMALL_MODEL = "gemini-2.5-flash-lite"
+DEFAULT_SMALL_MODEL = "gemini-3.5-flash-lite"
 DEFAULT_STRONG_MODEL = "gemini-2.5-pro"
 
 # Settings every baseline run shares, so runs differ only by model and prompt.
