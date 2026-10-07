@@ -1,0 +1,183 @@
+--- theirs3/src/run_baseline_dev.py	2026-10-05 21:04:03.000000000 +0000
++++ week2-day5/src/run_baseline_dev.py	2026-10-07 10:10:29.561747915 +0000
+@@ -13,6 +13,8 @@
+ import verdict_parser
+ import triage_inputs
+ import baseline_prompt
++import prompt_registry
++import langsmith_tracing
+ import baseline_store as store
+ import gemini_client
+ 
+@@ -190,13 +192,25 @@
+     return record
+ 
+ 
+-def run_alerts(todo_ids, prompts, run_dir, caller, session, max_parse_retries, say=print):
++def trace_alert(tracer, record, calls, say=print):
++    """Tracing must never change a run: any error is counted and printed, and the run goes on."""
++    if tracer is None:
++        return
++    try:
++        tracer.record_alert(record, calls)
++    except Exception as error:
++        tracer.errors = getattr(tracer, "errors", 0) + 1
++        say("tracing error (the run continues): " + type(error).__name__ + ": " + str(error)[:120])
++
++
++def run_alerts(todo_ids, prompts, run_dir, caller, session, max_parse_retries, say=print, tracer=None):
+     consecutive = 0
+     for i in range(len(todo_ids)):
+         alert_id = todo_ids[i]
+         started = CLOCK()
+         record = process_alert(alert_id, prompts[alert_id], caller, session, max_parse_retries)
+         store.append_jsonl(run_dir.results, record)
++        trace_alert(tracer, record, caller.calls, say)
+         say("[" + str(i + 1).rjust(len(str(len(todo_ids)))) + "/" + str(len(todo_ids)) + "] " + alert_id + " " + record["status"]
+             + " calls=" + str(record["model_calls"]) + " " + "%.1fs" % (CLOCK() - started))
+         if record["status"] == STATUS_MODEL_ERROR:
+@@ -280,13 +294,15 @@
+     return sizes
+ 
+ 
+-def build_all_prompts(alerts, flows):
++def build_all_prompts(alerts, flows, spec=None):
++    if spec is None:
++        spec = prompt_registry.get_prompt(prompt_registry.DEFAULT_VERSION)
+     flows = flows.copy()
+     flows["timestamp"] = pd.to_datetime(flows["timestamp"])
+     prompts = {}
+     for i in range(len(alerts)):
+         row = alerts.iloc[i]
+-        model_input, prompt = baseline_prompt.build_prompt_for_row(row, flows)
++        model_input, prompt = prompt_registry.build_prompt_for_row(spec, row, flows)
+         prompts[row["alert_id"]] = prompt
+     return prompts
+ 
+@@ -296,6 +312,14 @@
+                                       GENERATION_SEED, api_key=api_key, timeout_seconds=timeout_seconds)
+ 
+ 
++def make_client_for(model, api_key, timeout_seconds, spec):
++    """baseline_v1 goes through make_client exactly as in Day 3; other versions use their own system prompt."""
++    if spec.version == prompt_registry.V1:
++        return make_client(model, api_key, timeout_seconds)
++    return gemini_client.GeminiClient(model, spec.system_prompt, llm_config.TEMPERATURE, llm_config.MAX_OUTPUT_TOKENS,
++                                      GENERATION_SEED, api_key=api_key, timeout_seconds=timeout_seconds)
++
++
+ def settings_for(model, rpm):
+     return {
+         "temperature": llm_config.TEMPERATURE,
+@@ -309,7 +333,7 @@
+ 
+ 
+ def parse_args(argv):
+-    parser = argparse.ArgumentParser(description="Week 2 Day 3: baseline prompt v1, one plain Gemini call per DEV alert. Dev set only.")
++    parser = argparse.ArgumentParser(description="Week 2 Day 3/5: one plain Gemini call per DEV alert with a registered prompt (default baseline_v1). Dev set only.")
+     parser.add_argument("--model", choices=["small", "strong"], default="small")
+     parser.add_argument("--limit", type=int, default=None, help="only the first N dev alerts (smoke test)")
+     parser.add_argument("--run-name", default=None)
+@@ -318,6 +342,9 @@
+     parser.add_argument("--rpm", type=float, default=DEFAULT_RPM, help="model calls per minute, retries included")
+     parser.add_argument("--dry-run", action="store_true", help="build and check every prompt, call nothing, write nothing")
+     parser.add_argument("--runs-dir", default=RUNS_ROOT)
++    parser.add_argument("--prompt-version", choices=prompt_registry.list_versions(), default=None,
++                        help="prompt to use; default baseline_v1 (with --resume, the version the run started with)")
++    parser.add_argument("--langsmith", action="store_true", help="send metadata-only traces to LangSmith (needs LANGSMITH_API_KEY); off by default")
+     args = parser.parse_args(argv)
+     if args.resume and args.run_name is None:
+         parser.error("--resume needs --run-name")
+@@ -423,16 +450,22 @@
+             alerts = alerts.iloc[:args.limit]
+         selected_ids = list(alerts["alert_id"])
+ 
+-    prompts = build_all_prompts(alerts, flows)
+-    print(str(len(prompts)) + " prompts built from " + str(len(selected_ids)) + " dev alerts; prompt " + baseline_prompt.PROMPT_VERSION
+-          + " sha256 " + baseline_prompt.prompt_sha256()[:12])
++    version = args.prompt_version
++    if version is None:
++        version = meta["prompt_version"] if meta is not None else prompt_registry.DEFAULT_VERSION
++    if version not in prompt_registry.list_versions():
++        raise SystemExit("STOPPED: the run being resumed used prompt '" + str(version) + "', which is not registered.")
++    spec = prompt_registry.get_prompt(version)
++    prompts = build_all_prompts(alerts, flows, spec)
++    print(str(len(prompts)) + " prompts built from " + str(len(selected_ids)) + " dev alerts; prompt " + spec.version
++          + " sha256 " + spec.sha256[:12])
+ 
+     if args.dry_run:
+         first_id = selected_ids[0]
+         print("")
+         print("Dry run: no model call, no files written. Model that would be used: " + model)
+         print("--- system prompt ---")
+-        print(baseline_prompt.SYSTEM_PROMPT)
++        print(spec.system_prompt)
+         print("--- user prompt for " + first_id + " ---")
+         print(prompts[first_id])
+         return 0
+@@ -450,8 +483,8 @@
+             "run_name": run_name,
+             "run_dir": run_dir.path,
+             "set": "dev",
+-            "prompt_version": baseline_prompt.PROMPT_VERSION,
+-            "prompt_sha256": baseline_prompt.prompt_sha256(),
++            "prompt_version": spec.version,
++            "prompt_sha256": spec.sha256,
+             "provider": "gemini",
+             "model": model,
+             "model_size": args.model,
+@@ -467,15 +500,20 @@
+             "status": "running",
+         }
+     else:
+-        if meta["model"] != model or meta["prompt_sha256"] != baseline_prompt.prompt_sha256() or meta["inputs"] != input_hashes:
++        if meta["model"] != model or meta["prompt_sha256"] != spec.sha256 or meta["inputs"] != input_hashes:
+             raise SystemExit("STOPPED: the model, prompt or input files differ from the run being resumed. Start a new run instead.")
+         for key in ["temperature", "max_output_tokens", "seed", "parse_retries"]:
+             if meta["settings"][key] != settings[key]:
+                 raise SystemExit("STOPPED: setting " + key + " differs from the run being resumed. Start a new run instead.")
+         meta["settings"]["requests_per_minute"] = args.rpm
+ 
++    try:
++        tracer = langsmith_tracing.create_tracer(args.langsmith, meta["run_name"], spec.version, spec.sha256, model)
++    except langsmith_tracing.TracingConfigError as error:
++        raise SystemExit("STOPPED: " + str(error))
++    meta["langsmith"] = tracer.describe()
+     api_key = llm_config.get_api_key()
+-    client = make_client(model, api_key, settings["timeout_seconds"])
++    client = make_client_for(model, api_key, settings["timeout_seconds"], spec)
+ 
+     os.makedirs(run_dir.path, exist_ok=True)
+     records = store.read_jsonl(run_dir.results, repair=True)
+@@ -492,8 +530,7 @@
+     meta["sessions"].append(session_info)
+     if session == 1:
+         with open(run_dir.prompt_snapshot, "w", encoding="utf-8") as f:
+-            f.write("PROMPT " + baseline_prompt.PROMPT_VERSION + " sha256 " + baseline_prompt.prompt_sha256() + "\n\n=== system prompt ===\n"
+-                    + baseline_prompt.SYSTEM_PROMPT + "\n\n=== user prompt for " + selected_ids[0] + " ===\n" + prompts[selected_ids[0]] + "\n")
++            f.write(prompt_registry.snapshot_text(spec, selected_ids[0], prompts[selected_ids[0]]))
+     store.write_json_atomic(run_dir.meta, meta)
+ 
+     log_before = count_lines(config.FROZEN_ACCESS_LOG)
+@@ -505,7 +542,7 @@
+     ended = "finished"
+     exit_code = 0
+     try:
+-        ended = run_alerts(todo, prompts, run_dir, caller, session, llm_config.MAX_RETRIES)
++        ended = run_alerts(todo, prompts, run_dir, caller, session, llm_config.MAX_RETRIES, tracer=tracer)
+         if ended != "finished":
+             exit_code = 2
+             print("STOPPED: " + str(MAX_CONSECUTIVE_MODEL_ERRORS) + " alerts in a row ended in model_error. Check the key, quota and network.")
+@@ -517,6 +554,12 @@
+         ended = "interrupted"
+         exit_code = 130
+         print("Interrupted. Finished alerts are saved.")
++    try:
++        tracer.close()
++    except Exception as error:
++        tracer.errors = getattr(tracer, "errors", 0) + 1
++        print("tracing error at close (the run is saved): " + type(error).__name__)
++    meta["langsmith"] = tracer.describe()
+     summary, meta = finalize(run_dir, selected_ids, meta, session_info, ended, log_before, snapshot_before)
+     print_summary(summary, meta, selected_ids)
+     if not meta["frozen_access_log_unchanged"] or not meta["week1_files_unchanged"]:

@@ -1,0 +1,9 @@
+{
+  "_note": "TEMPLATE ONLY. Copy to pricing.json (outside git) and fill in the exact prices from the provider's pricing page. Nothing here is a real price; null values make cost_tracking.py refuse the file.",
+  "currency": "USD",
+  "per_million_input_tokens": null,
+  "per_million_output_tokens": null,
+  "thinking_tokens_billed_as": "output",
+  "source": null,
+  "as_of": null
+}

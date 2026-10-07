@@ -1,0 +1,13 @@
+label,alerts,valid_verdicts,no_verdict,no_verdict_rate,rate_kind,hits,rate,wilson95,attack_type_correct,attack_type_accuracy,mitre_accepted,mitre_accuracy
+BENIGN,105,103,2,0.01904761904761905,dismissed as benign (detector false positives),82,0.7961165048543689,"[0.7083358989163941, 0.8626027616802274]",,,,
+Bot,18,17,1,0.05555555555555555,called malicious (recall),11,0.6470588235294118,"[0.4129996672121182, 0.826905138560951]",0.0,0.0,0.0,0.0
+DDoS,18,18,0,0.0,called malicious (recall),18,1.0,"[0.8241154494176252, 1.0]",0.0,0.0,14.0,0.7777777777777778
+DoS GoldenEye,18,18,0,0.0,called malicious (recall),18,1.0,"[0.8241154494176252, 1.0]",0.0,0.0,9.0,0.5
+DoS Hulk,18,18,0,0.0,called malicious (recall),18,1.0,"[0.8241154494176252, 1.0]",0.0,0.0,11.0,0.6111111111111112
+DoS Slowhttptest,18,18,0,0.0,called malicious (recall),17,0.9444444444444444,"[0.7424220019799247, 0.9901250641690756]",0.0,0.0,11.0,0.6111111111111112
+DoS slowloris,18,18,0,0.0,called malicious (recall),18,1.0,"[0.8241154494176252, 1.0]",18.0,1.0,14.0,0.7777777777777778
+FTP-Patator,18,18,0,0.0,called malicious (recall),18,1.0,"[0.8241154494176252, 1.0]",18.0,1.0,18.0,1.0
+PortScan,18,18,0,0.0,called malicious (recall),18,1.0,"[0.8241154494176252, 1.0]",18.0,1.0,18.0,1.0
+SSH-Patator,17,17,0,0.0,called malicious (recall),17,1.0,"[0.8156763396284354, 1.0]",17.0,1.0,17.0,1.0
+Web Attack - Brute Force,17,17,0,0.0,called malicious (recall),16,0.9411764705882353,"[0.730174547964372, 0.9895398693548358]",0.0,0.0,0.0,0.0
+Web Attack - XSS/SQLi,17,17,0,0.0,called malicious (recall),17,1.0,"[0.8156763396284354, 1.0]",0.0,0.0,0.0,0.0
