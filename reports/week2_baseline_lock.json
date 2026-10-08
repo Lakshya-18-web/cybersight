@@ -1,0 +1,229 @@
+{
+  "locked_utc": "2026-10-08T14:19:23Z",
+  "purpose": "Week 2 locked baseline record. baseline_v3 is locked; a change is a new version, never an edit.",
+  "selected_baseline": "baseline_v3",
+  "prompt_sha256": "9403e7ea1937ff0f0f4b4fba548b58efa93bcc6296daa7326970adbaed1b61b7",
+  "baseline_v1_sha256": "0208c856dc1063ef5e249fcffdb28af803bd2899fa87977dde0ac4a23b06f172",
+  "registry_sha256": {
+    "baseline_v1": "0208c856dc1063ef5e249fcffdb28af803bd2899fa87977dde0ac4a23b06f172",
+    "baseline_v2": "2b9a14acb3e281db0d9e23ec636e6fa1761004f1592acf3cc0ca02fb4793aa46",
+    "baseline_v3": "9403e7ea1937ff0f0f4b4fba548b58efa93bcc6296daa7326970adbaed1b61b7"
+  },
+  "provider": "gemini",
+  "model": "gemini-3.5-flash-lite",
+  "settings": {
+    "temperature": 0.0,
+    "max_output_tokens": 1024,
+    "seed": 42,
+    "parse_retries": 2
+  },
+  "inputs": {
+    "dev_alerts_sha256": "7de717eddd6763f635e2365a1adcde07089462be7e3290747fee8b53e18b0e59",
+    "flow_store_dev_sha256": "e3df785fe091e8817e23c4a83e293e7db5837b85cf653e8214bd3cc42aa63800"
+  },
+  "n_alerts": 300,
+  "locked_source_files_sha256": {
+    "src/baseline_prompt.py": "dce06065b4e0a6d53bf2323507fa5d2cb88ddadcf1aced2b7a6f0f1fb49a15a3",
+    "src/prompt_registry.py": "c8595e631b0f1c01f501e691726f4a66f6539896b1b6f825878346cc0e19c237",
+    "src/verdict_schema.py": "9dd2390c3874ac22c49c145d18a6fa139e7d16d5f04df75a1405d18f83d5c59a",
+    "src/verdict_parser.py": "26027ee0b3bcfd7921e243f170208bbb95507f85b666ab955b0ece617b0852f1",
+    "src/gemini_client.py": "605bb2815398fecaaed478700631b6891d21911a55af4165d2a6c83ef22d5f9c"
+  },
+  "source_hash_note": "sha256 of the file with CRLF normalized to LF",
+  "reference_runs": {
+    "day3_baseline_v1": "dev_flash_lite_v1",
+    "day5_baseline_v2": "dev_flash_lite_v2",
+    "day5_baseline_v3": "dev_flash_lite_v3_final",
+    "day6_replicates": [
+      "dev_flash_lite_v3_d6_rep1",
+      "dev_flash_lite_v3_d6_rep2",
+      "dev_flash_lite_v3_d6_rep3"
+    ]
+  },
+  "run_files_sha256": {
+    "dev_flash_lite_v1": {
+      "prompt_snapshot.txt": "9f885d6866997d659e9dd4cb7176f80a54b4e6d9ee98bcd399a74ae81ea71de0",
+      "raw_responses.jsonl": "3ebb9992c9cebb602ae881082b8302f7209d4416d5a13f040365d634f0292920",
+      "results.jsonl": "231182ee33112e0f860792910203353c1dc2e8db5ceb3e6bea8504983c5ecc89",
+      "run_meta.json": "6bbc67ef626e86cd1b1adc2fa144890c034b601ce7d6a37377919a6c194a0680",
+      "verdicts.csv": "2891d10f54d1cad9ddba4e9a377f04df04cea66c18f437b31d72d33902fcb0dd"
+    },
+    "dev_flash_lite_v2": {
+      "prompt_snapshot.txt": "febf825df99ed26ad3aba3f1e6819d696453c42dd5cf589bfa92e091197bafb2",
+      "raw_responses.jsonl": "e77ad18153356c68fb805d3a4cb5cc1ed0f9361760dcdea3224597dbd10fd814",
+      "results.jsonl": "42309788e5ef24b12d4ff01212a0bb70357cb185eedb69f6a4a715d5d8ca154c",
+      "run_meta.json": "9647437999469aabf50005191376f58dcfb2e0d8accd72e7491c6bdb311da000",
+      "verdicts.csv": "0585ec2bebaa2d3455511e4fef1c01c8a3a7915dfe7cb9bcffe66e16341954ee"
+    },
+    "dev_flash_lite_v3_final": {
+      "prompt_snapshot.txt": "245a2cbf7f5f716e7e75d4ea991e1b36779af93bfc6bf39f803675be95450c1b",
+      "raw_responses.jsonl": "bd8493d8571232a1979099032fa57f8a953a176a14d019235aef015abfc61c46",
+      "results.jsonl": "4181489ab91858d73e9f0ca2fd409f4577de9a2120fb0f2f8c09a356fbbe3438",
+      "run_meta.json": "c6e2eb27625b8dc776462a83928b769741b1c0557f9cd77f259795b7030c56b7",
+      "verdicts.csv": "c9a69dde87d4064688f3639b64d5fe07e4eb620f8b75364b211ac242169d983f"
+    },
+    "dev_flash_lite_v3_d6_rep1": {
+      "prompt_snapshot.txt": "245a2cbf7f5f716e7e75d4ea991e1b36779af93bfc6bf39f803675be95450c1b",
+      "raw_responses.jsonl": "b0374b02736bfad74c6c5b32d25f6f216245ca2bbd77a480b4ddccbfc6d64d7c",
+      "results.jsonl": "8edea4c00cd387dbb59e365849b6373fe695ba99e9dd793ef9a2411678085d16",
+      "run_meta.json": "d6c197f08f7e98f3f4eed48a8c935c9af5721aec5bf05e46fecad56ac53ae25a",
+      "verdicts.csv": "70df99f29ac55385799d8afb199fc02ccc50e5f493352439c32f8de250b7ea09"
+    },
+    "dev_flash_lite_v3_d6_rep2": {
+      "prompt_snapshot.txt": "245a2cbf7f5f716e7e75d4ea991e1b36779af93bfc6bf39f803675be95450c1b",
+      "raw_responses.jsonl": "53ea7c10d0b4fe55c54d66dc564591b2798b92c84cafea7c3bfb6c670f041bdb",
+      "results.jsonl": "97a9851b743893af5ec64ae2cf4b4ca08eab78d12cbe005c770ba016e2175ffb",
+      "run_meta.json": "61f722cbaf7febdfb23f35fc2d1a56a5199b12cf64161b5c3390902bedf27f85",
+      "verdicts.csv": "081e3c0ab1c98eacb8ee79921c2a975d1aee9a68d2f6569381884fc4d51da50e"
+    },
+    "dev_flash_lite_v3_d6_rep3": {
+      "prompt_snapshot.txt": "245a2cbf7f5f716e7e75d4ea991e1b36779af93bfc6bf39f803675be95450c1b",
+      "raw_responses.jsonl": "ef9d4478fe00f61e7586171fba4a00845f32f4b2ddc43947ba39f698ab6e9cb1",
+      "results.jsonl": "2f04655eea61bd9fddacde0f4d12eb95a30320b529fce5752bce626d3365fd36",
+      "run_meta.json": "9753203af6039eb6dedcd4c028c0ab802146aa18f9738362d5ca6a2630d9ec7e",
+      "verdicts.csv": "3e8333e3bd19265ba77a6defae6fc127e2d761198fac0eabb245d1168446a3dc"
+    }
+  },
+  "evaluation_sha256": {
+    "dev_flash_lite_v1": "c061d5ab913b77701261a7bbf64b5935525aa22500fe338cf77db244898b02ff",
+    "dev_flash_lite_v2": "de86b19ce43b565ed2422a69ac44b3ce38fb4a292d724be6a632480d5c8f0d04",
+    "dev_flash_lite_v3_final": "a5092154cb8e4a95fa6461fe3572caac6c1283f04252888dbde31bd8e1a2215b",
+    "dev_flash_lite_v3_d6_rep1": "f96cc1af7848f6b59e49e0b59d0320552be35bf8d0accbfc0a7ff2b30e47a257",
+    "dev_flash_lite_v3_d6_rep2": "1c02e32e24eec46a2229198e57248491fb987e7a661ae06dc6cf4c3d9f0a1f99",
+    "dev_flash_lite_v3_d6_rep3": "8eb66d16af9a9a94b5e0a2bdae05b48fbe26f19937ab9ac08c89eb4e39dca1f3"
+  },
+  "frozen_access_log": {
+    "lines": 1,
+    "sha256_normalized": "aca942b50b058a0c3a428541db79bfa600f72976308f319de821e713cd0cfda3"
+  },
+  "week1_files_sha256": {
+    "eval/dev_alerts.parquet": "7de717eddd6763f635e2365a1adcde07089462be7e3290747fee8b53e18b0e59",
+    "eval/flow_store_dev.parquet": "e3df785fe091e8817e23c4a83e293e7db5837b85cf653e8214bd3cc42aa63800",
+    "eval/MANIFEST.json": "e0aa07db7a739b31765c50ec2fd3ff94e02ff4907b6ba00002b0847bdda57f7f",
+    "models/threshold.json": "58f865a9cb78ca4eb4efc20c9076e32ff8014b4e7680083a5980ba0b2b0e8fc6",
+    "models/detector_xgb.json": "299cba3acf301c93f66a6ab55504e6e9733d1a83e54628ab50db76a8f4b651e7",
+    "models/feature_list.json": "8689547e10dde3335ecb6f56eafba5dc9e0e7a8a9def0e2f27daaf71caca3766"
+  },
+  "git_at_lock": {
+    "commit": "c78ec4a",
+    "dirty": true,
+    "note": "commit before the Day 7 commit; the week2-baseline tag is placed on the Day 7 commit"
+  },
+  "checks": [
+    {
+      "name": "baseline_v3 is the selected baseline and its registry hash is the pinned hash",
+      "passed": true,
+      "detail": "9403e7ea1937ff0f"
+    },
+    {
+      "name": "baseline_v1 registry hash is the pinned hash",
+      "passed": true,
+      "detail": "0208c856dc1063ef"
+    },
+    {
+      "name": "the Day 5 baseline_v3 run used the pinned hash",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "the Day 3 baseline run used the pinned v1 hash",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "the baseline_v2 run used the registered baseline_v2 hash",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "all three Day 6 runs used the pinned baseline_v3 hash",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "the Day 6 summary records the pinned hash",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "baseline_v3 runs (Day 5 and Day 6) used one model",
+      "passed": true,
+      "detail": "gemini-3.5-flash-lite"
+    },
+    {
+      "name": "baseline_v3 runs used identical settings",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "baseline_v3 runs used the same alert list and inputs",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "every run is a complete dev run",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "every Day 4 evaluation passed its integrity checks (run, protected files, frozen log)",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no evaluation was partial",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "no run recorded a changed frozen access log or Week 1 file",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "the frozen access log has the same number of lines now as in every evaluation (frozen set not opened)",
+      "passed": true,
+      "detail": "lines now 1, in evaluations [1]"
+    },
+    {
+      "name": "the frozen unlock variable is not set in this shell",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "the Week 1 files hash the same now as in every evaluation",
+      "passed": true,
+      "detail": "30 hash comparisons"
+    },
+    {
+      "name": "the replicates match the run_file_sha256 recorded by their own post-completion Day 4 evaluation",
+      "passed": true,
+      "detail": "3 of 3 match"
+    },
+    {
+      "name": "the Day 6 manifest holds the pinned hash and three replicate entries",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "the Day 3 and Day 5 run folders are unchanged since the Day 6 manifest was written",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "the replicates are unchanged since the Day 6 manifest recorded them",
+      "passed": true,
+      "detail": "dev_flash_lite_v3_d6_rep1 entry predates its resume (manifest status needs_attention, 2 sessions), kept as historical"
+    },
+    {
+      "name": "the Day 6 summary lists exactly the three runs given",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "the Day 6 summary confirms its inputs were unchanged",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}
