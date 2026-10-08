@@ -1,0 +1,1003 @@
+{
+  "generated_utc": "2026-10-08T03:26:03Z",
+  "runs": [
+    "dev_flash_lite_v3_d6_rep1",
+    "dev_flash_lite_v3_d6_rep2",
+    "dev_flash_lite_v3_d6_rep3"
+  ],
+  "reference_run_not_in_mean": "dev_flash_lite_v3_final",
+  "prompt_version": "baseline_v3",
+  "prompt_sha256": "9403e7ea1937ff0f0f4b4fba548b58efa93bcc6296daa7326970adbaed1b61b7",
+  "model": "gemini-3.5-flash-lite",
+  "settings": {
+    "max_output_tokens": 1024,
+    "parse_retries": 2,
+    "seed": 42,
+    "temperature": 0.0,
+    "timeout_seconds": 60,
+    "transport_retries": 4
+  },
+  "n_alerts": 300,
+  "spread_method": "mean; sample sd with n-1; min; max; range = max - min (percentage points for fractions)",
+  "headline": [
+    {
+      "key": "coverage",
+      "label": "Successful verdict coverage",
+      "unit": "frac",
+      "ref": 0.99,
+      "values": [
+        0.99,
+        0.9933333333333333,
+        0.99
+      ],
+      "n_present": 3,
+      "mean": 0.9911111111111112,
+      "sd": 0.001924500897298733,
+      "min": 0.99,
+      "max": 0.9933333333333333,
+      "range": 0.0033333333333332993
+    },
+    {
+      "key": "final_parse_failure",
+      "label": "Final parse-failure rate",
+      "unit": "frac",
+      "ref": 0.01,
+      "values": [
+        0.01,
+        0.006666666666666667,
+        0.01
+      ],
+      "n_present": 3,
+      "mean": 0.008888888888888889,
+      "sd": 0.0019245008972987524,
+      "min": 0.006666666666666667,
+      "max": 0.01,
+      "range": 0.003333333333333333
+    },
+    {
+      "key": "final_parse_failure_n",
+      "label": "Final parse failures (alerts)",
+      "unit": "count",
+      "ref": 3,
+      "values": [
+        3,
+        2,
+        3
+      ],
+      "n_present": 3,
+      "mean": 2.6666666666666665,
+      "sd": 0.5773502691896258,
+      "min": 2,
+      "max": 3,
+      "range": 1
+    },
+    {
+      "key": "first_try_malformed",
+      "label": "First-try malformed rate",
+      "unit": "frac",
+      "ref": 0.016666666666666666,
+      "values": [
+        0.016666666666666666,
+        0.016666666666666666,
+        0.016666666666666666
+      ],
+      "n_present": 3,
+      "mean": 0.016666666666666666,
+      "sd": 0.0,
+      "min": 0.016666666666666666,
+      "max": 0.016666666666666666,
+      "range": 0.0
+    },
+    {
+      "key": "model_error_n",
+      "label": "Model errors (alerts)",
+      "unit": "count",
+      "ref": 0,
+      "values": [
+        0,
+        0,
+        0
+      ],
+      "n_present": 3,
+      "mean": 0.0,
+      "sd": 0.0,
+      "min": 0,
+      "max": 0,
+      "range": 0
+    },
+    {
+      "key": "precision_valid_only",
+      "label": "Precision [valid_only]",
+      "unit": "frac",
+      "ref": 0.8985507246376812,
+      "values": [
+        0.8985507246376812,
+        0.8990384615384616,
+        0.8932038834951457
+      ],
+      "n_present": 3,
+      "mean": 0.8969310232237628,
+      "sd": 0.0032369970248013503,
+      "min": 0.8932038834951457,
+      "max": 0.8990384615384616,
+      "range": 0.005834578043315886
+    },
+    {
+      "key": "recall_valid_only",
+      "label": "Recall [valid_only]",
+      "unit": "frac",
+      "ref": 0.9587628865979382,
+      "values": [
+        0.9587628865979382,
+        0.958974358974359,
+        0.9583333333333334
+      ],
+      "n_present": 3,
+      "mean": 0.9586901929685435,
+      "sd": 0.0003266370170831973,
+      "min": 0.9583333333333334,
+      "max": 0.958974358974359,
+      "range": 0.0006410256410256387
+    },
+    {
+      "key": "f1_valid_only",
+      "label": "F1 [valid_only]",
+      "unit": "number",
+      "ref": 0.9276807980049875,
+      "values": [
+        0.9276807980049875,
+        0.9280397022332506,
+        0.9246231155778895
+      ],
+      "n_present": 3,
+      "mean": 0.9267812052720426,
+      "sd": 0.0018775559664823646,
+      "min": 0.9246231155778895,
+      "max": 0.9280397022332506,
+      "range": 0.0034165866553611535
+    },
+    {
+      "key": "specificity_valid_only",
+      "label": "Specificity (benign dismissed) [valid_only]",
+      "unit": "frac",
+      "ref": 0.7961165048543689,
+      "values": [
+        0.7961165048543689,
+        0.7961165048543689,
+        0.7904761904761904
+      ],
+      "n_present": 3,
+      "mean": 0.7942364000616428,
+      "sd": 0.0032564370245554554,
+      "min": 0.7904761904761904,
+      "max": 0.7961165048543689,
+      "range": 0.005640314378178468
+    },
+    {
+      "key": "fp_reduction_valid_only",
+      "label": "FP reduction [valid_only]",
+      "unit": "pct",
+      "ref": 79.6116504854369,
+      "values": [
+        79.6116504854369,
+        79.6116504854369,
+        79.04761904761905
+      ],
+      "n_present": 3,
+      "mean": 79.42364000616429,
+      "sd": 0.325643702455545,
+      "min": 79.04761904761905,
+      "max": 79.6116504854369,
+      "range": 0.5640314378178459
+    },
+    {
+      "key": "attacks_missed_valid_only",
+      "label": "Attacks missed by the LLM [valid_only]",
+      "unit": "count",
+      "ref": 8,
+      "values": [
+        8,
+        8,
+        8
+      ],
+      "n_present": 3,
+      "mean": 8.0,
+      "sd": 0.0,
+      "min": 8,
+      "max": 8,
+      "range": 0
+    },
+    {
+      "key": "precision_failures_escalated",
+      "label": "Precision [failures_escalated]",
+      "unit": "frac",
+      "ref": 0.8904761904761904,
+      "values": [
+        0.8904761904761904,
+        0.8904761904761904,
+        0.8947368421052632
+      ],
+      "n_present": 3,
+      "mean": 0.8918964076858814,
+      "sd": 0.0024598883649683653,
+      "min": 0.8904761904761904,
+      "max": 0.8947368421052632,
+      "range": 0.0042606516290727425
+    },
+    {
+      "key": "recall_failures_escalated",
+      "label": "Recall [failures_escalated]",
+      "unit": "frac",
+      "ref": 0.958974358974359,
+      "values": [
+        0.958974358974359,
+        0.958974358974359,
+        0.958974358974359
+      ],
+      "n_present": 3,
+      "mean": 0.958974358974359,
+      "sd": 0.0,
+      "min": 0.958974358974359,
+      "max": 0.958974358974359,
+      "range": 0.0
+    },
+    {
+      "key": "f1_failures_escalated",
+      "label": "F1 [failures_escalated]",
+      "unit": "number",
+      "ref": 0.9234567901234567,
+      "values": [
+        0.9234567901234567,
+        0.9234567901234567,
+        0.9257425742574258
+      ],
+      "n_present": 3,
+      "mean": 0.9242187181681131,
+      "sd": 0.0013196980850564187,
+      "min": 0.9234567901234567,
+      "max": 0.9257425742574258,
+      "range": 0.002285784133969071
+    },
+    {
+      "key": "specificity_failures_escalated",
+      "label": "Specificity (benign dismissed) [failures_escalated]",
+      "unit": "frac",
+      "ref": 0.780952380952381,
+      "values": [
+        0.780952380952381,
+        0.780952380952381,
+        0.7904761904761904
+      ],
+      "n_present": 3,
+      "mean": 0.7841269841269841,
+      "sd": 0.00549857399228213,
+      "min": 0.780952380952381,
+      "max": 0.7904761904761904,
+      "range": 0.00952380952380949
+    },
+    {
+      "key": "fp_reduction_failures_escalated",
+      "label": "FP reduction [failures_escalated]",
+      "unit": "pct",
+      "ref": 78.0952380952381,
+      "values": [
+        78.0952380952381,
+        78.0952380952381,
+        79.04761904761905
+      ],
+      "n_present": 3,
+      "mean": 78.41269841269842,
+      "sd": 0.5498573992282131,
+      "min": 78.0952380952381,
+      "max": 79.04761904761905,
+      "range": 0.952380952380949
+    },
+    {
+      "key": "attacks_missed_failures_escalated",
+      "label": "Attacks missed by the LLM [failures_escalated]",
+      "unit": "count",
+      "ref": 8,
+      "values": [
+        8,
+        8,
+        8
+      ],
+      "n_present": 3,
+      "mean": 8.0,
+      "sd": 0.0,
+      "min": 8,
+      "max": 8,
+      "range": 0
+    },
+    {
+      "key": "precision_failures_wrong",
+      "label": "Precision [failures_wrong]",
+      "unit": "frac",
+      "ref": 0.8899521531100478,
+      "values": [
+        0.8899521531100478,
+        0.8904761904761904,
+        0.8932038834951457
+      ],
+      "n_present": 3,
+      "mean": 0.8912107423604613,
+      "sd": 0.0017458844398632425,
+      "min": 0.8899521531100478,
+      "max": 0.8932038834951457,
+      "range": 0.0032517303850978507
+    },
+    {
+      "key": "recall_failures_wrong",
+      "label": "Recall [failures_wrong]",
+      "unit": "frac",
+      "ref": 0.9538461538461539,
+      "values": [
+        0.9538461538461539,
+        0.958974358974359,
+        0.9435897435897436
+      ],
+      "n_present": 3,
+      "mean": 0.9521367521367522,
+      "sd": 0.007833462726420272,
+      "min": 0.9435897435897436,
+      "max": 0.958974358974359,
+      "range": 0.015384615384615441
+    },
+    {
+      "key": "f1_failures_wrong",
+      "label": "F1 [failures_wrong]",
+      "unit": "number",
+      "ref": 0.9207920792079208,
+      "values": [
+        0.9207920792079208,
+        0.9234567901234567,
+        0.9177057356608479
+      ],
+      "n_present": 3,
+      "mean": 0.9206515349974085,
+      "sd": 0.0028781020420243276,
+      "min": 0.9177057356608479,
+      "max": 0.9234567901234567,
+      "range": 0.005751054462608818
+    },
+    {
+      "key": "specificity_failures_wrong",
+      "label": "Specificity (benign dismissed) [failures_wrong]",
+      "unit": "frac",
+      "ref": 0.780952380952381,
+      "values": [
+        0.780952380952381,
+        0.780952380952381,
+        0.7904761904761904
+      ],
+      "n_present": 3,
+      "mean": 0.7841269841269841,
+      "sd": 0.00549857399228213,
+      "min": 0.780952380952381,
+      "max": 0.7904761904761904,
+      "range": 0.00952380952380949
+    },
+    {
+      "key": "fp_reduction_failures_wrong",
+      "label": "FP reduction [failures_wrong]",
+      "unit": "pct",
+      "ref": 78.0952380952381,
+      "values": [
+        78.0952380952381,
+        78.0952380952381,
+        79.04761904761905
+      ],
+      "n_present": 3,
+      "mean": 78.41269841269842,
+      "sd": 0.5498573992282131,
+      "min": 78.0952380952381,
+      "max": 79.04761904761905,
+      "range": 0.952380952380949
+    },
+    {
+      "key": "attacks_missed_failures_wrong",
+      "label": "Attacks missed by the LLM [failures_wrong]",
+      "unit": "count",
+      "ref": 9,
+      "values": [
+        9,
+        8,
+        11
+      ],
+      "n_present": 3,
+      "mean": 9.333333333333334,
+      "sd": 1.5275252316519468,
+      "min": 8,
+      "max": 11,
+      "range": 3
+    },
+    {
+      "key": "attack_type_valid",
+      "label": "Attack-type accuracy (attacks with a valid verdict)",
+      "unit": "frac",
+      "ref": 0.36597938144329895,
+      "values": [
+        0.36597938144329895,
+        0.36923076923076925,
+        0.3541666666666667
+      ],
+      "n_present": 3,
+      "mean": 0.363125605780245,
+      "sd": 0.007927157319413422,
+      "min": 0.3541666666666667,
+      "max": 0.36923076923076925,
+      "range": 0.015064102564102566
+    },
+    {
+      "key": "attack_type_all",
+      "label": "Attack-type accuracy (all attacks, no-verdict = wrong)",
+      "unit": "frac",
+      "ref": 0.3641025641025641,
+      "values": [
+        0.3641025641025641,
+        0.36923076923076925,
+        0.3487179487179487
+      ],
+      "n_present": 3,
+      "mean": 0.36068376068376073,
+      "sd": 0.01067521025367249,
+      "min": 0.3487179487179487,
+      "max": 0.36923076923076925,
+      "range": 0.02051282051282055
+    },
+    {
+      "key": "mitre_valid",
+      "label": "MITRE accepted accuracy (attacks with a valid verdict)",
+      "unit": "frac",
+      "ref": 0.5773195876288659,
+      "values": [
+        0.5721649484536082,
+        0.5743589743589743,
+        0.53125
+      ],
+      "n_present": 3,
+      "mean": 0.5592579742708609,
+      "sd": 0.02428041195050563,
+      "min": 0.53125,
+      "max": 0.5743589743589743,
+      "range": 0.04310897435897432
+    },
+    {
+      "key": "mitre_all",
+      "label": "MITRE accepted accuracy (all attacks, no-verdict = wrong)",
+      "unit": "frac",
+      "ref": 0.5743589743589743,
+      "values": [
+        0.5692307692307692,
+        0.5743589743589743,
+        0.5230769230769231
+      ],
+      "n_present": 3,
+      "mean": 0.5555555555555555,
+      "sd": 0.028243951524544078,
+      "min": 0.5230769230769231,
+      "max": 0.5743589743589743,
+      "range": 0.05128205128205121
+    },
+    {
+      "key": "model_calls_total",
+      "label": "Model calls",
+      "unit": "count",
+      "ref": 309,
+      "values": [
+        309,
+        308,
+        308
+      ],
+      "n_present": 3,
+      "mean": 308.3333333333333,
+      "sd": 0.5773502691896258,
+      "min": 308,
+      "max": 309,
+      "range": 1
+    },
+    {
+      "key": "model_calls_per_alert",
+      "label": "Model calls per alert",
+      "unit": "number",
+      "ref": 1.03,
+      "values": [
+        1.03,
+        1.0266666666666666,
+        1.0266666666666666
+      ],
+      "n_present": 3,
+      "mean": 1.0277777777777777,
+      "sd": 0.001924500897298797,
+      "min": 1.0266666666666666,
+      "max": 1.03,
+      "range": 0.0033333333333334103
+    },
+    {
+      "key": "total_tokens",
+      "label": "Total tokens",
+      "unit": "tokens",
+      "ref": 673476,
+      "values": [
+        673495,
+        670960,
+        670927
+      ],
+      "n_present": 3,
+      "mean": 671794.0,
+      "sd": 1473.2016155299314,
+      "min": 670927,
+      "max": 673495,
+      "range": 2568
+    },
+    {
+      "key": "prompt_tokens",
+      "label": "Prompt tokens",
+      "unit": "tokens",
+      "ref": 647292,
+      "values": [
+        647292,
+        644882,
+        644880
+      ],
+      "n_present": 3,
+      "mean": 645684.6666666666,
+      "sd": 1391.9918582137373,
+      "min": 644880,
+      "max": 647292,
+      "range": 2412
+    },
+    {
+      "key": "output_tokens",
+      "label": "Output tokens",
+      "unit": "tokens",
+      "ref": 26184,
+      "values": [
+        26203,
+        26078,
+        26047
+      ],
+      "n_present": 3,
+      "mean": 26109.333333333332,
+      "sd": 82.58530942808976,
+      "min": 26047,
+      "max": 26203,
+      "range": 156
+    },
+    {
+      "key": "thinking_tokens",
+      "label": "Thinking tokens",
+      "unit": "tokens",
+      "ref": null,
+      "values": [
+        null,
+        null,
+        null
+      ],
+      "n_present": 0,
+      "mean": null,
+      "sd": null,
+      "min": null,
+      "max": null,
+      "range": null
+    },
+    {
+      "key": "latency_alert_mean",
+      "label": "Latency per alert, mean (s)",
+      "unit": "seconds",
+      "ref": 2.14961,
+      "values": [
+        3.351566666666666,
+        3.6495033333333335,
+        1.9056066666666667
+      ],
+      "n_present": 3,
+      "mean": 2.968892222222222,
+      "sd": 0.9328042098028534,
+      "min": 1.9056066666666667,
+      "max": 3.6495033333333335,
+      "range": 1.7438966666666669
+    },
+    {
+      "key": "latency_alert_median",
+      "label": "Latency per alert, median (s)",
+      "unit": "seconds",
+      "ref": 1.718,
+      "values": [
+        1.25,
+        1.7814999999999999,
+        1.64
+      ],
+      "n_present": 3,
+      "mean": 1.5571666666666666,
+      "sd": 0.27526184503729045,
+      "min": 1.25,
+      "max": 1.7814999999999999,
+      "range": 0.5314999999999999
+    },
+    {
+      "key": "latency_alert_p95",
+      "label": "Latency per alert, p95 (s)",
+      "unit": "seconds",
+      "ref": 4.5771,
+      "values": [
+        15.624650000000004,
+        12.83035,
+        2.9641500000000023
+      ],
+      "n_present": 3,
+      "mean": 10.473050000000002,
+      "sd": 6.651294049280938,
+      "min": 2.9641500000000023,
+      "max": 15.624650000000004,
+      "range": 12.660500000000003
+    },
+    {
+      "key": "latency_alert_max",
+      "label": "Latency per alert, max (s)",
+      "unit": "seconds",
+      "ref": 31.016,
+      "values": [
+        66.125,
+        17.594,
+        34.562
+      ],
+      "n_present": 3,
+      "mean": 39.427,
+      "sd": 24.62855373342089,
+      "min": 17.594,
+      "max": 66.125,
+      "range": 48.531
+    },
+    {
+      "key": "latency_call_mean",
+      "label": "Latency per call, mean (s)",
+      "unit": "seconds",
+      "ref": 2.087,
+      "values": [
+        3.228522435897436,
+        3.5547110389610395,
+        1.8561103896103897
+      ],
+      "n_present": 3,
+      "mean": 2.879781288156288,
+      "sd": 0.9014024254401981,
+      "min": 1.8561103896103897,
+      "max": 3.5547110389610395,
+      "range": 1.6986006493506498
+    },
+    {
+      "key": "latency_call_max",
+      "label": "Latency per call, max (s)",
+      "unit": "seconds",
+      "ref": 31.016,
+      "values": [
+        40.359,
+        17.594,
+        34.562
+      ],
+      "n_present": 3,
+      "mean": 30.838333333333335,
+      "sd": 11.83049349491953,
+      "min": 17.594,
+      "max": 40.359,
+      "range": 22.765
+    }
+  ],
+  "error_categories": {
+    "false_positive": {
+      "applicable_alerts": 105,
+      "never": 80,
+      "persistent": 18,
+      "recurring": 3,
+      "one_off": 2,
+      "insufficient": 2,
+      "any_error": 23
+    },
+    "missed_attack": {
+      "applicable_alerts": 195,
+      "never": 187,
+      "persistent": 8,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0,
+      "any_error": 8
+    },
+    "attack_type_error": {
+      "applicable_alerts": 195,
+      "never": 70,
+      "persistent": 123,
+      "recurring": 0,
+      "one_off": 2,
+      "insufficient": 0,
+      "any_error": 125
+    },
+    "mitre_error": {
+      "applicable_alerts": 195,
+      "never": 95,
+      "persistent": 72,
+      "recurring": 13,
+      "one_off": 15,
+      "insufficient": 0,
+      "any_error": 100
+    },
+    "no_verdict": {
+      "applicable_alerts": 300,
+      "never": 294,
+      "persistent": 0,
+      "recurring": 2,
+      "one_off": 4,
+      "insufficient": 0,
+      "any_error": 6
+    }
+  },
+  "variation": {
+    "alerts": 300,
+    "alerts_with_2plus_valid": 298,
+    "decision_differs": 5,
+    "attack_type_differs": 21,
+    "technique_differs": 48,
+    "any_field_differs": 52,
+    "status_differs": 6,
+    "first_try_malformed_in_some_runs_only": 8,
+    "pairwise_agreement": {
+      "decision": 0.9887133182844243,
+      "attack_type": 0.9525959367945824,
+      "technique": 0.891647855530474
+    }
+  },
+  "parse_failures": {
+    "alerts_failed_in_at_least_one_run": 6,
+    "failed_in_k_runs": {
+      "1": 4,
+      "2": 2
+    },
+    "final_error_codes": {
+      "extra_fields": 3,
+      "invalid_json": 5
+    },
+    "alerts_by_number_of_runs_with_first_try_problem": {
+      "0": 291,
+      "1": 4,
+      "2": 4,
+      "3": 1
+    }
+  },
+  "persistent_per_class": {
+    "DoS GoldenEye": {
+      "attacks": 18,
+      "never": 0,
+      "persistent": 17,
+      "recurring": 0,
+      "one_off": 1,
+      "insufficient": 0
+    },
+    "Web Attack - Brute Force": {
+      "attacks": 17,
+      "never": 0,
+      "persistent": 17,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    },
+    "DoS slowloris": {
+      "attacks": 18,
+      "never": 17,
+      "persistent": 0,
+      "recurring": 0,
+      "one_off": 1,
+      "insufficient": 0
+    },
+    "PortScan": {
+      "attacks": 18,
+      "never": 18,
+      "persistent": 0,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    },
+    "Bot": {
+      "attacks": 18,
+      "never": 0,
+      "persistent": 18,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    },
+    "SSH-Patator": {
+      "attacks": 17,
+      "never": 17,
+      "persistent": 0,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    },
+    "DoS Slowhttptest": {
+      "attacks": 18,
+      "never": 0,
+      "persistent": 18,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    },
+    "Web Attack - XSS/SQLi": {
+      "attacks": 17,
+      "never": 0,
+      "persistent": 17,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    },
+    "DDoS": {
+      "attacks": 18,
+      "never": 0,
+      "persistent": 18,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    },
+    "FTP-Patator": {
+      "attacks": 18,
+      "never": 18,
+      "persistent": 0,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    },
+    "DoS Hulk": {
+      "attacks": 18,
+      "never": 0,
+      "persistent": 18,
+      "recurring": 0,
+      "one_off": 0,
+      "insufficient": 0
+    }
+  },
+  "persistent_confusions": [
+    {
+      "true": "Web Attack - XSS/SQLi",
+      "predicted": "DoS slowloris",
+      "alerts": 17
+    },
+    {
+      "true": "DoS Hulk",
+      "predicted": "DoS slowloris",
+      "alerts": 17
+    },
+    {
+      "true": "Web Attack - Brute Force",
+      "predicted": "DoS slowloris",
+      "alerts": 16
+    },
+    {
+      "true": "DoS GoldenEye",
+      "predicted": "DoS slowloris",
+      "alerts": 15
+    },
+    {
+      "true": "DoS Slowhttptest",
+      "predicted": "DoS slowloris",
+      "alerts": 15
+    },
+    {
+      "true": "DDoS",
+      "predicted": "DoS slowloris",
+      "alerts": 10
+    },
+    {
+      "true": "DoS GoldenEye",
+      "predicted": "DoS Slowhttptest",
+      "alerts": 7
+    },
+    {
+      "true": "Bot",
+      "predicted": "BENIGN",
+      "alerts": 6
+    },
+    {
+      "true": "Bot",
+      "predicted": "PortScan",
+      "alerts": 6
+    },
+    {
+      "true": "DDoS",
+      "predicted": "DoS Hulk",
+      "alerts": 5
+    },
+    {
+      "true": "DoS Hulk",
+      "predicted": "DoS Slowhttptest",
+      "alerts": 4
+    },
+    {
+      "true": "Bot",
+      "predicted": "Web Attack - Brute Force",
+      "alerts": 4
+    },
+    {
+      "true": "DDoS",
+      "predicted": "DoS Slowhttptest",
+      "alerts": 3
+    },
+    {
+      "true": "Bot",
+      "predicted": "DoS Hulk",
+      "alerts": 3
+    },
+    {
+      "true": "DoS Slowhttptest",
+      "predicted": "DoS Hulk",
+      "alerts": 2
+    },
+    {
+      "true": "DDoS",
+      "predicted": "DoS GoldenEye",
+      "alerts": 2
+    },
+    {
+      "true": "DoS Slowhttptest",
+      "predicted": "BENIGN",
+      "alerts": 1
+    },
+    {
+      "true": "Web Attack - Brute Force",
+      "predicted": "BENIGN",
+      "alerts": 1
+    },
+    {
+      "true": "Bot",
+      "predicted": "DoS GoldenEye",
+      "alerts": 1
+    },
+    {
+      "true": "Bot",
+      "predicted": "DDoS",
+      "alerts": 1
+    },
+    {
+      "true": "Web Attack - Brute Force",
+      "predicted": "DoS Hulk",
+      "alerts": 1
+    }
+  ],
+  "persistent_type_consistency": {
+    "same wrong type every run": 109,
+    "different wrong types across runs": 14
+  },
+  "persistent_mitre_split": {
+    "technique wrong and attack type wrong in at least one run": 70,
+    "technique wrong while attack type right in every run": 2
+  },
+  "conclusions": [
+    "The F1 (valid verdicts only) averaged 0.9268 with a range of 0.0034 (0.9246 to 0.9280).",
+    "The precision (valid verdicts only) averaged 89.69% with a range of 0.58 pp (89.32% to 89.90%).",
+    "The recall (valid verdicts only) averaged 95.87% with a range of 0.06 pp (95.83% to 95.90%).",
+    "The false-positive reduction (valid verdicts only) averaged 79.42% with a range of 0.56 pp (79.05% to 79.61%).",
+    "The attack-type accuracy averaged 36.31% with a range of 1.51 pp (35.42% to 36.92%).",
+    "The MITRE accepted accuracy averaged 55.93% with a range of 4.31 pp (53.12% to 57.44%).",
+    "The final parse-failure rate averaged 0.89% with a range of 0.33 pp (0.67% to 1.00%).",
+    "Of the 125 alerts with an attack-type error in at least one run, 123 (98.4%) were persistent, 0 recurring and 2 one-off.",
+    "Of the 100 alerts with a MITRE error in at least one run, 72 (72.0%) were persistent, 13 recurring and 15 one-off.",
+    "Of the 23 alerts with a false positive in at least one run, 18 (78.3%) were persistent, 3 recurring and 2 one-off.",
+    "Of the 8 alerts with a missed attack in at least one run, 8 (100.0%) were persistent, 0 recurring and 0 one-off.",
+    "6 alerts ended without a verdict in at least one run (0 in every run, 4 in one run only); parse failures are mostly intermittent: different alerts fail in different runs.",
+    "The runs disagreed on attack_type for 21 of 298 alerts with at least two valid verdicts, and on the is_malicious decision for 5; 123 alerts had an attack-type error in every run in which they could be judged.",
+    "Persistent attack-type errors are concentrated in: Bot (18 of 18), DDoS (18 of 18), DoS Hulk (18 of 18).",
+    "These patterns are descriptive. They are the input for Week 3 design decisions and are not a reason to edit baseline_v3 on Day 6."
+  ],
+  "input_file_sha256": {
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\reports\\week2_eval\\dev_flash_lite_v3_d6_rep1\\evaluation.json": "f96cc1af7848f6b59e49e0b59d0320552be35bf8d0accbfc0a7ff2b30e47a257",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\reports\\week2_eval\\dev_flash_lite_v3_d6_rep1\\per_alert.csv": "39e3867182d35788b3c92cfc4d1db1d9e620c005e4591d224878ada4a8721cae",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\reports\\week2_eval\\dev_flash_lite_v3_d6_rep2\\evaluation.json": "1c02e32e24eec46a2229198e57248491fb987e7a661ae06dc6cf4c3d9f0a1f99",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\reports\\week2_eval\\dev_flash_lite_v3_d6_rep2\\per_alert.csv": "1d91a539b6a11954cd3c312e07738071990efe5bc8b739376be5b37a3e68280b",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\reports\\week2_eval\\dev_flash_lite_v3_d6_rep3\\evaluation.json": "8eb66d16af9a9a94b5e0a2bdae05b48fbe26f19937ab9ac08c89eb4e39dca1f3",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\reports\\week2_eval\\dev_flash_lite_v3_d6_rep3\\per_alert.csv": "780466bab343ce37fe38dfb81c4727fade11a26585c18d3941096f3b8299277a",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\reports\\week2_eval\\dev_flash_lite_v3_final\\evaluation.json": "a5092154cb8e4a95fa6461fe3572caac6c1283f04252888dbde31bd8e1a2215b",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\reports\\week2_eval\\dev_flash_lite_v3_final\\per_alert.csv": "20f9922acadc0be46a0590be67ef2fee4f9e27142645fb4c6a71786d902e88cd",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\runs\\week2_baseline_v1\\dev_flash_lite_v3_d6_rep1\\run_meta.json": "d6c197f08f7e98f3f4eed48a8c935c9af5721aec5bf05e46fecad56ac53ae25a",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\runs\\week2_baseline_v1\\dev_flash_lite_v3_d6_rep2\\run_meta.json": "61f722cbaf7febdfb23f35fc2d1a56a5199b12cf64161b5c3390902bedf27f85",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\runs\\week2_baseline_v1\\dev_flash_lite_v3_d6_rep3\\run_meta.json": "9753203af6039eb6dedcd4c028c0ab802146aa18f9738362d5ca6a2630d9ec7e",
+    "C:\\Users\\laksh\\Downloads\\soc-triage-day1\\soc-triage\\runs\\week2_baseline_v1\\dev_flash_lite_v3_final\\run_meta.json": "c6e2eb27625b8dc776462a83928b769741b1c0557f9cd77f259795b7030c56b7"
+  },
+  "inputs_unchanged": true
+}
