@@ -1,0 +1,3 @@
+# Week 3 additions. Install with: pip install -r requirements-week3.txt
+# Your Week 1 requirements.txt and requirements-week2.txt are not touched.
+langgraph>=0.2
