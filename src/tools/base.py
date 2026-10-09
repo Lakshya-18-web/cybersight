@@ -61,6 +61,8 @@ def plain(value):
             return None
         return value
     if isinstance(value, (datetime.datetime,)) or (hasattr(value, "strftime") and hasattr(value, "year")):
+        if value != value:  # a missing time (pandas NaT) cannot be formatted
+            return None
         return value.strftime("%Y-%m-%d %H:%M:%S")
     if isinstance(value, dict):
         return {str(k): plain(v) for k, v in value.items()}
@@ -133,7 +135,7 @@ def clean_arguments(params, arguments):
         arguments = {}
     if not isinstance(arguments, dict):
         raise ValueError("arguments must be an object of name/value pairs")
-    unknown = sorted(set(arguments) - set(params))
+    unknown = sorted(set(arguments) - set(params), key=str)
     if unknown:
         raise ValueError("unknown argument(s): " + ", ".join(str(u) for u in unknown))
     cleaned = {}
@@ -192,9 +194,9 @@ class ToolSpec:
         except ValueError as error:
             return error_result(self.name, CODE_INVALID, str(error))
         try:
-            data = self.handler(cleaned)
+            data = plain(self.handler(cleaned))
         except ToolFailure as failure:
             return error_result(self.name, failure.code, failure.message)
         except Exception as error:  # a bug in a tool must not break the caller; the type is reported, details are not
             return error_result(self.name, CODE_INTERNAL, "the tool failed unexpectedly (" + type(error).__name__ + ")")
-        return ok_result(self.name, plain(data))
+        return ok_result(self.name, data)

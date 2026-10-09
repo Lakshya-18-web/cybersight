@@ -202,13 +202,13 @@ class FlowTools:
 
     # -------------------------------------------------------------------------------- tool descriptions
     def specs(self):
-        window = {"around": P("timestamp", "Centre of a time window (use with window_minutes)."),
-                  "start": P("timestamp", "Earliest flow time, inclusive."), "end": P("timestamp", "Latest flow time, inclusive.")}
+        window = {"around": P("timestamp", "Centre of a time window (use with window_minutes). Do not combine with start or end."),
+                  "start": P("timestamp", "Earliest flow time, inclusive. Do not combine with around."), "end": P("timestamp", "Latest flow time, inclusive. Do not combine with around.")}
         query_params = {
             "src_ip": P("ip", "Source address."), "dst_ip": P("ip", "Destination address."),
             "src_port": P("integer", "Source port.", minimum=0, maximum=65535), "dst_port": P("integer", "Destination port.", minimum=0, maximum=65535),
             "protocol": P("integer", "IP protocol number (6 = TCP, 17 = UDP).", minimum=0, maximum=255),
-            "around": window["around"], "window_minutes": P("integer", "Half-width of the window around 'around', in minutes.", default=triage_inputs.CONTEXT_WINDOW_MINUTES, minimum=1, maximum=720),
+            "around": window["around"], "window_minutes": P("integer", "Half-width of the window around 'around', in minutes. Ignored without 'around'.", default=triage_inputs.CONTEXT_WINDOW_MINUTES, minimum=1, maximum=720),
             "start": window["start"], "end": window["end"],
             "fields": P("enum", "identity = addresses, ports, protocol; display = plus the main flow features; all = every feature.", default="display", enum=["identity", "display", "all"]),
             "limit": P("integer", "Maximum flows returned.", default=DEFAULT_ROWS, minimum=1, maximum=MAX_ROWS),
@@ -218,17 +218,17 @@ class FlowTools:
             "ip": P("ip", "The host to summarise.", required=True),
             "direction": P("enum", "Whether the host is the source, the destination, or either.", default="src", enum=["src", "dst", "either"]),
             "dst_port": P("integer", "Only flows to this destination port.", minimum=0, maximum=65535),
-            "around": window["around"], "window_minutes": P("integer", "Half-width of the window around 'around', in minutes.", default=triage_inputs.CONTEXT_WINDOW_MINUTES, minimum=1, maximum=720),
+            "around": window["around"], "window_minutes": P("integer", "Half-width of the window around 'around', in minutes. Ignored without 'around'.", default=triage_inputs.CONTEXT_WINDOW_MINUTES, minimum=1, maximum=720),
             "start": window["start"], "end": window["end"],
         }
         beacon_params = {
             "src_ip": P("ip", "Source address (the suspected client).", required=True), "dst_ip": P("ip", "Destination address (the suspected server).", required=True),
             "dst_port": P("integer", "Only flows to this destination port.", minimum=0, maximum=65535),
-            "around": window["around"], "window_minutes": P("integer", "Half-width of the window around 'around', in minutes.", default=60, minimum=1, maximum=720),
+            "around": window["around"], "window_minutes": P("integer", "Half-width of the window around 'around', in minutes. Ignored without 'around'.", default=60, minimum=1, maximum=720),
             "start": window["start"], "end": window["end"],
         }
         return [
-            ToolSpec("query_flows", "List flow records that match the filters (addresses, ports, protocol, time window). Returns at most 'limit' flows and says how many matched in total.",
+            ToolSpec("query_flows", "List flow records that match the filters (addresses, ports, protocol, time window). At least one filter is required. Returns at most 'limit' flows and says how many matched in total.",
                      query_params, self.query),
             ToolSpec("summarize_flows", "Summarise one host's flows in a time window: flow count, distinct destinations and ports, protocol mix, busiest ports and addresses, feature statistics. Facts only.",
                      summary_params, self.summarize),

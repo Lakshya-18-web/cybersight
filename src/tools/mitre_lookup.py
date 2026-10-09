@@ -11,10 +11,11 @@ import re
 from . import mitre_reference as ref
 from .base import P, ToolSpec, ToolFailure, CODE_NOT_FOUND, CODE_INVALID
 
-_ID = re.compile(r"^T\d{4}(\.\d{3})?$")
+_ID = re.compile(r"^T[0-9]{4}(\.[0-9]{3})?$")
 MAX_RESULTS = 10
 DEFAULT_RESULTS = 5
 _WORD = re.compile(r"[a-z0-9]+")
+_ID_IN_TEXT = re.compile(r"t[0-9]{4}(?:\.[0-9]{3})?")
 _STOP = {"the", "a", "an", "of", "to", "and", "or", "in", "on", "for", "with", "from", "by", "is", "are"}
 
 
@@ -46,6 +47,7 @@ class MitreTools:
         if not words:
             raise ToolFailure(CODE_INVALID, "query has no searchable words")
         tactic = c["tactic"]
+        ids_named = set(_ID_IN_TEXT.findall(c["query"].lower()))  # a whole id such as t1595.001 is one token, not two words
         scored = []
         for tid, t in ref.TECHNIQUES.items():
             if tactic is not None and tactic not in [x.lower() for x in t["tactics"]]:
@@ -55,9 +57,9 @@ class MitreTools:
             summary = t["summary"].lower()
             flows = t["flow_observables"].lower()
             score = 0
+            if tid.lower() in ids_named:
+                score += 10
             for w in words:
-                if w == tid.lower():
-                    score += 10
                 score += 3 * (w in name) + 2 * (w in tactics) + (w in summary) + (w in flows)
             if score > 0:
                 scored.append((-score, tid))
