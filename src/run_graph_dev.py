@@ -36,11 +36,35 @@ def run_many(graph, alert_rows, store):
 
 def summarize(finals):
     by_status = {}
+    path_counts = {}
+
     for f in finals:
         by_status[f["status"]] = by_status.get(f["status"], 0) + 1
-    return {"graph_version": S.GRAPH_VERSION, "alerts": len(finals), "alert_ids": [f["alert_id"] for f in finals], "status_counts": dict(sorted(by_status.items())),
-            "tool_calls": sum(len(f["evidence"]) for f in finals), "errors": sum(len(f["errors"]) for f in finals),
-            "llm_calls": 0, "reputation_calls": 0, "set": "dev", "frozen_set_opened": False}
+
+        agents = [
+            node for node in f["trace"]
+            if node in {
+                "traffic_analyst",
+                "c2_beacon_analyst",
+                "enrichment_agent",
+            }
+        ]
+        path = ">".join(agents)
+        path_counts[path] = path_counts.get(path, 0) + 1
+
+    return {
+        "graph_version": S.GRAPH_VERSION,
+        "alerts": len(finals),
+        "alert_ids": [f["alert_id"] for f in finals],
+        "status_counts": dict(sorted(by_status.items())),
+        "path_counts": dict(sorted(path_counts.items())),
+        "tool_calls": sum(len(f["evidence"]) for f in finals),
+        "errors": sum(len(f["errors"]) for f in finals),
+        "llm_calls": 0,
+        "reputation_calls": 0,
+        "set": "dev",
+        "frozen_set_opened": False,
+    }
 
 
 def main(argv=None):

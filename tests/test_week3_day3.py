@@ -38,6 +38,12 @@ def read_text(path):
         return f.read()
 
 
+def all_nodes(registry):
+    """The Day 4 agents, for hand-driven runs: traffic analyst first argument of drive, the other two in `others`."""
+    from agents import c2_beacon_analyst, enrichment_agent
+    return {S.NODE_C2_BEACON_ANALYST: c2_beacon_analyst.make_c2_beacon_analyst(registry), S.NODE_ENRICHMENT_AGENT: enrichment_agent.make_enrichment_agent(registry)}
+
+
 def make_alert(alert_id="T-1", src=d1.BEACON_SRC, dst=d1.BEACON_DST, ts=ALERT_TIME, dport=80, **extra):
     alert = {"alert_id": alert_id, "flow_id": "x-" + str(alert_id), "timestamp": ts, "src_ip": src, "src_port": 40000, "dst_ip": dst, "dst_port": dport, "protocol": 6, "detector_score": 0.99}
     alert.update(extra)
@@ -78,8 +84,10 @@ class StateTests(unittest.TestCase):
     def test_new_state_has_exactly_the_documented_fields(self):
         s = S.new_state(make_alert())
         self.assertEqual(set(s), set(S.STATE_KEYS))
+        # Day 4: graph_version is "v0.1" and the state gained routing, beacon_findings and enrichment_findings (all empty at the start).
         self.assertEqual((s["status"], s["next_node"], s["supervisor_visits"], s["evidence"], s["traffic_findings"], s["errors"], s["trace"], s["graph_version"]),
-                         (S.STATUS_PENDING, None, 0, [], None, [], [], "v0"))
+                         (S.STATUS_PENDING, None, 0, [], None, [], [], "v0.1"))
+        self.assertEqual((s["routing"], s["beacon_findings"], s["enrichment_findings"]), ([], None, None))
         self.assertEqual(s["alert_id"], "T-1")
         S.validate_state(s)
 
@@ -149,10 +157,18 @@ class SupervisorTests(unittest.TestCase):
         self.assertEqual(update["errors"], [])
 
     def test_after_the_analyst_it_ends_with_the_matching_status(self):
-        for analyst_status, final in (("ok", "completed"), ("partial", "completed_with_errors"), ("failed", "failed"), ("weird", "failed")):
-            s = self.state(status="running", supervisor_visits=1, trace=["supervisor", "traffic_analyst"], traffic_findings={"status": analyst_status})
+        # Day 4: after the traffic analyst the supervisor may route on to enrichment. Here the enrichment agent has already finished, so the run ends
+        # with the status the traffic analyst's own status gives (ok, partial) exactly as on Day 3.
+        for analyst_status, final in (("ok", "completed"), ("partial", "completed_with_errors")):
+            s = self.state(status="running", supervisor_visits=1, trace=["supervisor", "traffic_analyst", "enrichment_agent"], traffic_findings={"status": analyst_status},
+                           enrichment_findings={"status": "ok"})
             u = supervisor.supervisor_node(s)
             self.assertEqual((u["next_node"], u["status"], u["supervisor_visits"]), ("end", final, 2), analyst_status)
+        # A failed (or unrecognised) traffic status still ends the run at once as failed, as on Day 3: nothing else runs.
+        for analyst_status in ("failed", "weird"):
+            s = self.state(status="running", supervisor_visits=1, trace=["supervisor", "traffic_analyst"], traffic_findings={"status": analyst_status})
+            u = supervisor.supervisor_node(s)
+            self.assertEqual((u["next_node"], u["status"], u["supervisor_visits"]), ("end", "failed", 2), analyst_status)
 
     def test_the_analyst_is_never_routed_twice(self):
         s = self.state(status="running", supervisor_visits=1, trace=["supervisor", "traffic_analyst"], traffic_findings=None)
@@ -325,8 +341,11 @@ class TrafficAnalystTests(Offline):
 
 
 # ------------------------------------------------------------------------------------------------ the loop, driven by hand (no LangGraph needed)
-def drive(state, analyst, limit=50):
-    """Run the graph's edges by hand: supervisor, then the routed node, until 'end'. Returns (final state, steps)."""
+def drive(state, analyst, limit=50, others=None):
+    """Run the graph's edges by hand: supervisor, then the routed node, until 'end'. Returns (final state, steps).
+    `analyst` is the traffic analyst node; `others` maps the other node names to functions (default: no other agent, so a routed-to c2/enrichment node does nothing)."""
+    nodes = {S.NODE_TRAFFIC_ANALYST: analyst, S.NODE_C2_BEACON_ANALYST: (others or {}).get(S.NODE_C2_BEACON_ANALYST, lambda st: {}),
+             S.NODE_ENRICHMENT_AGENT: (others or {}).get(S.NODE_ENRICHMENT_AGENT, lambda st: {})}
     steps = 0
     while True:
         steps += 1
@@ -336,13 +355,14 @@ def drive(state, analyst, limit=50):
         if route == "end":
             return state, steps
         steps += 1
-        state = {**state, **analyst(state)}
+        state = {**state, **nodes[route](state)}
 
 
 class LoopTests(Offline):
-    def test_a_normal_run_takes_three_node_steps(self):
-        final, steps = drive(S.new_state(make_alert()), traffic_analyst.make_traffic_analyst(self.registry))
-        self.assertEqual((final["status"], final["trace"], steps), ("completed", ["supervisor", "traffic_analyst", "supervisor"], 3))
+    def test_a_normal_run_runs_each_agent_once_and_ends(self):
+        # Day 3 ran supervisor, traffic analyst, supervisor (3 steps). Day 4: this fixture alert has repeat contact, so the longest path runs (7 steps).
+        final, steps = drive(S.new_state(make_alert()), traffic_analyst.make_traffic_analyst(self.registry), others=all_nodes(self.registry))
+        self.assertEqual((final["status"], final["trace"], steps), ("completed", ["supervisor", "traffic_analyst", "supervisor", "c2_beacon_analyst", "supervisor", "enrichment_agent", "supervisor"], 7))
         S.validate_state(final)
 
     def test_an_analyst_that_returns_nothing_still_terminates(self):
@@ -359,10 +379,11 @@ class LoopTests(Offline):
 
     def test_failures_end_in_the_right_final_status(self):
         failing = FakeRegistry(lambda name, args, i: error_result(name, "internal_error", "boom"))
-        final, _ = drive(S.new_state(make_alert()), traffic_analyst.make_traffic_analyst(failing))
+        final, _ = drive(S.new_state(make_alert()), traffic_analyst.make_traffic_analyst(failing), others=all_nodes(failing))
         self.assertEqual(final["status"], "failed")
+        self.assertEqual(final["trace"], ["supervisor", "traffic_analyst", "supervisor"])   # a failed traffic analysis stops the run: no other agent ran
         half = FakeRegistry(lambda name, args, i: error_result(name, "unavailable", "x") if i == 1 else {"ok": True, "tool": name, "data": summary(), "error": None})
-        final, _ = drive(S.new_state(make_alert()), traffic_analyst.make_traffic_analyst(half))
+        final, _ = drive(S.new_state(make_alert()), traffic_analyst.make_traffic_analyst(half), others=all_nodes(half))
         self.assertEqual(final["status"], "completed_with_errors")
 
     def test_the_final_status_is_always_terminal(self):
@@ -377,9 +398,11 @@ class LangGraphTests(Offline):
     def test_end_to_end_on_the_fixture(self):
         graph = graph_module.build_graph(self.registry)
         final = graph_module.run_alert(graph, make_alert())
-        self.assertEqual((final["status"], final["trace"], final["supervisor_visits"]), ("completed", ["supervisor", "traffic_analyst", "supervisor"], 2))
+        # Day 4: the fixture alert has repeat contact, so the graph takes the longest path (4 supervisor visits).
+        self.assertEqual((final["status"], final["trace"], final["supervisor_visits"]),
+                         ("completed", ["supervisor", "traffic_analyst", "supervisor", "c2_beacon_analyst", "supervisor", "enrichment_agent", "supervisor"], 4))
         self.assertEqual(final["traffic_findings"]["status"], "ok")
-        self.assertEqual(len(final["evidence"]), 2)
+        self.assertEqual([e["tool"] for e in final["evidence"][:2]], ["summarize_flows", "summarize_flows"])   # the Day 3 analyst's evidence comes first, unchanged
         self.assertEqual(final["errors"], [])
         S.validate_state(final)
 
@@ -388,7 +411,7 @@ class LangGraphTests(Offline):
         a = graph_module.run_alert(graph, make_alert())
         b = graph_module.run_alert(graph, make_alert())
         self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(b, sort_keys=True))
-        hand, _ = drive(S.new_state(make_alert()), traffic_analyst.make_traffic_analyst(self.registry))
+        hand, _ = drive(S.new_state(make_alert()), traffic_analyst.make_traffic_analyst(self.registry), others=all_nodes(self.registry))
         self.assertEqual(json.dumps(a, sort_keys=True), json.dumps(hand, sort_keys=True))
 
     def test_tool_failure_ends_the_graph_cleanly(self):
@@ -471,7 +494,8 @@ class RunnerTests(Offline):
             summary_ = json.loads(read_text(os.path.join(out, "summary.json")))
             self.assertEqual((summary_["alerts"], summary_["llm_calls"], summary_["reputation_calls"], summary_["frozen_set_opened"], summary_["set"]), (4, 0, 0, False, "dev"))
             self.assertEqual(summary_["status_counts"], {"completed": 4})
-            self.assertEqual(summary_["tool_calls"], 8)
+            self.assertEqual(summary_["tool_calls"], sum(len(x["evidence"]) for x in lines))   # Day 4 agents add tool calls; the count is read from the saved states
+            self.assertGreaterEqual(summary_["tool_calls"], 8)
             # the alert with no flows in the store gives empty-result findings, not an error
             empty = [x for x in lines if x["alert"]["src_ip"] == "203.0.113.7"][0]
             self.assertEqual([f["kind"] for f in empty["traffic_findings"]["findings"]], ["no_source_flows", "no_destination_flows"])
@@ -518,14 +542,15 @@ class BoundaryTests(unittest.TestCase):
                 if isinstance(node, ast.Attribute):
                     self.assertNotIn(node.attr, banned_names, name + " uses ." + node.attr)
 
-    def test_graph_v0_has_only_the_two_day3_nodes(self):
-        self.assertEqual((S.NODE_SUPERVISOR, S.NODE_TRAFFIC_ANALYST), ("supervisor", "traffic_analyst"))
-        self.assertEqual(S.ROUTES, ("traffic_analyst", "end"))
-        self.assertEqual(self.FILES, ["__init__.py", "graph.py", "state.py", "supervisor.py", "traffic_analyst.py"])
+    def test_graph_v0_1_has_only_the_day3_and_day4_nodes(self):
+        # Day 4 extended the Day 3 two-node graph with the C2 beaconing analyst and the enrichment agent; nothing else exists yet.
+        self.assertEqual((S.NODE_SUPERVISOR, S.NODE_TRAFFIC_ANALYST, S.NODE_C2_BEACON_ANALYST, S.NODE_ENRICHMENT_AGENT), ("supervisor", "traffic_analyst", "c2_beacon_analyst", "enrichment_agent"))
+        self.assertEqual(S.ROUTES, ("traffic_analyst", "c2_beacon_analyst", "enrichment_agent", "end"))
+        self.assertEqual(self.FILES, ["__init__.py", "c2_beacon_analyst.py", "common.py", "enrichment_agent.py", "graph.py", "state.py", "supervisor.py", "traffic_analyst.py"])
 
     def test_state_has_no_fields_for_later_agents(self):
         for name in S.STATE_KEYS:
-            for later in ("beacon", "c2", "enrichment", "verdict", "memory", "approval"):
+            for later in ("verdict", "memory", "approval"):  # Day 4 added beacon and enrichment fields; the verdict node and later features do not exist yet
                 self.assertNotIn(later, name)
 
     def test_the_registry_is_built_without_reputation_in_the_runner(self):
