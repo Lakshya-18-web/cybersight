@@ -4,20 +4,23 @@ The decision is a pure function of the state, re-derived at every visit. Rules, 
   0. State already terminal                                  -> end, status unchanged.
   1. Supervisor already ran MAX_SUPERVISOR_VISITS times      -> end, failed, error loop_guard.
   2. Traffic analyst not run yet                             -> traffic_analyst. (If it ran and left no findings: end, failed, error no_findings.)
-  3. Traffic analyst failed                                  -> end, failed. There is no flow evidence to build on, so no other agent runs.
+  3. Traffic analyst failed                                  -> end, failed. There is no flow evidence to build on, so no other analyst runs.
+        (Day 5: with the verdict step enabled, the verdict node still runs once first, so the run has a recorded outcome for the alert. It is told what failed. The final status stays failed.)
   4. Repeat contact, C2 beaconing analyst not run yet        -> c2_beacon_analyst.
         Repeat contact = the traffic analyst's source summary shows at least REPEAT_CONTACT_MIN_FLOWS flows from the alert source to the alert destination.
         This is a routing gate that saves work. It is not a detection threshold. With no repeat contact, or if the count is unknown, the beaconing analyst is skipped and the reason is logged.
   5. Enrichment agent not run yet                            -> enrichment_agent.
-  6. Otherwise                                               -> end: completed if every agent that ran finished ok, else completed_with_errors.
+  6. Verdict step enabled (state["verdict_enabled"]) and not run yet -> verdict_node. Off by default; the Day 3/4 offline flows never reach this rule.
+  7. Otherwise                                               -> end: completed if every agent that ran (the verdict node included, when enabled) finished ok, else completed_with_errors.
 An agent that ran but left no findings behind is recorded as an error and is never routed to again.
-Every agent is routed to at most once, so the longest path is supervisor, traffic, supervisor, beacon, supervisor, enrichment, supervisor, end (4 visits).
+Every agent is routed to at most once, so the longest path is supervisor, traffic, supervisor, beacon, supervisor, enrichment, supervisor, verdict, supervisor, end (5 visits with the verdict step, 4 without).
+If the graph ends before the verdict node ran (loop guard, or an agent left no findings), state["verdict"] stays None: the supervisor never makes up a verdict.
 Every decision is appended to state["routing"] with its reason.
 """
 from . import state as S
 
 REPEAT_CONTACT_MIN_FLOWS = 2
-AGENT_FINDINGS = {S.NODE_TRAFFIC_ANALYST: "traffic_findings", S.NODE_C2_BEACON_ANALYST: "beacon_findings", S.NODE_ENRICHMENT_AGENT: "enrichment_findings"}
+AGENT_FINDINGS = {S.NODE_TRAFFIC_ANALYST: "traffic_findings", S.NODE_C2_BEACON_ANALYST: "beacon_findings", S.NODE_ENRICHMENT_AGENT: "enrichment_findings", S.NODE_VERDICT: "verdict"}
 
 
 def repeat_contact_flows(state):
@@ -43,9 +46,14 @@ def repeat_contact_flows(state):
     return None
 
 
+def _verdict_due(state):
+    """True when the optional verdict step is enabled and has not run yet."""
+    return state["verdict_enabled"] is True and state["verdict"] is None and S.NODE_VERDICT not in state["trace"]
+
+
 def _missing(state, agent):
     """The error for an agent that ran but left nothing behind."""
-    names = {S.NODE_TRAFFIC_ANALYST: "traffic analyst", S.NODE_C2_BEACON_ANALYST: "C2 beaconing analyst", S.NODE_ENRICHMENT_AGENT: "enrichment agent"}
+    names = {S.NODE_TRAFFIC_ANALYST: "traffic analyst", S.NODE_C2_BEACON_ANALYST: "C2 beaconing analyst", S.NODE_ENRICHMENT_AGENT: "enrichment agent", S.NODE_VERDICT: "verdict node"}
     return {"node": S.NODE_SUPERVISOR, "code": "no_findings", "message": "the " + names[agent] + " left no findings"}
 
 
@@ -65,6 +73,8 @@ def decide(state):
             return result(S.ROUTE_END, S.STATUS_FAILED, "the traffic analyst ran and left no findings", [_missing(state, S.NODE_TRAFFIC_ANALYST)])
         return result(S.NODE_TRAFFIC_ANALYST, S.STATUS_RUNNING, "every alert starts with the traffic analyst")
     if traffic.get("status") not in ("ok", "partial"):
+        if _verdict_due(state):
+            return result(S.NODE_VERDICT, S.STATUS_RUNNING, "the traffic analysis produced no usable flow evidence, so no other analyst was run; the verdict step runs once to record the outcome with that gap")
         return result(S.ROUTE_END, S.STATUS_FAILED, "the traffic analysis produced no usable flow evidence, so no other agent was run")
 
     skipped = ""
@@ -78,8 +88,13 @@ def decide(state):
     if state["enrichment_findings"] is None and S.NODE_ENRICHMENT_AGENT not in state["trace"]:
         return result(S.NODE_ENRICHMENT_AGENT, S.STATUS_RUNNING, skipped + "enrichment runs once after the specialists")
 
+    if _verdict_due(state):
+        return result(S.NODE_VERDICT, S.STATUS_RUNNING, skipped + "the verdict step runs once after the specialists")
+
     errors, healthy = [], True
-    for agent in (S.NODE_C2_BEACON_ANALYST, S.NODE_ENRICHMENT_AGENT, S.NODE_TRAFFIC_ANALYST):
+    for agent in (S.NODE_C2_BEACON_ANALYST, S.NODE_ENRICHMENT_AGENT, S.NODE_TRAFFIC_ANALYST, S.NODE_VERDICT):
+        if agent == S.NODE_VERDICT and not state["verdict_enabled"]:
+            continue
         output = state[AGENT_FINDINGS[agent]]
         if agent in state["trace"] and output is None:
             healthy = False

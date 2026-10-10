@@ -104,7 +104,7 @@ class StateDay4Tests(unittest.TestCase):
     def test_new_fields_and_routes(self):
         s = S.new_state(d3.make_alert())
         self.assertEqual((s["routing"], s["beacon_findings"], s["enrichment_findings"], s["graph_version"]), ([], None, None, "v0.1"))
-        self.assertEqual(S.ROUTES, ("traffic_analyst", "c2_beacon_analyst", "enrichment_agent", "end"))
+        self.assertEqual(S.ROUTES, ("traffic_analyst", "c2_beacon_analyst", "enrichment_agent", "verdict_node", "end"))   # Day 5 added "verdict_node"
         self.assertEqual(S.MAX_SUPERVISOR_VISITS, 5)
         S.validate_state(s)
 

@@ -545,12 +545,13 @@ class BoundaryTests(unittest.TestCase):
     def test_graph_v0_1_has_only_the_day3_and_day4_nodes(self):
         # Day 4 extended the Day 3 two-node graph with the C2 beaconing analyst and the enrichment agent; nothing else exists yet.
         self.assertEqual((S.NODE_SUPERVISOR, S.NODE_TRAFFIC_ANALYST, S.NODE_C2_BEACON_ANALYST, S.NODE_ENRICHMENT_AGENT), ("supervisor", "traffic_analyst", "c2_beacon_analyst", "enrichment_agent"))
-        self.assertEqual(S.ROUTES, ("traffic_analyst", "c2_beacon_analyst", "enrichment_agent", "end"))
-        self.assertEqual(self.FILES, ["__init__.py", "c2_beacon_analyst.py", "common.py", "enrichment_agent.py", "graph.py", "state.py", "supervisor.py", "traffic_analyst.py"])
+        # Day 5 added the optional verdict step: one more route and two more agent files (the node and its prompt).
+        self.assertEqual(S.ROUTES, ("traffic_analyst", "c2_beacon_analyst", "enrichment_agent", "verdict_node", "end"))
+        self.assertEqual(self.FILES, ["__init__.py", "c2_beacon_analyst.py", "common.py", "enrichment_agent.py", "graph.py", "state.py", "supervisor.py", "traffic_analyst.py", "verdict_node.py", "verdict_prompt.py"])
 
     def test_state_has_no_fields_for_later_agents(self):
         for name in S.STATE_KEYS:
-            for later in ("verdict", "memory", "approval"):  # Day 4 added beacon and enrichment fields; the verdict node and later features do not exist yet
+            for later in ("memory", "approval"):  # Day 4 added beacon and enrichment fields; Day 5 added verdict_enabled and verdict (checked in test_week3_day5); memory and approval do not exist yet
                 self.assertNotIn(later, name)
 
     def test_the_registry_is_built_without_reputation_in_the_runner(self):
