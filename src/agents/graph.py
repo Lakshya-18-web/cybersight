@@ -9,8 +9,10 @@
 The supervisor decides each time (see supervisor.py for the rules); every agent always returns to the supervisor; the supervisor ends the run. LangGraph is imported when the
 graph is built, so the nodes and state can be used and tested without it. Install it with:  pip install -r requirements-week3.txt
 """
+import ablation_config as ablation
+
 from . import state as S
-from .supervisor import supervisor_node, route_from_supervisor
+from .supervisor import supervisor_node, make_supervisor_node, route_from_supervisor
 from .traffic_analyst import make_traffic_analyst
 from .c2_beacon_analyst import make_c2_beacon_analyst
 from .enrichment_agent import make_enrichment_agent
@@ -20,16 +22,18 @@ from .verdict_node import verdict_not_configured_node
 RECURSION_LIMIT = 2 * S.MAX_SUPERVISOR_VISITS + 4
 
 
-def build_graph(registry, verdict_node=None):
+def build_graph(registry, verdict_node=None, disabled=()):
     """Compile the graph around a tool registry. verdict_node is the Day 5 node from make_verdict_node (it holds the injected model call); without it,
     the verdict slot records an explicit "verdict_not_configured" failure if a state asks for a verdict. The graph is the same either way.
-    Raises ImportError with the install command if LangGraph is missing."""
+    disabled (Day 6, default none): specialists the supervisor must never route to (agents/ablation.py). The graph's nodes and edges do not change; only the supervisor's decisions do.
+    Raises ValueError for a name that cannot be disabled, and ImportError with the install command if LangGraph is missing."""
+    disabled = ablation.normalize(disabled)
     try:
         from langgraph.graph import StateGraph, START, END
     except ImportError as error:
         raise ImportError("LangGraph is not installed. Install it with: pip install -r requirements-week3.txt") from error
     builder = StateGraph(S.GraphState)
-    builder.add_node(S.NODE_SUPERVISOR, supervisor_node)
+    builder.add_node(S.NODE_SUPERVISOR, supervisor_node if not disabled else make_supervisor_node(disabled))
     builder.add_node(S.NODE_TRAFFIC_ANALYST, make_traffic_analyst(registry))
     builder.add_node(S.NODE_C2_BEACON_ANALYST, make_c2_beacon_analyst(registry))
     builder.add_node(S.NODE_ENRICHMENT_AGENT, make_enrichment_agent(registry))

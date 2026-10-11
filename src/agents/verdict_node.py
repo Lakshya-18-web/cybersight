@@ -43,11 +43,16 @@ DETAIL_MAX_CHARS = 300
 
 
 def upstream_health(state):
-    """What the specialists reported, for the record: {traffic, beacon, enrichment, errors}. A specialist that did not run is "not_run"."""
-    def status_of(key):
+    """What the specialists reported, for the record: {traffic, beacon, enrichment, errors}. A specialist that did not run is "not_run"; one switched off by a Day 6 ablation arm is "disabled"."""
+    off = verdict_prompt.disabled_agents(state)
+
+    def status_of(key, agent):
         output = state.get(key)
-        return output.get("status") if isinstance(output, dict) else verdict_prompt.NOT_RUN
-    return {"traffic": status_of("traffic_findings"), "beacon": status_of("beacon_findings"), "enrichment": status_of("enrichment_findings"), "errors": len(state.get("errors", []))}
+        if isinstance(output, dict):
+            return output.get("status")
+        return "disabled" if agent in off else verdict_prompt.NOT_RUN   # "disabled" only in a Day 6 ablation arm; every default run reports "not_run" as before
+    return {"traffic": status_of("traffic_findings", S.NODE_TRAFFIC_ANALYST), "beacon": status_of("beacon_findings", S.NODE_C2_BEACON_ANALYST),
+            "enrichment": status_of("enrichment_findings", S.NODE_ENRICHMENT_AGENT), "errors": len(state.get("errors", []))}
 
 
 def _log_from_replies(replies):

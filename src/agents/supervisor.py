@@ -16,7 +16,14 @@ An agent that ran but left no findings behind is recorded as an error and is nev
 Every agent is routed to at most once, so the longest path is supervisor, traffic, supervisor, beacon, supervisor, enrichment, supervisor, verdict, supervisor, end (5 visits with the verdict step, 4 without).
 If the graph ends before the verdict node ran (loop guard, or an agent left no findings), state["verdict"] stays None: the supervisor never makes up a verdict.
 Every decision is appended to state["routing"] with its reason.
+
+Day 6 (optional, default off): a set of DISABLED specialists can be given to decide() / make_supervisor_node(). A disabled specialist is never routed to and its absence is not an error.
+The configuration lives here, in the supervisor, not in the state, so the state shape and every default-off decision are exactly as before. When the set is not empty, each routing entry also
+carries "disabled": [names], which is how the verdict prompt knows a specialist was switched off rather than skipped. Disabling the traffic analyst also removes the C2 beaconing analyst:
+the repeat-contact gate reads the traffic analyst's evidence, there is none, so the gate cannot open (reason logged). See agents/ablation.py.
 """
+import ablation_config as ablation
+
 from . import state as S
 
 REPEAT_CONTACT_MIN_FLOWS = 2
@@ -57,8 +64,16 @@ def _missing(state, agent):
     return {"node": S.NODE_SUPERVISOR, "code": "no_findings", "message": "the " + names[agent] + " left no findings"}
 
 
-def decide(state):
-    """The decision as a dict: route, status, reason, errors (new errors to add). Reads the state, changes nothing."""
+DISPLAY_NAMES = {S.NODE_TRAFFIC_ANALYST: "traffic analyst", S.NODE_C2_BEACON_ANALYST: "C2 beaconing analyst", S.NODE_ENRICHMENT_AGENT: "enrichment agent", S.NODE_VERDICT: "verdict node"}
+
+
+def decide(state, disabled=()):
+    """The decision as a dict: route, status, reason, errors (new errors to add). Reads the state, changes nothing.
+    disabled: specialists that must not run (default none). Names as in agents/ablation.py."""
+    off = ablation.normalize(disabled)
+    traffic_off, beacon_off, enrichment_off = (S.NODE_TRAFFIC_ANALYST in off), (S.NODE_C2_BEACON_ANALYST in off), (S.NODE_ENRICHMENT_AGENT in off)
+    disabled_note = "".join(DISPLAY_NAMES[name] + " " + ablation.DISABLED_REASON + ". " for name in off)
+
     def result(route, status, reason, errors=None):
         return {"route": route, "status": status, "reason": reason, "errors": errors or []}
 
@@ -68,24 +83,29 @@ def decide(state):
         return result(S.ROUTE_END, S.STATUS_FAILED, "loop guard: the supervisor ran " + str(state["supervisor_visits"]) + " times",
                       [{"node": S.NODE_SUPERVISOR, "code": "loop_guard", "message": "the supervisor ran " + str(state["supervisor_visits"]) + " times; the graph was stopped"}])
     traffic = state["traffic_findings"]
-    if traffic is None:
+    if traffic is None and not traffic_off:
         if S.NODE_TRAFFIC_ANALYST in state["trace"]:
             return result(S.ROUTE_END, S.STATUS_FAILED, "the traffic analyst ran and left no findings", [_missing(state, S.NODE_TRAFFIC_ANALYST)])
         return result(S.NODE_TRAFFIC_ANALYST, S.STATUS_RUNNING, "every alert starts with the traffic analyst")
-    if traffic.get("status") not in ("ok", "partial"):
+    if traffic is not None and traffic.get("status") not in ("ok", "partial"):
         if _verdict_due(state):
             return result(S.NODE_VERDICT, S.STATUS_RUNNING, "the traffic analysis produced no usable flow evidence, so no other analyst was run; the verdict step runs once to record the outcome with that gap")
         return result(S.ROUTE_END, S.STATUS_FAILED, "the traffic analysis produced no usable flow evidence, so no other agent was run")
 
-    skipped = ""
-    if state["beacon_findings"] is None and S.NODE_C2_BEACON_ANALYST not in state["trace"]:
-        flows = repeat_contact_flows(state)
+    skipped = disabled_note
+    if state["beacon_findings"] is None and S.NODE_C2_BEACON_ANALYST not in state["trace"] and not beacon_off:
+        flows = None if traffic_off else repeat_contact_flows(state)
         if flows is not None and flows >= REPEAT_CONTACT_MIN_FLOWS:
             return result(S.NODE_C2_BEACON_ANALYST, S.STATUS_RUNNING, str(flows) + " flows from the source to the destination in the traffic window (gate: at least "
                           + str(REPEAT_CONTACT_MIN_FLOWS) + "), so the timing is worth examining")
-        skipped = ("C2 beaconing analyst skipped: " + ("the source-to-destination flow count could not be read from the traffic evidence" if flows is None
-                   else "only " + str(flows) + " flow(s) from the source to the destination in the traffic window (gate: at least " + str(REPEAT_CONTACT_MIN_FLOWS) + ")") + ". ")
-    if state["enrichment_findings"] is None and S.NODE_ENRICHMENT_AGENT not in state["trace"]:
+        if traffic_off:
+            why = "the traffic analyst is disabled in this configuration, so the source-to-destination flow count is not available"
+        elif flows is None:
+            why = "the source-to-destination flow count could not be read from the traffic evidence"
+        else:
+            why = "only " + str(flows) + " flow(s) from the source to the destination in the traffic window (gate: at least " + str(REPEAT_CONTACT_MIN_FLOWS) + ")"
+        skipped = skipped + "C2 beaconing analyst skipped: " + why + ". "
+    if state["enrichment_findings"] is None and S.NODE_ENRICHMENT_AGENT not in state["trace"] and not enrichment_off:
         return result(S.NODE_ENRICHMENT_AGENT, S.STATUS_RUNNING, skipped + "enrichment runs once after the specialists")
 
     if _verdict_due(state):
@@ -107,13 +127,23 @@ def decide(state):
     return result(S.ROUTE_END, S.STATUS_COMPLETED if healthy else S.STATUS_COMPLETED_WITH_ERRORS, skipped + "every applicable agent has run", errors)
 
 
-def supervisor_node(state):
-    """Graph node. Returns only the fields it changes."""
-    decision = decide(state)
-    visits = state["supervisor_visits"] + 1
-    routing = list(state["routing"]) + [{"visit": visits, "route": decision["route"], "reason": decision["reason"]}]
-    return {"next_node": decision["route"], "status": decision["status"], "supervisor_visits": visits, "routing": routing,
-            "errors": list(state["errors"]) + decision["errors"], "trace": list(state["trace"]) + [S.NODE_SUPERVISOR]}
+def make_supervisor_node(disabled=()):
+    """The graph node for a given set of disabled specialists (default none). Returns only the fields it changes."""
+    off = ablation.normalize(disabled)
+
+    def node(state):
+        decision = decide(state, off)
+        visits = state["supervisor_visits"] + 1
+        entry = {"visit": visits, "route": decision["route"], "reason": decision["reason"]}
+        if off:
+            entry["disabled"] = list(off)   # only when something is disabled, so default-off routing records are exactly as before
+        routing = list(state["routing"]) + [entry]
+        return {"next_node": decision["route"], "status": decision["status"], "supervisor_visits": visits, "routing": routing,
+                "errors": list(state["errors"]) + decision["errors"], "trace": list(state["trace"]) + [S.NODE_SUPERVISOR]}
+    return node
+
+
+supervisor_node = make_supervisor_node(())
 
 
 def route_from_supervisor(state):

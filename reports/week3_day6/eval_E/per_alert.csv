@@ -1,0 +1,301 @@
+alert_id,label,is_attack,accepted_ids,primary_id,status,has_verdict,pred_malicious,pred_attack_type,pred_technique,pred_severity,attempts,model_calls,malformed_first_try,error_code,first_try_error,prompt_tokens,output_tokens,thinking_tokens,total_tokens,latency_seconds,finish_reasons,detector_prediction,attack_type_correct,mitre_accepted,latency_excluded
+DEV-0001,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2453,81,,2534,1.688,STOP,malicious,,,False
+DEV-0002,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,88,,2531,1.11,STOP,malicious,False,True,False
+DEV-0003,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,93,,2534,1.156,STOP,malicious,False,False,False
+DEV-0004,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2462,90,,2552,1.204,STOP,malicious,True,True,False
+DEV-0005,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2460,75,,2535,1.25,STOP,malicious,,,False
+DEV-0006,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2446,72,,2518,1.141,STOP,malicious,,,False
+DEV-0007,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2436,73,,2509,1.234,STOP,malicious,False,False,False
+DEV-0008,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2463,79,,2542,1.125,STOP,malicious,False,False,False
+DEV-0009,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,68,,2513,1.187,STOP,malicious,False,False,False
+DEV-0010,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2474,86,,2560,1.172,STOP,malicious,False,False,False
+DEV-0011,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2442,79,,2521,1.015,STOP,malicious,,,False
+DEV-0012,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2472,79,,2551,1.625,STOP,malicious,True,True,False
+DEV-0013,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2454,91,,2545,1.093,STOP,malicious,False,True,False
+DEV-0014,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2457,69,,2526,1.047,STOP,malicious,,,False
+DEV-0015,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,False,BENIGN,NONE,none,1,1,False,,,2446,71,,2517,1.0,STOP,malicious,False,False,False
+DEV-0016,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,True,DoS Hulk,T1499,high,1,1,False,,,2443,86,,2529,1.406,STOP,malicious,False,False,False
+DEV-0017,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,101,,2544,1.125,STOP,malicious,False,False,False
+DEV-0018,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2450,78,,2528,1.047,STOP,malicious,False,True,False
+DEV-0019,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,72,,2517,1.11,STOP,malicious,,,False
+DEV-0020,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,80,,2521,1.094,STOP,malicious,False,False,False
+DEV-0021,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2453,100,,2553,1.125,STOP,malicious,False,True,False
+DEV-0022,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,69,,2514,1.109,STOP,malicious,,,False
+DEV-0023,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2452,88,,2540,1.109,STOP,malicious,True,True,False
+DEV-0024,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,72,,2545,1.172,STOP,malicious,True,True,False
+DEV-0025,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS Slowhttptest,T1499.002,high,1,1,False,,,2458,86,,2544,1.078,STOP,malicious,False,True,False
+DEV-0026,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2442,87,,2529,1.11,STOP,malicious,True,True,False
+DEV-0027,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2471,84,,2555,1.031,STOP,malicious,True,True,False
+DEV-0028,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2472,80,,2552,1.172,STOP,malicious,True,True,False
+DEV-0029,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2461,68,,2529,1.063,STOP,malicious,,,False
+DEV-0030,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2451,85,,2536,1.0,STOP,malicious,True,True,False
+DEV-0031,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,medium,1,1,False,,,2440,89,,2529,1.734,STOP,malicious,True,True,False
+DEV-0032,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2474,97,,2571,1.109,STOP,malicious,False,True,False
+DEV-0033,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2453,90,,2543,1.109,STOP,malicious,True,True,False
+DEV-0034,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2438,75,,2513,1.281,STOP,malicious,,,False
+DEV-0035,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,72,,2515,1.281,STOP,malicious,False,False,False
+DEV-0036,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,medium,1,1,False,,,2441,77,,2518,1.031,STOP,malicious,False,False,False
+DEV-0037,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,86,,2529,1.235,STOP,malicious,False,True,False
+DEV-0038,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2451,86,,2537,1.14,STOP,malicious,,,False
+DEV-0039,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2472,85,,2557,1.11,STOP,malicious,True,True,False
+DEV-0040,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2449,71,,2520,1.234,STOP,malicious,,,False
+DEV-0041,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2483,78,,2561,1.234,STOP,malicious,,,False
+DEV-0042,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2449,70,,2519,1.141,STOP,malicious,,,False
+DEV-0043,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,Web Attack - Brute Force,T1110,medium,1,1,False,,,2466,83,,2549,1.078,STOP,malicious,False,False,False
+DEV-0044,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2442,79,,2521,1.172,STOP,malicious,True,True,False
+DEV-0045,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2470,85,,2555,1.39,STOP,malicious,True,True,False
+DEV-0046,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,85,,2528,1.516,STOP,malicious,False,False,False
+DEV-0047,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2440,73,,2513,1.313,STOP,malicious,,,False
+DEV-0048,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2459,75,,2534,1.078,STOP,malicious,False,False,False
+DEV-0049,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2450,78,,2528,1.047,STOP,malicious,,,False
+DEV-0050,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2460,90,,2550,1.265,STOP,malicious,False,True,False
+DEV-0051,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2449,74,,2523,1.14,STOP,malicious,,,False
+DEV-0052,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2454,85,,2539,1.187,STOP,malicious,False,True,False
+DEV-0053,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2463,69,,2532,1.531,STOP,malicious,,,False
+DEV-0054,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2457,68,,2525,1.047,STOP,malicious,,,False
+DEV-0055,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2466,82,,2548,1.156,STOP,malicious,False,True,False
+DEV-0056,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,77,,2520,1.156,STOP,malicious,,,False
+DEV-0057,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS Hulk,T1499,high,1,1,False,,,2445,85,,2530,1.157,STOP,malicious,False,True,False
+DEV-0058,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,89,,2532,1.125,STOP,malicious,False,True,False
+DEV-0059,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2488,75,,2563,1.14,STOP,malicious,,,False
+DEV-0060,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2471,83,,2554,1.328,STOP,malicious,True,True,False
+DEV-0061,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,81,,2554,1.657,STOP,malicious,True,True,False
+DEV-0062,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,80,,2523,1.328,STOP,malicious,,,False
+DEV-0063,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,Web Attack - Brute Force,T1110,medium,1,1,False,,,2466,84,,2550,1.078,STOP,malicious,False,False,False
+DEV-0064,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2465,85,,2550,1.109,STOP,malicious,True,True,False
+DEV-0065,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2448,71,,2519,1.468,STOP,malicious,False,False,False
+DEV-0066,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,medium,1,1,False,,,2468,89,,2557,1.188,STOP,malicious,False,True,False
+DEV-0067,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,86,,2529,1.188,STOP,malicious,False,True,False
+DEV-0068,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2456,74,,2530,1.422,STOP,malicious,,,False
+DEV-0069,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2438,76,,2514,1.031,STOP,malicious,,,False
+DEV-0070,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2451,64,,2515,1.156,STOP,malicious,,,False
+DEV-0071,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2474,81,,2555,1.062,STOP,malicious,False,True,False
+DEV-0072,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,76,,2519,0.969,STOP,malicious,False,False,False
+DEV-0073,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2458,69,,2527,1.344,STOP,malicious,,,False
+DEV-0074,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2450,67,,2517,1.047,STOP,malicious,,,False
+DEV-0075,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,65,,2510,1.109,STOP,malicious,,,False
+DEV-0076,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2458,65,,2523,0.937,STOP,malicious,False,False,False
+DEV-0077,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,64,,2507,1.437,STOP,malicious,False,False,False
+DEV-0078,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2479,81,,2560,1.125,STOP,malicious,,,False
+DEV-0079,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2468,80,,2548,1.14,STOP,malicious,True,True,False
+DEV-0080,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2466,83,,2549,1.093,STOP,malicious,False,True,False
+DEV-0081,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2461,82,,2543,1.031,STOP,malicious,False,True,False
+DEV-0082,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2447,70,,2517,1.14,STOP,malicious,,,False
+DEV-0083,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,88,,2531,1.281,STOP,malicious,False,False,False
+DEV-0084,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2467,79,,2546,1.0,STOP,malicious,,,False
+DEV-0085,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2442,85,,2527,1.172,STOP,malicious,,,False
+DEV-0086,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2459,85,,2544,1.078,STOP,malicious,True,True,False
+DEV-0087,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2449,66,,2515,1.078,STOP,malicious,,,False
+DEV-0088,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2453,89,,2542,1.171,STOP,malicious,True,True,False
+DEV-0089,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2444,72,,2516,1.125,STOP,malicious,,,False
+DEV-0090,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,79,,2520,1.11,STOP,malicious,False,False,False
+DEV-0091,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,80,,2523,1.172,STOP,malicious,False,True,False
+DEV-0092,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,82,,2523,1.078,STOP,malicious,False,False,False
+DEV-0093,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2463,71,,2534,1.031,STOP,malicious,False,False,False
+DEV-0094,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2459,66,,2525,1.156,STOP,malicious,False,False,False
+DEV-0095,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2471,76,,2547,0.969,STOP,malicious,False,False,False
+DEV-0096,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,79,,2552,1.422,STOP,malicious,True,True,False
+DEV-0097,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,85,,2528,1.094,STOP,malicious,False,False,False
+DEV-0098,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2459,90,,2549,1.062,STOP,malicious,True,True,False
+DEV-0099,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2466,79,,2545,1.172,STOP,malicious,,,False
+DEV-0100,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,True,PortScan,T1046,medium,1,1,False,,,2443,84,,2527,1.047,STOP,malicious,True,True,False
+DEV-0101,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2446,68,,2514,1.625,STOP,malicious,,,False
+DEV-0102,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,82,,2525,1.157,STOP,malicious,False,True,False
+DEV-0103,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2472,76,,2548,1.25,STOP,malicious,True,True,False
+DEV-0104,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2456,78,,2534,1.078,STOP,malicious,,,False
+DEV-0105,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2447,69,,2516,1.109,STOP,malicious,,,False
+DEV-0106,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2467,90,,2557,1.172,STOP,malicious,False,True,False
+DEV-0107,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2470,65,,2535,1.094,STOP,malicious,,,False
+DEV-0108,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2432,71,,2503,1.062,STOP,malicious,False,False,False
+DEV-0109,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,79,,2552,1.235,STOP,malicious,True,True,False
+DEV-0110,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2455,81,,2536,1.25,STOP,malicious,False,True,False
+DEV-0111,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2481,69,,2550,1.328,STOP,malicious,,,False
+DEV-0112,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2450,77,,2527,1.266,STOP,malicious,False,False,False
+DEV-0113,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,69,,2514,1.156,STOP,malicious,,,False
+DEV-0114,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2472,76,,2548,1.344,STOP,malicious,True,True,False
+DEV-0115,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2442,67,,2509,1.094,STOP,malicious,,,False
+DEV-0116,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,84,,2557,1.094,STOP,malicious,True,True,False
+DEV-0117,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2459,67,,2526,1.172,STOP,malicious,,,False
+DEV-0118,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2444,69,,2513,1.063,STOP,malicious,,,False
+DEV-0119,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,84,,2527,1.094,STOP,malicious,False,False,False
+DEV-0120,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2449,65,,2514,1.188,STOP,malicious,,,False
+DEV-0121,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110,medium,1,1,False,,,2442,76,,2518,1.156,STOP,malicious,True,True,False
+DEV-0122,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,True,PortScan,T1046,medium,1,1,False,,,2443,72,,2515,1.031,STOP,malicious,True,True,False
+DEV-0123,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2455,95,,2550,1.0,STOP,malicious,False,True,False
+DEV-0124,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,67,,2510,1.047,STOP,malicious,,,False
+DEV-0125,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,True,PortScan,T1046,medium,1,1,False,,,2443,81,,2524,1.016,STOP,malicious,True,True,False
+DEV-0126,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2474,83,,2557,1.094,STOP,malicious,False,True,False
+DEV-0127,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS Slowhttptest,T1499.003,high,1,1,False,,,2464,121,,2585,1.141,STOP,malicious,False,False,False
+DEV-0128,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2439,71,,2510,1.375,STOP,malicious,,,False
+DEV-0129,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2466,77,,2543,1.062,STOP,malicious,True,True,False
+DEV-0130,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2471,76,,2547,1.141,STOP,malicious,,,False
+DEV-0131,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,87,,2530,1.062,STOP,malicious,False,True,False
+DEV-0132,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,79,,2520,1.203,STOP,malicious,False,False,False
+DEV-0133,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2442,70,,2512,1.14,STOP,malicious,,,False
+DEV-0134,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2465,78,,2543,1.171,STOP,malicious,False,True,False
+DEV-0135,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,80,,2521,1.11,STOP,malicious,False,False,False
+DEV-0136,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2451,87,,2538,1.438,STOP,malicious,False,True,False
+DEV-0137,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2441,75,,2516,1.0,STOP,malicious,,,False
+DEV-0138,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2453,82,,2535,1.453,STOP,malicious,True,True,False
+DEV-0139,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,78,,2523,1.063,STOP,malicious,,,False
+DEV-0140,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2474,80,,2554,1.109,STOP,malicious,True,True,False
+DEV-0141,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS Slowhttptest,T1499,high,1,1,False,,,2463,87,,2550,1.219,STOP,malicious,False,True,False
+DEV-0142,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,82,,2555,1.172,STOP,malicious,True,True,False
+DEV-0143,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2465,85,,2550,1.015,STOP,malicious,False,True,False
+DEV-0144,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,70,,2513,1.078,STOP,malicious,,,False
+DEV-0145,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2441,62,,2503,1.094,STOP,malicious,False,False,False
+DEV-0146,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2474,89,,2563,1.047,STOP,malicious,False,True,False
+DEV-0147,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2459,72,,2531,1.125,STOP,malicious,,,False
+DEV-0148,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2483,80,,2563,1.0,STOP,malicious,,,False
+DEV-0149,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2474,77,,2551,1.282,STOP,malicious,,,False
+DEV-0150,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2446,73,,2519,1.125,STOP,malicious,,,False
+DEV-0151,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,77,,2520,1.265,STOP,malicious,False,True,False
+DEV-0152,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2468,93,,2561,1.125,STOP,malicious,True,True,False
+DEV-0153,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,95,,2538,1.063,STOP,malicious,False,False,False
+DEV-0154,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2459,85,,2544,1.094,STOP,malicious,False,True,False
+DEV-0155,BENIGN,False,,NONE,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2472,75,,2547,1.016,STOP,malicious,,,False
+DEV-0156,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2485,79,,2564,1.047,STOP,malicious,,,False
+DEV-0157,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,79,,2522,1.313,STOP,malicious,,,False
+DEV-0158,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2453,72,,2525,1.063,STOP,malicious,,,False
+DEV-0159,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2460,89,,2549,1.062,STOP,malicious,False,True,False
+DEV-0160,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2471,76,,2547,1.156,STOP,malicious,True,True,False
+DEV-0161,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2467,85,,2552,1.015,STOP,malicious,False,True,False
+DEV-0162,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,97,,2540,1.062,STOP,malicious,False,False,False
+DEV-0163,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499.002,high,1,1,False,,,2453,100,,2553,1.203,STOP,malicious,True,True,False
+DEV-0164,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2461,93,,2554,1.25,STOP,malicious,False,True,False
+DEV-0165,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2442,80,,2522,1.078,STOP,malicious,False,False,False
+DEV-0166,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,84,,2527,1.109,STOP,malicious,False,False,False
+DEV-0167,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2435,67,,2502,1.109,STOP,malicious,,,False
+DEV-0168,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2470,81,,2551,1.109,STOP,malicious,False,False,False
+DEV-0169,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2450,73,,2523,1.125,STOP,malicious,,,False
+DEV-0170,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,85,,2528,1.062,STOP,malicious,False,False,False
+DEV-0171,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS Slowhttptest,T1499,high,1,1,False,,,2469,93,,2562,1.079,STOP,malicious,False,True,False
+DEV-0172,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2469,73,,2542,1.11,STOP,malicious,False,True,False
+DEV-0173,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2475,99,,2574,1.125,STOP,malicious,False,True,False
+DEV-0174,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2469,82,,2551,1.156,STOP,malicious,True,True,False
+DEV-0175,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2471,93,,2564,1.156,STOP,malicious,False,False,False
+DEV-0176,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2475,96,,2571,1.109,STOP,malicious,True,True,False
+DEV-0177,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2455,71,,2526,1.109,STOP,malicious,,,False
+DEV-0178,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110,medium,1,1,False,,,2442,82,,2524,1.0,STOP,malicious,True,True,False
+DEV-0179,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2459,91,,2550,1.219,STOP,malicious,True,True,False
+DEV-0180,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,83,,2524,1.265,STOP,malicious,False,False,False
+DEV-0181,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2456,67,,2523,1.203,STOP,malicious,,,False
+DEV-0182,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,False,BENIGN,NONE,none,1,1,False,,,2454,69,,2523,1.187,STOP,malicious,False,False,False
+DEV-0183,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2472,99,,2571,1.313,STOP,malicious,True,True,False
+DEV-0184,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2442,66,,2508,1.047,STOP,malicious,False,False,False
+DEV-0185,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2465,75,,2540,1.078,STOP,malicious,False,True,False
+DEV-0186,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2440,86,,2526,1.203,STOP,malicious,False,False,False
+DEV-0187,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,71,,2516,1.157,STOP,malicious,,,False
+DEV-0188,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2475,81,,2556,1.203,STOP,malicious,,,False
+DEV-0189,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2458,67,,2525,1.141,STOP,malicious,,,False
+DEV-0190,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS Slowhttptest,T1499,high,1,1,False,,,2470,78,,2548,1.0,STOP,malicious,False,True,False
+DEV-0191,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,81,,2524,2.093,STOP,malicious,False,True,False
+DEV-0192,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,71,,2516,1.078,STOP,malicious,False,False,False
+DEV-0193,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2442,82,,2524,1.11,STOP,malicious,False,True,False
+DEV-0194,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2451,66,,2517,1.109,STOP,malicious,,,False
+DEV-0195,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,87,,2528,1.234,STOP,malicious,False,False,False
+DEV-0196,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2467,87,,2554,1.141,STOP,malicious,False,True,False
+DEV-0197,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2474,91,,2565,1.109,STOP,malicious,False,True,False
+DEV-0198,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2462,60,,2522,1.14,STOP,malicious,,,False
+DEV-0199,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2463,79,,2542,1.187,STOP,malicious,False,True,False
+DEV-0200,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2481,76,,2557,1.141,STOP,malicious,,,False
+DEV-0201,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2487,72,,2559,1.094,STOP,malicious,,,False
+DEV-0202,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS Slowhttptest,T1499.003,high,1,1,False,,,2474,84,,2558,1.375,STOP,malicious,False,False,False
+DEV-0203,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2450,64,,2514,1.0,STOP,malicious,,,False
+DEV-0204,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,66,,2509,1.563,STOP,malicious,False,False,False
+DEV-0205,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,False,BENIGN,NONE,none,1,1,False,,,2454,78,,2532,1.187,STOP,malicious,False,False,False
+DEV-0206,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2478,123,,2601,1.219,STOP,malicious,,,False
+DEV-0207,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2437,71,,2508,1.031,STOP,malicious,False,False,False
+DEV-0208,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,84,,2525,1.39,STOP,malicious,False,False,False
+DEV-0209,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2441,68,,2509,1.188,STOP,malicious,False,False,False
+DEV-0210,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,77,,2550,1.156,STOP,malicious,True,True,False
+DEV-0211,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,93,,2534,1.14,STOP,malicious,False,False,False
+DEV-0212,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2442,63,,2505,1.047,STOP,malicious,,,False
+DEV-0213,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,83,,2526,2.157,STOP,malicious,False,False,False
+DEV-0214,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110,medium,1,1,False,,,2472,84,,2556,1.125,STOP,malicious,True,True,False
+DEV-0215,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2462,91,,2553,1.078,STOP,malicious,True,True,False
+DEV-0216,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS Slowhttptest,T1499,high,1,1,False,,,2463,101,,2564,1.468,STOP,malicious,False,True,False
+DEV-0217,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,78,,2521,1.125,STOP,malicious,False,False,False
+DEV-0218,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2447,70,,2517,1.235,STOP,malicious,,,False
+DEV-0219,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2447,68,,2515,1.156,STOP,malicious,,,False
+DEV-0220,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,84,,2525,1.343,STOP,malicious,False,False,False
+DEV-0221,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,84,,2527,1.11,STOP,malicious,False,False,False
+DEV-0222,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2465,95,,2560,1.312,STOP,malicious,False,True,False
+DEV-0223,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2439,72,,2511,1.157,STOP,malicious,False,False,False
+DEV-0224,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2453,73,,2526,1.063,STOP,malicious,,,False
+DEV-0225,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2449,72,,2521,1.063,STOP,malicious,,,False
+DEV-0226,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2453,71,,2524,1.531,STOP,malicious,,,False
+DEV-0227,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2475,76,,2551,1.422,STOP,malicious,False,False,False
+DEV-0228,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,77,,2520,1.39,STOP,malicious,False,True,False
+DEV-0229,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2459,86,,2545,2.875,STOP,malicious,True,True,False
+DEV-0230,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2448,74,,2522,8.594,STOP,malicious,,,False
+DEV-0231,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2462,98,,2560,7.25,STOP,malicious,True,True,False
+DEV-0232,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2462,76,,2538,9.953,STOP,malicious,,,False
+DEV-0233,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,78,,2551,3.609,STOP,malicious,True,True,False
+DEV-0234,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2442,87,,2529,4.469,STOP,malicious,True,True,False
+DEV-0235,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2449,75,,2524,5.125,STOP,malicious,,,False
+DEV-0236,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,73,,2518,5.156,STOP,malicious,,,False
+DEV-0237,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,75,,2518,5.047,STOP,malicious,,,False
+DEV-0238,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2453,89,,2542,3.594,STOP,malicious,True,True,False
+DEV-0239,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,88,,2531,6.422,STOP,malicious,False,False,False
+DEV-0240,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,89,,2532,6.828,STOP,malicious,False,True,False
+DEV-0241,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,69,,2512,8.859,STOP,malicious,,,False
+DEV-0242,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,69,,2512,4.625,STOP,malicious,,,False
+DEV-0243,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2443,71,,2514,7.719,STOP,malicious,False,False,False
+DEV-0244,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,False,BENIGN,NONE,none,1,1,False,,,2444,74,,2518,7.109,STOP,malicious,False,False,False
+DEV-0245,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2437,68,,2505,5.562,STOP,malicious,,,False
+DEV-0246,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2457,79,,2536,10.921,STOP,malicious,,,False
+DEV-0247,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2434,74,,2508,3.188,STOP,malicious,,,False
+DEV-0248,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,79,,2522,1.453,STOP,malicious,False,True,False
+DEV-0249,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS Hulk,T1499,high,1,1,False,,,2466,77,,2543,1.219,STOP,malicious,False,True,False
+DEV-0250,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,False,BENIGN,NONE,none,1,1,False,,,2452,73,,2525,1.172,STOP,malicious,False,False,False
+DEV-0251,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2460,97,,2557,1.593,STOP,malicious,True,True,False
+DEV-0252,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS Slowhttptest,T1499.003,high,1,1,False,,,2461,91,,2552,1.563,STOP,malicious,False,False,False
+DEV-0253,PortScan,True,T1046;T1595;T1595.001;T1595.002,T1046,ok,True,True,PortScan,T1046,medium,1,1,False,,,2441,84,,2525,1.672,STOP,malicious,True,True,False
+DEV-0254,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2461,69,,2530,1.265,STOP,malicious,,,False
+DEV-0255,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2444,71,,2515,1.562,STOP,malicious,,,False
+DEV-0256,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS Slowhttptest,T1499.003,high,1,1,False,,,2465,85,,2550,1.281,STOP,malicious,False,False,False
+DEV-0257,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2432,73,,2505,1.188,STOP,malicious,,,False
+DEV-0258,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS GoldenEye,T1499,high,2,2,True,,extra_fields,5340,179,,5519,2.298,STOP;STOP,malicious,True,True,False
+DEV-0259,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2451,72,,2523,1.266,STOP,malicious,,,False
+DEV-0260,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2459,78,,2537,1.719,STOP,malicious,,,False
+DEV-0261,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,87,,2530,2.39,STOP,malicious,False,False,False
+DEV-0262,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,77,,2520,3.156,STOP,malicious,False,False,False
+DEV-0263,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,DoS Hulk,T1499,high,1,1,False,,,2470,84,,2554,4.578,STOP,malicious,False,False,False
+DEV-0264,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2475,82,,2557,2.969,STOP,malicious,True,True,False
+DEV-0265,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2467,90,,2557,3.812,STOP,malicious,False,True,False
+DEV-0266,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2456,78,,2534,3.312,STOP,malicious,,,False
+DEV-0267,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS GoldenEye,T1499,high,1,1,False,,,2461,79,,2540,4.75,STOP,malicious,False,True,False
+DEV-0268,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2466,78,,2544,4.281,STOP,malicious,False,True,False
+DEV-0269,DoS GoldenEye,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,medium,1,1,False,,,2466,88,,2554,7.563,STOP,malicious,False,True,False
+DEV-0270,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2447,68,,2515,6.547,STOP,malicious,,,False
+DEV-0271,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2472,76,,2548,5.781,STOP,malicious,True,True,False
+DEV-0272,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2437,73,,2510,5.547,STOP,malicious,,,False
+DEV-0273,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2452,80,,2532,5.485,STOP,malicious,False,True,False
+DEV-0274,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2457,95,,2552,5.735,STOP,malicious,True,True,False
+DEV-0275,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,80,,2523,7.938,STOP,malicious,False,False,False
+DEV-0276,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2444,73,,2517,6.921,STOP,malicious,,,False
+DEV-0277,DoS slowloris,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2441,83,,2524,4.719,STOP,malicious,True,True,False
+DEV-0278,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2470,85,,2555,5.718,STOP,malicious,False,True,False
+DEV-0279,FTP-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,FTP-Patator,T1110.001,medium,1,1,False,,,2434,89,,2523,5.812,STOP,malicious,True,True,False
+DEV-0280,Bot,True,T1071;T1071.001,T1071.001,ok,True,True,DoS Hulk,T1499,high,1,1,False,,,2475,80,,2555,5.375,STOP,malicious,False,False,False
+DEV-0281,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2450,69,,2519,8.375,STOP,malicious,False,False,False
+DEV-0282,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2446,74,,2520,5.5,STOP,malicious,,,False
+DEV-0283,Bot,True,T1071;T1071.001,T1071.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2469,85,,2554,7.484,STOP,malicious,False,False,False
+DEV-0284,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2457,76,,2533,7.422,STOP,malicious,,,False
+DEV-0285,Web Attack - Brute Force,True,T1110;T1110.001,T1110.001,ok,True,False,BENIGN,NONE,none,1,1,False,,,2433,75,,2508,6.438,STOP,malicious,False,False,False
+DEV-0286,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2452,88,,2540,9.125,STOP,malicious,,,False
+DEV-0287,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,89,,2532,4.703,STOP,malicious,False,False,False
+DEV-0288,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,medium,1,1,False,,,2472,80,,2552,3.61,STOP,malicious,True,True,False
+DEV-0289,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2445,64,,2509,1.922,STOP,malicious,,,False
+DEV-0290,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,75,,2518,1.204,STOP,malicious,False,True,False
+DEV-0291,SSH-Patator,True,T1110;T1110.001,T1110.001,ok,True,True,SSH-Patator,T1110.001,high,1,1,False,,,2473,80,,2553,1.563,STOP,malicious,True,True,False
+DEV-0292,DoS Slowhttptest,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,85,,2528,1.078,STOP,malicious,False,True,False
+DEV-0293,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2469,104,,2573,1.234,STOP,malicious,False,True,False
+DEV-0294,DoS Hulk,True,T1499;T1499.002,T1499.002,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2472,105,,2577,1.109,STOP,malicious,False,True,False
+DEV-0295,DDoS,True,T1498;T1498.001;T1499;T1499.002,T1498,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2452,84,,2536,1.297,STOP,malicious,False,True,False
+DEV-0296,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2451,69,,2520,1.125,STOP,malicious,,,False
+DEV-0297,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2438,67,,2505,1.391,STOP,malicious,,,False
+DEV-0298,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2447,69,,2516,1.203,STOP,malicious,,,False
+DEV-0299,Web Attack - XSS/SQLi,True,T1190,T1190,ok,True,True,DoS slowloris,T1499,high,1,1,False,,,2443,83,,2526,1.25,STOP,malicious,False,False,False
+DEV-0300,BENIGN,False,,NONE,ok,True,False,BENIGN,NONE,none,1,1,False,,,2447,61,,2508,1.125,STOP,malicious,,,False

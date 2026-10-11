@@ -1,0 +1,1432 @@
+{
+  "baseline_noise": null,
+  "common_valid": {
+    "alerts": 282,
+    "rows": [
+      {
+        "arm": "A",
+        "label": "A",
+        "metrics": {
+          "alerts": 282,
+          "attack_type": {
+            "den": 178,
+            "num": 55,
+            "value": 0.3089887640449438
+          },
+          "attacks": 178,
+          "benign": 104,
+          "f1": {
+            "den": null,
+            "num": null,
+            "value": 0.9684813753581663
+          },
+          "precision": {
+            "den": 171,
+            "num": 169,
+            "value": 0.9883040935672515
+          },
+          "recall": {
+            "den": 178,
+            "num": 169,
+            "value": 0.949438202247191
+          },
+          "specificity": {
+            "den": 104,
+            "num": 102,
+            "value": 0.9807692307692307
+          }
+        }
+      },
+      {
+        "arm": "B",
+        "label": "B",
+        "metrics": {
+          "alerts": 282,
+          "attack_type": {
+            "den": 178,
+            "num": 60,
+            "value": 0.33707865168539325
+          },
+          "attacks": 178,
+          "benign": 104,
+          "f1": {
+            "den": null,
+            "num": null,
+            "value": 0.9772727272727273
+          },
+          "precision": {
+            "den": 174,
+            "num": 172,
+            "value": 0.9885057471264368
+          },
+          "recall": {
+            "den": 178,
+            "num": 172,
+            "value": 0.9662921348314607
+          },
+          "specificity": {
+            "den": 104,
+            "num": 102,
+            "value": 0.9807692307692307
+          }
+        }
+      },
+      {
+        "arm": "C",
+        "label": "C",
+        "metrics": {
+          "alerts": 282,
+          "attack_type": {
+            "den": 178,
+            "num": 60,
+            "value": 0.33707865168539325
+          },
+          "attacks": 178,
+          "benign": 104,
+          "f1": {
+            "den": null,
+            "num": null,
+            "value": 0.9714285714285714
+          },
+          "precision": {
+            "den": 172,
+            "num": 170,
+            "value": 0.9883720930232558
+          },
+          "recall": {
+            "den": 178,
+            "num": 170,
+            "value": 0.9550561797752809
+          },
+          "specificity": {
+            "den": 104,
+            "num": 102,
+            "value": 0.9807692307692307
+          }
+        }
+      },
+      {
+        "arm": "D",
+        "label": "D",
+        "metrics": {
+          "alerts": 282,
+          "attack_type": {
+            "den": 178,
+            "num": 49,
+            "value": 0.2752808988764045
+          },
+          "attacks": 178,
+          "benign": 104,
+          "f1": {
+            "den": null,
+            "num": null,
+            "value": 0.9221556886227544
+          },
+          "precision": {
+            "den": 156,
+            "num": 154,
+            "value": 0.9871794871794872
+          },
+          "recall": {
+            "den": 178,
+            "num": 154,
+            "value": 0.8651685393258427
+          },
+          "specificity": {
+            "den": 104,
+            "num": 102,
+            "value": 0.9807692307692307
+          }
+        }
+      },
+      {
+        "arm": "E",
+        "label": "E",
+        "metrics": {
+          "alerts": 282,
+          "attack_type": {
+            "den": 178,
+            "num": 50,
+            "value": 0.2808988764044944
+          },
+          "attacks": 178,
+          "benign": 104,
+          "f1": {
+            "den": null,
+            "num": null,
+            "value": 0.9216867469879518
+          },
+          "precision": {
+            "den": 154,
+            "num": 153,
+            "value": 0.9935064935064936
+          },
+          "recall": {
+            "den": 178,
+            "num": 153,
+            "value": 0.8595505617977528
+          },
+          "specificity": {
+            "den": 104,
+            "num": 103,
+            "value": 0.9903846153846154
+          }
+        }
+      }
+    ]
+  },
+  "excluded": [],
+  "generated_utc": "2026-10-11T18:36:45Z",
+  "inputs": [
+    {
+      "eval_dir": ".\\soc-triage\\reports\\week3_day6\\eval_A",
+      "label": "A",
+      "run_dir": ".\\soc-triage\\runs\\week3_day6\\day6_arm_A"
+    },
+    {
+      "eval_dir": ".\\soc-triage\\reports\\week3_day6\\eval_B",
+      "label": "B",
+      "run_dir": ".\\soc-triage\\runs\\week3_day6\\day6_arm_B"
+    },
+    {
+      "eval_dir": ".\\soc-triage\\reports\\week3_day6\\eval_C",
+      "label": "C",
+      "run_dir": ".\\soc-triage\\runs\\week3_day6\\day6_arm_C"
+    },
+    {
+      "eval_dir": ".\\soc-triage\\reports\\week3_day6\\eval_D",
+      "label": "D",
+      "run_dir": ".\\soc-triage\\runs\\week3_day6\\day6_arm_D"
+    },
+    {
+      "eval_dir": ".\\soc-triage\\reports\\week3_day6\\eval_E",
+      "label": "E",
+      "run_dir": ".\\soc-triage\\runs\\week3_day6\\day6_arm_E"
+    }
+  ],
+  "paired": {
+    "B": {
+      "alerts_compared": 300,
+      "attack_type": {
+        "arm_only_correct": 13,
+        "attacks": 195,
+        "both_correct": 58,
+        "both_wrong": 119,
+        "mcnemar_exact_p_descriptive": 0.096252,
+        "note": "attack-type correct = a valid verdict whose attack_type equals the true class; no verdict counts as not correct",
+        "reference_only_correct": 5
+      },
+      "decision": {
+        "arm_only_correct": 11,
+        "both_correct": 276,
+        "both_wrong": 6,
+        "mcnemar_exact_p_descriptive": 0.480682,
+        "note": "decision correct = a valid verdict whose is_malicious equals the truth; no verdict counts as not correct",
+        "reference_only_correct": 7
+      }
+    },
+    "C": {
+      "alerts_compared": 300,
+      "attack_type": {
+        "arm_only_correct": 10,
+        "attacks": 195,
+        "both_correct": 56,
+        "both_wrong": 122,
+        "mcnemar_exact_p_descriptive": 0.629059,
+        "note": "attack-type correct = a valid verdict whose attack_type equals the true class; no verdict counts as not correct",
+        "reference_only_correct": 7
+      },
+      "decision": {
+        "arm_only_correct": 8,
+        "both_correct": 273,
+        "both_wrong": 9,
+        "mcnemar_exact_p_descriptive": 0.814529,
+        "note": "decision correct = a valid verdict whose is_malicious equals the truth; no verdict counts as not correct",
+        "reference_only_correct": 10
+      }
+    },
+    "D": {
+      "alerts_compared": 300,
+      "attack_type": {
+        "arm_only_correct": 11,
+        "attacks": 195,
+        "both_correct": 45,
+        "both_wrong": 121,
+        "mcnemar_exact_p_descriptive": 0.264931,
+        "note": "attack-type correct = a valid verdict whose attack_type equals the true class; no verdict counts as not correct",
+        "reference_only_correct": 18
+      },
+      "decision": {
+        "arm_only_correct": 8,
+        "both_correct": 260,
+        "both_wrong": 9,
+        "mcnemar_exact_p_descriptive": 0.010674,
+        "note": "decision correct = a valid verdict whose is_malicious equals the truth; no verdict counts as not correct",
+        "reference_only_correct": 23
+      }
+    },
+    "E": {
+      "alerts_compared": 300,
+      "attack_type": {
+        "arm_only_correct": 11,
+        "attacks": 195,
+        "both_correct": 48,
+        "both_wrong": 121,
+        "mcnemar_exact_p_descriptive": 0.557197,
+        "note": "attack-type correct = a valid verdict whose attack_type equals the true class; no verdict counts as not correct",
+        "reference_only_correct": 15
+      },
+      "decision": {
+        "arm_only_correct": 9,
+        "both_correct": 261,
+        "both_wrong": 8,
+        "mcnemar_exact_p_descriptive": 0.029449,
+        "note": "decision correct = a valid verdict whose is_malicious equals the truth; no verdict counts as not correct",
+        "reference_only_correct": 22
+      }
+    }
+  },
+  "paired_notes": [],
+  "reference": "A",
+  "repeats": {},
+  "table": {
+    "other": [
+      {
+        "arm": "A",
+        "cells": {
+          "attack_type_all": {
+            "den": 195,
+            "num": 63,
+            "value": 0.3230769230769231
+          },
+          "attack_type_valid": {
+            "den": 189,
+            "num": 63,
+            "value": 0.3333333333333333
+          },
+          "coverage": {
+            "den": 300,
+            "num": 294,
+            "value": 0.98
+          },
+          "first_try_malformed": {
+            "den": null,
+            "num": null,
+            "value": 16
+          },
+          "graph_seconds": {
+            "den": null,
+            "num": null,
+            "value": 1957.169
+          },
+          "latency_alert_mean": {
+            "den": null,
+            "num": null,
+            "value": 1.9057133333333331
+          },
+          "mitre_all": {
+            "den": 195,
+            "num": 98,
+            "value": 0.5025641025641026
+          },
+          "mitre_valid": {
+            "den": 189,
+            "num": 98,
+            "value": 0.5185185185185185
+          },
+          "model_calls": {
+            "den": null,
+            "num": null,
+            "value": 326
+          },
+          "model_errors": {
+            "den": null,
+            "num": null,
+            "value": 0
+          },
+          "parse_failures": {
+            "den": null,
+            "num": null,
+            "value": 6
+          },
+          "tokens_per_alert": {
+            "den": null,
+            "num": null,
+            "value": 3606.67
+          },
+          "tool_calls": {
+            "den": null,
+            "num": null,
+            "value": 2287
+          },
+          "total_tokens": {
+            "den": null,
+            "num": null,
+            "value": 1082001
+          }
+        },
+        "deltas": {
+          "attack_type_all": null,
+          "attack_type_valid": null,
+          "coverage": null,
+          "first_try_malformed": null,
+          "graph_seconds": null,
+          "latency_alert_mean": null,
+          "mitre_all": null,
+          "mitre_valid": null,
+          "model_calls": null,
+          "model_errors": null,
+          "parse_failures": null,
+          "tokens_per_alert": null,
+          "tool_calls": null,
+          "total_tokens": null
+        },
+        "label": "A"
+      },
+      {
+        "arm": "B",
+        "cells": {
+          "attack_type_all": {
+            "den": 195,
+            "num": 71,
+            "value": 0.3641025641025641
+          },
+          "attack_type_valid": {
+            "den": 192,
+            "num": 71,
+            "value": 0.3697916666666667
+          },
+          "coverage": {
+            "den": 300,
+            "num": 296,
+            "value": 0.9866666666666667
+          },
+          "first_try_malformed": {
+            "den": null,
+            "num": null,
+            "value": 11
+          },
+          "graph_seconds": {
+            "den": null,
+            "num": null,
+            "value": 1921.182
+          },
+          "latency_alert_mean": {
+            "den": null,
+            "num": null,
+            "value": 1.8066133333333332
+          },
+          "mitre_all": {
+            "den": 195,
+            "num": 106,
+            "value": 0.5435897435897435
+          },
+          "mitre_valid": {
+            "den": 192,
+            "num": 106,
+            "value": 0.5520833333333334
+          },
+          "model_calls": {
+            "den": null,
+            "num": null,
+            "value": 317
+          },
+          "model_errors": {
+            "den": null,
+            "num": null,
+            "value": 0
+          },
+          "parse_failures": {
+            "den": null,
+            "num": null,
+            "value": 4
+          },
+          "tokens_per_alert": {
+            "den": null,
+            "num": null,
+            "value": 3179.2966666666666
+          },
+          "tool_calls": {
+            "den": null,
+            "num": null,
+            "value": 1729
+          },
+          "total_tokens": {
+            "den": null,
+            "num": null,
+            "value": 953789
+          }
+        },
+        "deltas": {
+          "attack_type_all": 4.102564102564099,
+          "attack_type_valid": 3.645833333333337,
+          "coverage": 0.666666666666671,
+          "first_try_malformed": -5,
+          "graph_seconds": -35.98700000000008,
+          "latency_alert_mean": -0.09909999999999997,
+          "mitre_all": 4.102564102564099,
+          "mitre_valid": 3.356481481481488,
+          "model_calls": -9,
+          "model_errors": 0,
+          "parse_failures": -2,
+          "tokens_per_alert": -427.37333333333345,
+          "tool_calls": -558,
+          "total_tokens": -128212
+        },
+        "label": "B"
+      },
+      {
+        "arm": "C",
+        "cells": {
+          "attack_type_all": {
+            "den": 195,
+            "num": 66,
+            "value": 0.3384615384615385
+          },
+          "attack_type_valid": {
+            "den": 186,
+            "num": 66,
+            "value": 0.3548387096774194
+          },
+          "coverage": {
+            "den": 300,
+            "num": 291,
+            "value": 0.97
+          },
+          "first_try_malformed": {
+            "den": null,
+            "num": null,
+            "value": 24
+          },
+          "graph_seconds": {
+            "den": null,
+            "num": null,
+            "value": 2024.539
+          },
+          "latency_alert_mean": {
+            "den": null,
+            "num": null,
+            "value": 1.6781966666666668
+          },
+          "mitre_all": {
+            "den": 195,
+            "num": 108,
+            "value": 0.5538461538461539
+          },
+          "mitre_valid": {
+            "den": 186,
+            "num": 108,
+            "value": 0.5806451612903226
+          },
+          "model_calls": {
+            "den": null,
+            "num": null,
+            "value": 338
+          },
+          "model_errors": {
+            "den": null,
+            "num": null,
+            "value": 0
+          },
+          "parse_failures": {
+            "den": null,
+            "num": null,
+            "value": 9
+          },
+          "tokens_per_alert": {
+            "den": null,
+            "num": null,
+            "value": 3465.69
+          },
+          "tool_calls": {
+            "den": null,
+            "num": null,
+            "value": 1158
+          },
+          "total_tokens": {
+            "den": null,
+            "num": null,
+            "value": 1039707
+          }
+        },
+        "deltas": {
+          "attack_type_all": 1.5384615384615385,
+          "attack_type_valid": 2.1505376344086056,
+          "coverage": -1.0000000000000009,
+          "first_try_malformed": 8,
+          "graph_seconds": 67.36999999999989,
+          "latency_alert_mean": -0.22751666666666637,
+          "mitre_all": 5.128205128205132,
+          "mitre_valid": 6.212664277180413,
+          "model_calls": 12,
+          "model_errors": 0,
+          "parse_failures": 3,
+          "tokens_per_alert": -140.98000000000002,
+          "tool_calls": -1129,
+          "total_tokens": -42294
+        },
+        "label": "C"
+      },
+      {
+        "arm": "D",
+        "cells": {
+          "attack_type_all": {
+            "den": 195,
+            "num": 56,
+            "value": 0.28717948717948716
+          },
+          "attack_type_valid": {
+            "den": 195,
+            "num": 56,
+            "value": 0.28717948717948716
+          },
+          "coverage": {
+            "den": 300,
+            "num": 300,
+            "value": 1.0
+          },
+          "first_try_malformed": {
+            "den": null,
+            "num": null,
+            "value": 7
+          },
+          "graph_seconds": {
+            "den": null,
+            "num": null,
+            "value": 1833.892
+          },
+          "latency_alert_mean": {
+            "den": null,
+            "num": null,
+            "value": 1.28738
+          },
+          "mitre_all": {
+            "den": 195,
+            "num": 48,
+            "value": 0.24615384615384617
+          },
+          "mitre_valid": {
+            "den": 195,
+            "num": 48,
+            "value": 0.24615384615384617
+          },
+          "model_calls": {
+            "den": null,
+            "num": null,
+            "value": 307
+          },
+          "model_errors": {
+            "den": null,
+            "num": null,
+            "value": 0
+          },
+          "parse_failures": {
+            "den": null,
+            "num": null,
+            "value": 0
+          },
+          "tokens_per_alert": {
+            "den": null,
+            "num": null,
+            "value": 2884.943333333333
+          },
+          "tool_calls": {
+            "den": null,
+            "num": null,
+            "value": 1129
+          },
+          "total_tokens": {
+            "den": null,
+            "num": null,
+            "value": 865483
+          }
+        },
+        "deltas": {
+          "attack_type_all": -3.589743589743594,
+          "attack_type_valid": -4.615384615384616,
+          "coverage": 2.0000000000000018,
+          "first_try_malformed": -9,
+          "graph_seconds": -123.27700000000004,
+          "latency_alert_mean": -0.6183333333333332,
+          "mitre_all": -25.64102564102564,
+          "mitre_valid": -27.23646723646723,
+          "model_calls": -19,
+          "model_errors": 0,
+          "parse_failures": -6,
+          "tokens_per_alert": -721.7266666666669,
+          "tool_calls": -1158,
+          "total_tokens": -216518
+        },
+        "label": "D"
+      },
+      {
+        "arm": "E",
+        "cells": {
+          "attack_type_all": {
+            "den": 195,
+            "num": 59,
+            "value": 0.30256410256410254
+          },
+          "attack_type_valid": {
+            "den": 195,
+            "num": 59,
+            "value": 0.30256410256410254
+          },
+          "coverage": {
+            "den": 300,
+            "num": 300,
+            "value": 1.0
+          },
+          "first_try_malformed": {
+            "den": null,
+            "num": null,
+            "value": 1
+          },
+          "graph_seconds": {
+            "den": null,
+            "num": null,
+            "value": 1836.932
+          },
+          "latency_alert_mean": {
+            "den": null,
+            "num": null,
+            "value": 1.915653333333333
+          },
+          "mitre_all": {
+            "den": 195,
+            "num": 120,
+            "value": 0.6153846153846154
+          },
+          "mitre_valid": {
+            "den": 195,
+            "num": 120,
+            "value": 0.6153846153846154
+          },
+          "model_calls": {
+            "den": null,
+            "num": null,
+            "value": 301
+          },
+          "model_errors": {
+            "den": null,
+            "num": null,
+            "value": 0
+          },
+          "parse_failures": {
+            "den": null,
+            "num": null,
+            "value": 0
+          },
+          "tokens_per_alert": {
+            "den": null,
+            "num": null,
+            "value": 2543.9866666666667
+          },
+          "tool_calls": {
+            "den": null,
+            "num": null,
+            "value": 0
+          },
+          "total_tokens": {
+            "den": null,
+            "num": null,
+            "value": 763196
+          }
+        },
+        "deltas": {
+          "attack_type_all": -2.051282051282055,
+          "attack_type_valid": -3.076923076923077,
+          "coverage": 2.0000000000000018,
+          "first_try_malformed": -15,
+          "graph_seconds": -120.23700000000008,
+          "latency_alert_mean": 0.009939999999999838,
+          "mitre_all": 11.282051282051286,
+          "mitre_valid": 9.686609686609692,
+          "model_calls": -25,
+          "model_errors": 0,
+          "parse_failures": -6,
+          "tokens_per_alert": -1062.6833333333334,
+          "tool_calls": -2287,
+          "total_tokens": -318805
+        },
+        "label": "E"
+      }
+    ],
+    "reference": "A",
+    "views": {
+      "failures_escalated": [
+        {
+          "arm": "A",
+          "cells": {
+            "failures_escalated.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 9
+            },
+            "failures_escalated.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9712793733681463
+            },
+            "failures_escalated.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "failures_escalated.precision": {
+              "den": 188,
+              "num": 186,
+              "value": 0.9893617021276596
+            },
+            "failures_escalated.recall": {
+              "den": 195,
+              "num": 186,
+              "value": 0.9538461538461539
+            },
+            "failures_escalated.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "failures_escalated.attacks_missed": null,
+            "failures_escalated.f1": null,
+            "failures_escalated.fp_reduction": null,
+            "failures_escalated.precision": null,
+            "failures_escalated.recall": null,
+            "failures_escalated.specificity": null
+          },
+          "label": "A"
+        },
+        {
+          "arm": "B",
+          "cells": {
+            "failures_escalated.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 7
+            },
+            "failures_escalated.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9740932642487047
+            },
+            "failures_escalated.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 97.14285714285714
+            },
+            "failures_escalated.precision": {
+              "den": 191,
+              "num": 188,
+              "value": 0.9842931937172775
+            },
+            "failures_escalated.recall": {
+              "den": 195,
+              "num": 188,
+              "value": 0.9641025641025641
+            },
+            "failures_escalated.specificity": {
+              "den": 105,
+              "num": 102,
+              "value": 0.9714285714285714
+            }
+          },
+          "deltas": {
+            "failures_escalated.attacks_missed": -2,
+            "failures_escalated.f1": 0.0028138908805583895,
+            "failures_escalated.fp_reduction": -0.9523809523809632,
+            "failures_escalated.precision": -0.5068508410382089,
+            "failures_escalated.recall": 1.025641025641022,
+            "failures_escalated.specificity": -0.952380952380949
+          },
+          "label": "B"
+        },
+        {
+          "arm": "C",
+          "cells": {
+            "failures_escalated.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 8
+            },
+            "failures_escalated.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9739583333333334
+            },
+            "failures_escalated.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "failures_escalated.precision": {
+              "den": 189,
+              "num": 187,
+              "value": 0.9894179894179894
+            },
+            "failures_escalated.recall": {
+              "den": 195,
+              "num": 187,
+              "value": 0.958974358974359
+            },
+            "failures_escalated.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "failures_escalated.attacks_missed": -1,
+            "failures_escalated.f1": 0.0026789599651870777,
+            "failures_escalated.fp_reduction": 0.0,
+            "failures_escalated.precision": 0.005628729032980395,
+            "failures_escalated.recall": 0.512820512820511,
+            "failures_escalated.specificity": 0.0
+          },
+          "label": "C"
+        },
+        {
+          "arm": "D",
+          "cells": {
+            "failures_escalated.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 30
+            },
+            "failures_escalated.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9116022099447514
+            },
+            "failures_escalated.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "failures_escalated.precision": {
+              "den": 167,
+              "num": 165,
+              "value": 0.9880239520958084
+            },
+            "failures_escalated.recall": {
+              "den": 195,
+              "num": 165,
+              "value": 0.8461538461538461
+            },
+            "failures_escalated.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "failures_escalated.attacks_missed": 21,
+            "failures_escalated.f1": -0.05967716342339491,
+            "failures_escalated.fp_reduction": 0.0,
+            "failures_escalated.precision": -0.13377500318512148,
+            "failures_escalated.recall": -10.769230769230775,
+            "failures_escalated.specificity": 0.0
+          },
+          "label": "D"
+        },
+        {
+          "arm": "E",
+          "cells": {
+            "failures_escalated.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 29
+            },
+            "failures_escalated.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9171270718232044
+            },
+            "failures_escalated.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 99.04761904761905
+            },
+            "failures_escalated.precision": {
+              "den": 167,
+              "num": 166,
+              "value": 0.9940119760479041
+            },
+            "failures_escalated.recall": {
+              "den": 195,
+              "num": 166,
+              "value": 0.8512820512820513
+            },
+            "failures_escalated.specificity": {
+              "den": 105,
+              "num": 104,
+              "value": 0.9904761904761905
+            }
+          },
+          "deltas": {
+            "failures_escalated.attacks_missed": 20,
+            "failures_escalated.f1": -0.05415230154494188,
+            "failures_escalated.fp_reduction": 0.952380952380949,
+            "failures_escalated.precision": 0.465027392024453,
+            "failures_escalated.recall": -10.256410256410264,
+            "failures_escalated.specificity": 0.9523809523809601
+          },
+          "label": "E"
+        }
+      ],
+      "failures_wrong": [
+        {
+          "arm": "A",
+          "cells": {
+            "failures_wrong.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 15
+            },
+            "failures_wrong.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9549071618037136
+            },
+            "failures_wrong.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "failures_wrong.precision": {
+              "den": 182,
+              "num": 180,
+              "value": 0.989010989010989
+            },
+            "failures_wrong.recall": {
+              "den": 195,
+              "num": 180,
+              "value": 0.9230769230769231
+            },
+            "failures_wrong.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "failures_wrong.attacks_missed": null,
+            "failures_wrong.f1": null,
+            "failures_wrong.fp_reduction": null,
+            "failures_wrong.precision": null,
+            "failures_wrong.recall": null,
+            "failures_wrong.specificity": null
+          },
+          "label": "A"
+        },
+        {
+          "arm": "B",
+          "cells": {
+            "failures_wrong.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 10
+            },
+            "failures_wrong.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9660574412532638
+            },
+            "failures_wrong.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 97.14285714285714
+            },
+            "failures_wrong.precision": {
+              "den": 188,
+              "num": 185,
+              "value": 0.9840425531914894
+            },
+            "failures_wrong.recall": {
+              "den": 195,
+              "num": 185,
+              "value": 0.9487179487179487
+            },
+            "failures_wrong.specificity": {
+              "den": 105,
+              "num": 102,
+              "value": 0.9714285714285714
+            }
+          },
+          "deltas": {
+            "failures_wrong.attacks_missed": -5,
+            "failures_wrong.f1": 0.01115027944955016,
+            "failures_wrong.fp_reduction": -0.9523809523809632,
+            "failures_wrong.precision": -0.49684358194996836,
+            "failures_wrong.recall": 2.564102564102555,
+            "failures_wrong.specificity": -0.952380952380949
+          },
+          "label": "B"
+        },
+        {
+          "arm": "C",
+          "cells": {
+            "failures_wrong.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 17
+            },
+            "failures_wrong.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9493333333333335
+            },
+            "failures_wrong.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "failures_wrong.precision": {
+              "den": 180,
+              "num": 178,
+              "value": 0.9888888888888889
+            },
+            "failures_wrong.recall": {
+              "den": 195,
+              "num": 178,
+              "value": 0.9128205128205128
+            },
+            "failures_wrong.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "failures_wrong.attacks_missed": 2,
+            "failures_wrong.f1": -0.005573828470380127,
+            "failures_wrong.fp_reduction": 0.0,
+            "failures_wrong.precision": -0.012210012210012167,
+            "failures_wrong.recall": -1.025641025641033,
+            "failures_wrong.specificity": 0.0
+          },
+          "label": "C"
+        },
+        {
+          "arm": "D",
+          "cells": {
+            "failures_wrong.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 30
+            },
+            "failures_wrong.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9116022099447514
+            },
+            "failures_wrong.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "failures_wrong.precision": {
+              "den": 167,
+              "num": 165,
+              "value": 0.9880239520958084
+            },
+            "failures_wrong.recall": {
+              "den": 195,
+              "num": 165,
+              "value": 0.8461538461538461
+            },
+            "failures_wrong.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "failures_wrong.attacks_missed": 15,
+            "failures_wrong.f1": -0.043304951858962215,
+            "failures_wrong.fp_reduction": 0.0,
+            "failures_wrong.precision": -0.09870369151806502,
+            "failures_wrong.recall": -7.692307692307699,
+            "failures_wrong.specificity": 0.0
+          },
+          "label": "D"
+        },
+        {
+          "arm": "E",
+          "cells": {
+            "failures_wrong.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 29
+            },
+            "failures_wrong.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9171270718232044
+            },
+            "failures_wrong.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 99.04761904761905
+            },
+            "failures_wrong.precision": {
+              "den": 167,
+              "num": 166,
+              "value": 0.9940119760479041
+            },
+            "failures_wrong.recall": {
+              "den": 195,
+              "num": 166,
+              "value": 0.8512820512820513
+            },
+            "failures_wrong.specificity": {
+              "den": 105,
+              "num": 104,
+              "value": 0.9904761904761905
+            }
+          },
+          "deltas": {
+            "failures_wrong.attacks_missed": 14,
+            "failures_wrong.f1": -0.03778008998050919,
+            "failures_wrong.fp_reduction": 0.952380952380949,
+            "failures_wrong.precision": 0.5000987036915094,
+            "failures_wrong.recall": -7.179487179487188,
+            "failures_wrong.specificity": 0.9523809523809601
+          },
+          "label": "E"
+        }
+      ],
+      "valid_only": [
+        {
+          "arm": "A",
+          "cells": {
+            "valid_only.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 9
+            },
+            "valid_only.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9703504043126684
+            },
+            "valid_only.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "valid_only.precision": {
+              "den": 182,
+              "num": 180,
+              "value": 0.989010989010989
+            },
+            "valid_only.recall": {
+              "den": 189,
+              "num": 180,
+              "value": 0.9523809523809523
+            },
+            "valid_only.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "valid_only.attacks_missed": null,
+            "valid_only.f1": null,
+            "valid_only.fp_reduction": null,
+            "valid_only.precision": null,
+            "valid_only.recall": null,
+            "valid_only.specificity": null
+          },
+          "label": "A"
+        },
+        {
+          "arm": "B",
+          "cells": {
+            "valid_only.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 7
+            },
+            "valid_only.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9762532981530343
+            },
+            "valid_only.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.07692307692308
+            },
+            "valid_only.precision": {
+              "den": 187,
+              "num": 185,
+              "value": 0.9893048128342246
+            },
+            "valid_only.recall": {
+              "den": 192,
+              "num": 185,
+              "value": 0.9635416666666666
+            },
+            "valid_only.specificity": {
+              "den": 104,
+              "num": 102,
+              "value": 0.9807692307692307
+            }
+          },
+          "deltas": {
+            "valid_only.attacks_missed": -2,
+            "valid_only.f1": 0.005902893840365908,
+            "valid_only.fp_reduction": -0.018315018315021803,
+            "valid_only.precision": 0.029382382323550615,
+            "valid_only.recall": 1.1160714285714302,
+            "valid_only.specificity": -0.01831501831501825
+          },
+          "label": "B"
+        },
+        {
+          "arm": "C",
+          "cells": {
+            "valid_only.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 8
+            },
+            "valid_only.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9726775956284154
+            },
+            "valid_only.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "valid_only.precision": {
+              "den": 180,
+              "num": 178,
+              "value": 0.9888888888888889
+            },
+            "valid_only.recall": {
+              "den": 186,
+              "num": 178,
+              "value": 0.956989247311828
+            },
+            "valid_only.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "valid_only.attacks_missed": -1,
+            "valid_only.f1": 0.0023271913157469903,
+            "valid_only.fp_reduction": 0.0,
+            "valid_only.precision": -0.012210012210012167,
+            "valid_only.recall": 0.4608294930875667,
+            "valid_only.specificity": 0.0
+          },
+          "label": "C"
+        },
+        {
+          "arm": "D",
+          "cells": {
+            "valid_only.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 30
+            },
+            "valid_only.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9116022099447514
+            },
+            "valid_only.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 98.0952380952381
+            },
+            "valid_only.precision": {
+              "den": 167,
+              "num": 165,
+              "value": 0.9880239520958084
+            },
+            "valid_only.recall": {
+              "den": 195,
+              "num": 165,
+              "value": 0.8461538461538461
+            },
+            "valid_only.specificity": {
+              "den": 105,
+              "num": 103,
+              "value": 0.9809523809523809
+            }
+          },
+          "deltas": {
+            "valid_only.attacks_missed": 21,
+            "valid_only.f1": -0.058748194367917006,
+            "valid_only.fp_reduction": 0.0,
+            "valid_only.precision": -0.09870369151806502,
+            "valid_only.recall": -10.622710622710619,
+            "valid_only.specificity": 0.0
+          },
+          "label": "D"
+        },
+        {
+          "arm": "E",
+          "cells": {
+            "valid_only.attacks_missed": {
+              "den": null,
+              "num": null,
+              "value": 29
+            },
+            "valid_only.f1": {
+              "den": null,
+              "num": null,
+              "value": 0.9171270718232044
+            },
+            "valid_only.fp_reduction": {
+              "den": null,
+              "num": null,
+              "value": 99.04761904761905
+            },
+            "valid_only.precision": {
+              "den": 167,
+              "num": 166,
+              "value": 0.9940119760479041
+            },
+            "valid_only.recall": {
+              "den": 195,
+              "num": 166,
+              "value": 0.8512820512820513
+            },
+            "valid_only.specificity": {
+              "den": 105,
+              "num": 104,
+              "value": 0.9904761904761905
+            }
+          },
+          "deltas": {
+            "valid_only.attacks_missed": 20,
+            "valid_only.f1": -0.05322333248946398,
+            "valid_only.fp_reduction": 0.952380952380949,
+            "valid_only.precision": 0.5000987036915094,
+            "valid_only.recall": -10.109890109890108,
+            "valid_only.specificity": 0.9523809523809601
+          },
+          "label": "E"
+        }
+      ]
+    }
+  },
+  "used": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ]
+}

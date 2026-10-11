@@ -5,6 +5,10 @@
   python src/run_agent_dev.py --run-name dev_agent_v1_flash_lite --resume       # continue after an interruption
   python src/run_agent_dev.py --fake-model --limit 5 --run-name FAKE_smoke      # offline plumbing test: canned replies, no API, never evaluable
 
+Week 3 Day 6 (specialist ablation): --arm A|B|C|D|E runs one pre-registered arm (agents/ablation.py): A full graph, B no beaconing, C no enrichment, D no traffic (so no beaconing: enrichment only),
+E no specialists. An arm run defaults to runs/week3_day6 (runs/week3_day6_FAKE with --fake-model), records its configuration in run_meta.json (agent.ablation) and is resumed only with the same --arm.
+Without --arm nothing changes from Day 5. The verdict prompt (agent_v1) and every setting are the same in every arm; a disabled specialist is shown to the model as not_run, "disabled in this configuration".
+
 Dev set only. This script never reads labels (scoring is src/evaluate.py), never opens the frozen set, and does not touch src/prompt_registry.py or the baseline_v3 prompt.
 
 What one alert goes through: traffic analyst, C2 beaconing analyst (when the routing gate opens), enrichment agent, then the verdict node, which makes the model call(s).
@@ -35,11 +39,14 @@ import run_baseline_dev as base
 from agents import state as S
 from agents import verdict_node as VN
 from agents import verdict_prompt
+import ablation_config as ablation
 from agents.graph import build_graph, run_alert
 from tools import FlowStore, build_registry
 
 RUNS_ROOT = os.path.join(config.PROJECT_ROOT, "runs", "week3_agent_v1")
 FAKE_RUNS_ROOT = os.path.join(config.PROJECT_ROOT, "runs", "week3_agent_v1_FAKE")
+DAY6_RUNS_ROOT = os.path.join(config.PROJECT_ROOT, "runs", "week3_day6")
+DAY6_FAKE_RUNS_ROOT = os.path.join(config.PROJECT_ROOT, "runs", "week3_day6_FAKE")
 BASELINE_RUNS_ROOT = base.RUNS_ROOT
 DEFAULT_BASELINE_RUN = "dev_flash_lite_v3_final"
 BASELINE_PROMPT = prompt_registry.V3
@@ -241,7 +248,8 @@ def parse_args(argv):
     parser.add_argument("--rpm", type=float, default=base.DEFAULT_RPM, help="model calls per minute, retries included (the baseline default)")
     parser.add_argument("--dry-run", action="store_true", help="run the tools for the first alert, print the verdict prompt, call no model, write nothing")
     parser.add_argument("--fake-model", action="store_true", help="offline plumbing test: canned replies instead of Gemini; the run is flagged fake and cannot be compared")
-    parser.add_argument("--runs-dir", default=None, help="default runs/week3_agent_v1 (runs/week3_agent_v1_FAKE with --fake-model)")
+    parser.add_argument("--arm", choices=sorted(ablation.ARMS), default=None, help="Day 6 ablation arm: " + "; ".join(k + " = " + v["label"] for k, v in ablation.ARMS.items()))
+    parser.add_argument("--runs-dir", default=None, help="default runs/week3_agent_v1 (runs/week3_agent_v1_FAKE with --fake-model); with --arm runs/week3_day6 (runs/week3_day6_FAKE)")
     parser.add_argument("--baseline-run", default=DEFAULT_BASELINE_RUN, help="the locked baseline_v3 run this run is held equal to")
     parser.add_argument("--baseline-runs-dir", default=BASELINE_RUNS_ROOT)
     args = parser.parse_args(argv)
@@ -260,13 +268,31 @@ def parse_args(argv):
     if not args.fake_model and args.run_name is not None and args.run_name.startswith("FAKE"):
         parser.error("run names starting with FAKE are reserved for --fake-model runs")
     if args.runs_dir is None:
-        args.runs_dir = FAKE_RUNS_ROOT if args.fake_model else RUNS_ROOT
+        if args.arm is not None:
+            args.runs_dir = DAY6_FAKE_RUNS_ROOT if args.fake_model else DAY6_RUNS_ROOT
+        else:
+            args.runs_dir = FAKE_RUNS_ROOT if args.fake_model else RUNS_ROOT
     return args
 
 
-def make_graph(registry, caller, spec):
+def make_graph(registry, caller, spec, disabled=()):
     node = VN.make_verdict_node(caller, spec=spec, max_retries=llm_config.MAX_RETRIES, fatal=(gemini_client.PermanentModelError,), unavailable=(base.ModelUnavailable,))
-    return build_graph(registry, verdict_node=node)
+    return build_graph(registry, verdict_node=node, disabled=disabled)
+
+
+def ablation_record(arm):
+    """The run_meta record of an ablation arm, or None for a run without --arm (the Day 5 format, unchanged)."""
+    if arm is None:
+        return None
+    disabled = ablation.arm_disabled(arm)
+    return {"arm": arm, "label": ablation.ARMS[arm]["label"], "disabled": list(disabled), "enabled": list(ablation.enabled_specialists(disabled)), "cascade_skipped": list(ablation.cascade_skipped(disabled)),
+            "disabled_reason_shown_to_model": ablation.DISABLED_REASON}
+
+
+def stored_arm(meta):
+    """The arm a stored run was made with (None for a run without one, such as the Day 5 run)."""
+    record = (meta.get("agent") or {}).get("ablation")
+    return record.get("arm") if isinstance(record, dict) else None
 
 
 def print_summary(summary, meta, ids, agent):
@@ -276,6 +302,8 @@ def print_summary(summary, meta, ids, agent):
           + ", model_error: " + str(summary["counts"][base.STATUS_MODEL_ERROR]) + ", not run yet: " + str(summary["not_run"]))
     print("graph statuses: " + str(agent["graph_status_counts"]) + ", error codes: " + str(agent["error_code_counts"]))
     print("replies that needed a retry (malformed on the first try): " + str(summary["malformed_first_try"]))
+    if (meta.get("agent") or {}).get("ablation"):
+        print("ablation arm: " + ablation.describe(meta["agent"]["ablation"]["disabled"]))
     print("model calls: " + str(summary["model_calls"]) + ", total tokens: " + str(summary["total_tokens"]) + ", tool calls: " + str(agent["tool_calls"]))
     print("frozen access log unchanged: " + str(meta["frozen_access_log_unchanged"]) + ", Week 1 files unchanged: " + str(meta["week1_files_unchanged"]))
     print("results: " + os.path.join(meta["run_dir"], "results.jsonl"))
@@ -308,11 +336,14 @@ def main(argv=None):
         if meta.get("fake_model") != args.fake_model:
             raise SystemExit("STOPPED: fake_model is " + str(meta.get("fake_model")) + " for that run; pass --fake-model to match it.")
         selected_ids = list(meta["selected_alert_ids"])
+        if stored_arm(meta) != args.arm:
+            raise SystemExit("STOPPED: that run was made with ablation arm " + str(stored_arm(meta)) + " but this command says --arm " + str(args.arm) + ". Resume it with the same arm.")
     else:
         selected_ids = list(alerts["alert_id"])[:args.limit] if args.limit is not None else list(alerts["alert_id"])
     order = {alert_id: i for i, alert_id in enumerate(selected_ids)}
 
     spec = verdict_prompt.get_prompt()
+    disabled = ablation.arm_disabled(args.arm) if args.arm is not None else ()
     settings = base.settings_for(model, args.rpm)
     baseline_meta = None
     if args.fake_model:
@@ -334,10 +365,12 @@ def main(argv=None):
 
     if args.dry_run:
         first_id = selected_ids[0]
-        graph_for_dry_run = build_graph(registry)
+        graph_for_dry_run = build_graph(registry, disabled=disabled)
         state = run_alert(graph_for_dry_run, alerts_by_id[first_id], verdict_enabled=False)
         print("")
         print("Dry run: the tools ran, no model was called, nothing was written. Model that would be used: " + model)
+        if args.arm is not None:
+            print("Ablation arm " + ablation.describe(disabled) + "; specialists that run: " + (", ".join(ablation.effective_specialists(disabled)) or "none"))
         print("--- system prompt ---")
         print(spec.system_prompt)
         print("--- user prompt for " + first_id + " ---")
@@ -347,17 +380,23 @@ def main(argv=None):
     if meta is None:
         run_name = args.run_name
         if run_name is None:
-            run_name = ("FAKE_" if args.fake_model else "dev_agent_") + model + "_" + datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            stamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            if args.arm is not None:
+                run_name = ("FAKE_" if args.fake_model else "") + "dev_agent_v1_d6_" + args.arm + "_" + stamp
+            else:
+                run_name = ("FAKE_" if args.fake_model else "dev_agent_") + model + "_" + stamp
         run_dir = store.RunDir(os.path.join(args.runs_dir, run_name))
         if os.path.exists(run_dir.path):
             raise SystemExit("STOPPED: " + run_dir.path + " already exists. Use another --run-name, or --resume.")
         meta = {"run_name": run_name, "run_dir": run_dir.path, "set": "dev", "runner": RUNNER, "fake_model": args.fake_model,
                 "prompt_version": spec.version, "prompt_sha256": spec.sha256, "provider": "gemini", "model": model, "model_size": "small", "settings": settings,
                 "inputs": input_hashes, "n_selected": len(selected_ids), "limit": args.limit, "selected_alert_ids": selected_ids,
-                "agent": {"graph_version": S.GRAPH_VERSION, "verdict_enabled": True, "specialists": [S.NODE_TRAFFIC_ANALYST, S.NODE_C2_BEACON_ANALYST, S.NODE_ENRICHMENT_AGENT],
+                "agent": {"graph_version": S.GRAPH_VERSION, "verdict_enabled": True, "specialists": list(ablation.effective_specialists(disabled)),
                           "reputation_lookup": "not_consulted", "max_supervisor_visits": S.MAX_SUPERVISOR_VISITS,
                           "baseline": baseline_summary(baseline_meta, args.baseline_run) if baseline_meta is not None else None},
                 "git": base.git_info(), "python": platform.python_version(), "packages": base.package_versions(), "sessions": [], "status": "running"}
+        if args.arm is not None:
+            meta["agent"]["ablation"] = ablation_record(args.arm)
     else:
         if meta["model"] != model or meta["prompt_sha256"] != spec.sha256 or meta["inputs"] != input_hashes:
             raise SystemExit("STOPPED: the model, prompt or input files differ from the run being resumed. Start a new run instead.")
@@ -396,7 +435,7 @@ def main(argv=None):
     print("Run " + meta["run_name"] + ": " + str(len(todo)) + " alerts to do, " + str(len(selected_ids) - len(todo)) + " already done. Model " + model + ", " + str(rpm) + " calls per minute.")
 
     caller = base.RecordingCaller(client, base.Throttle(rpm), run_dir, session, model)
-    graph = make_graph(registry, caller, spec)
+    graph = make_graph(registry, caller, spec, disabled)
     ended, exit_code = "finished", 0
     try:
         ended = run_alerts(todo, alerts_by_id, order, graph, caller, client, session, spec, run_dir)

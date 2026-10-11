@@ -20,6 +20,8 @@ import baseline_prompt
 import prompt_registry
 import verdict_schema
 
+import ablation_config as ablation
+
 from . import state as S
 
 VERSION = "agent_v1"
@@ -99,8 +101,20 @@ def prompt_sha256():
     return REGISTRY[VERSION].sha256
 
 
+def disabled_agents(state):
+    """The specialists switched off by configuration for this run (Day 6), read from the supervisor's own routing log. Empty for every default run."""
+    names = set()
+    for step in state.get("routing", []):
+        if isinstance(step, dict) and isinstance(step.get("disabled"), list):
+            names.update(n for n in step["disabled"] if n in ablation.SPECIALISTS)
+    return tuple(n for n in ablation.SPECIALISTS if n in names)
+
+
 def _skip_reason(state, agent):
-    """Why an agent did not run, in the supervisor's own words when it logged them, else a plain statement."""
+    """Why an agent did not run, in the supervisor's own words when it logged them, else a plain statement.
+    A specialist that was switched off by configuration (Day 6) says so, in the words ablation.DISABLED_REASON."""
+    if agent in disabled_agents(state):
+        return ablation.DISABLED_REASON
     if agent == S.NODE_C2_BEACON_ANALYST:
         for step in state["routing"]:
             reason = step.get("reason") if isinstance(step, dict) else None
@@ -122,7 +136,7 @@ def findings_payload(state):
     """The specialist findings as a plain dict for the prompt. Deterministic: the same state gives the same dict. Only what the specialists reported, nothing added."""
     payload = {}
     traffic = state.get("traffic_findings")
-    payload["traffic_analyst"] = ({"status": NOT_RUN, "reason": "the supervisor did not run it"} if traffic is None else
+    payload["traffic_analyst"] = ({"status": NOT_RUN, "reason": _skip_reason(state, S.NODE_TRAFFIC_ANALYST)} if traffic is None else
                                   {"status": traffic.get("status"), "findings": _statements(traffic.get("findings")), "failed_tool_calls": traffic.get("tool_errors")})
     beacon = state.get("beacon_findings")
     if beacon is None:
@@ -133,7 +147,7 @@ def findings_payload(state):
                                         "limits": list(beacon.get("limits") or []), "failed_tool_calls": beacon.get("tool_errors")}
     enrichment = state.get("enrichment_findings")
     if enrichment is None:
-        payload["enrichment_agent"] = {"status": NOT_RUN, "reason": "the supervisor did not run it"}
+        payload["enrichment_agent"] = {"status": NOT_RUN, "reason": _skip_reason(state, S.NODE_ENRICHMENT_AGENT)}
     else:
         payload["enrichment_agent"] = {"status": enrichment.get("status"), "findings": _statements(enrichment.get("findings")),
                                        "not_consulted": [{"source": n.get("source"), "reason": n.get("reason")} for n in enrichment.get("not_consulted", []) if isinstance(n, dict)],

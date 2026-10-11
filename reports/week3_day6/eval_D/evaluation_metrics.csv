@@ -1,0 +1,170 @@
+metric,value,numerator,denominator,ci_low,ci_high,population
+population.alerts,300.0,,,,,
+population.ok,300.0,,,,,
+population.parse_failed,0.0,,,,,
+population.model_error,0.0,,,,,
+population.not_run,0.0,,,,,
+population.true_attacks,195.0,,,,,
+population.true_benign,105.0,,,,,
+reliability.first_try_malformed,0.023333333333333334,7.0,300.0,0.01134751559829571,0.04737255433287896,alerts that received at least one reply
+reliability.first_try_malformed_of_all_alerts,0.023333333333333334,7.0,300.0,0.01134751559829571,0.04737255433287896,all alerts
+reliability.retry_needed,0.023333333333333334,7.0,300.0,0.01134751559829571,0.04737255433287896,alerts that received at least one reply
+reliability.final_parse_failure,0.0,0.0,300.0,0.0,0.012643429997735661,all alerts
+reliability.model_error,0.0,0.0,300.0,0.0,0.012643429997735661,all alerts
+reliability.not_run,0.0,0.0,300.0,0.0,0.012643429997735661,all alerts
+reliability.successful_verdict_coverage,1.0,300.0,300.0,0.9873565700022643,0.9999999999999999,all alerts
+reliability.recovered_by_retry,1.0,7.0,7.0,0.6456611570247934,1.0,alerts whose first reply was malformed
+reliability.model_calls_total,307.0,,,,,
+reliability.model_calls_per_alert_mean,1.0233333333333334,,,,,
+reliability.first_try_error_codes.invalid_field,6.0,,,,,
+reliability.first_try_error_codes.invalid_json,1.0,,,,,
+reliability.finish_reason_counts.STOP,307.0,,,,,
+verdict.valid_only.alerts_in_population,300.0,,,,,
+verdict.valid_only.llm_confusion.tp,165.0,,,,,
+verdict.valid_only.llm_confusion.fp,2.0,,,,,
+verdict.valid_only.llm_confusion.fn,30.0,,,,,
+verdict.valid_only.llm_confusion.tn,103.0,,,,,
+verdict.valid_only.llm.precision,0.9880239520958084,165.0,167.0,0.9573905353166174,0.9967096370067512,predicted malicious
+verdict.valid_only.llm.recall,0.8461538461538461,165.0,195.0,0.7888723006834523,0.8900600756402145,true attacks
+verdict.valid_only.llm.specificity,0.9809523809523809,103.0,105.0,0.9331930898467633,0.9947609277347496,true benign
+verdict.valid_only.llm.f1,0.9116022099447514,,,,,
+verdict.valid_only.detector_confusion.tp,195.0,,,,,
+verdict.valid_only.detector_confusion.fp,105.0,,,,,
+verdict.valid_only.detector_confusion.fn,0.0,,,,,
+verdict.valid_only.detector_confusion.tn,0.0,,,,,
+verdict.valid_only.detector.precision,0.65,195.0,300.0,0.594438067475952,0.7017689035247274,predicted malicious
+verdict.valid_only.detector.recall,1.0,195.0,195.0,0.9806800991341854,1.0,true attacks
+verdict.valid_only.detector.specificity,0.0,0.0,105.0,0.0,0.035295328256842964,true benign
+verdict.valid_only.detector.f1,0.787878787878788,,,,,
+verdict.failures_escalated.alerts_in_population,300.0,,,,,
+verdict.failures_escalated.llm_confusion.tp,165.0,,,,,
+verdict.failures_escalated.llm_confusion.fp,2.0,,,,,
+verdict.failures_escalated.llm_confusion.fn,30.0,,,,,
+verdict.failures_escalated.llm_confusion.tn,103.0,,,,,
+verdict.failures_escalated.llm.precision,0.9880239520958084,165.0,167.0,0.9573905353166174,0.9967096370067512,predicted malicious
+verdict.failures_escalated.llm.recall,0.8461538461538461,165.0,195.0,0.7888723006834523,0.8900600756402145,true attacks
+verdict.failures_escalated.llm.specificity,0.9809523809523809,103.0,105.0,0.9331930898467633,0.9947609277347496,true benign
+verdict.failures_escalated.llm.f1,0.9116022099447514,,,,,
+verdict.failures_escalated.detector_confusion.tp,195.0,,,,,
+verdict.failures_escalated.detector_confusion.fp,105.0,,,,,
+verdict.failures_escalated.detector_confusion.fn,0.0,,,,,
+verdict.failures_escalated.detector_confusion.tn,0.0,,,,,
+verdict.failures_escalated.detector.precision,0.65,195.0,300.0,0.594438067475952,0.7017689035247274,predicted malicious
+verdict.failures_escalated.detector.recall,1.0,195.0,195.0,0.9806800991341854,1.0,true attacks
+verdict.failures_escalated.detector.specificity,0.0,0.0,105.0,0.0,0.035295328256842964,true benign
+verdict.failures_escalated.detector.f1,0.787878787878788,,,,,
+verdict.failures_wrong.alerts_in_population,300.0,,,,,
+verdict.failures_wrong.llm_confusion.tp,165.0,,,,,
+verdict.failures_wrong.llm_confusion.fp,2.0,,,,,
+verdict.failures_wrong.llm_confusion.fn,30.0,,,,,
+verdict.failures_wrong.llm_confusion.tn,103.0,,,,,
+verdict.failures_wrong.llm.precision,0.9880239520958084,165.0,167.0,0.9573905353166174,0.9967096370067512,predicted malicious
+verdict.failures_wrong.llm.recall,0.8461538461538461,165.0,195.0,0.7888723006834523,0.8900600756402145,true attacks
+verdict.failures_wrong.llm.specificity,0.9809523809523809,103.0,105.0,0.9331930898467633,0.9947609277347496,true benign
+verdict.failures_wrong.llm.f1,0.9116022099447514,,,,,
+verdict.failures_wrong.detector_confusion.tp,195.0,,,,,
+verdict.failures_wrong.detector_confusion.fp,105.0,,,,,
+verdict.failures_wrong.detector_confusion.fn,0.0,,,,,
+verdict.failures_wrong.detector_confusion.tn,0.0,,,,,
+verdict.failures_wrong.detector.precision,0.65,195.0,300.0,0.594438067475952,0.7017689035247274,predicted malicious
+verdict.failures_wrong.detector.recall,1.0,195.0,195.0,0.9806800991341854,1.0,true attacks
+verdict.failures_wrong.detector.specificity,0.0,0.0,105.0,0.0,0.035295328256842964,true benign
+verdict.failures_wrong.detector.f1,0.787878787878788,,,,,
+decision_table.true_attacks.kept_as_malicious,165.0,,,,,
+decision_table.true_attacks.dismissed_as_benign,30.0,,,,,
+decision_table.true_attacks.no_verdict,0.0,,,,,
+decision_table.true_attacks.total,195.0,,,,,
+decision_table.true_benign_false_positives.kept_as_malicious,2.0,,,,,
+decision_table.true_benign_false_positives.dismissed_as_benign,103.0,,,,,
+decision_table.true_benign_false_positives.no_verdict,0.0,,,,,
+decision_table.true_benign_false_positives.total,105.0,,,,,
+fp_reduction.valid_only.alerts_in_population,300.0,,,,,
+fp_reduction.valid_only.benign_alerts_in_population,105.0,,,,,
+fp_reduction.valid_only.detector_fp,105.0,,,,,
+fp_reduction.valid_only.llm_fp,2.0,,,,,
+fp_reduction.valid_only.fp_removed,103.0,,,,,
+fp_reduction.valid_only.fp_reduction_pct,98.0952380952381,,,,,
+fp_reduction.valid_only.detector_fp_rate_among_benign_alerts,1.0,,,,,
+fp_reduction.valid_only.llm_fp_rate_among_benign_alerts,0.01904761904761905,,,,,
+fp_reduction.valid_only.detector_fp_share_of_alerts,0.35,,,,,
+fp_reduction.valid_only.llm_fp_share_of_alerts,0.011976047904191617,,,,,
+fp_reduction.valid_only.alerts_raised_detector,300.0,,,,,
+fp_reduction.valid_only.alerts_raised_llm,167.0,,,,,
+fp_reduction.valid_only.alert_volume_reduction_pct,44.333333333333336,,,,,
+fp_reduction.valid_only.attacks_missed_by_llm,30.0,,,,,
+fp_reduction.valid_only.attacks_missed_by_detector,0.0,,,,,
+fp_reduction.valid_only.benign_dismissal_rate,0.9809523809523809,103.0,105.0,0.9331930898467633,0.9947609277347496,benign alerts in the population
+fp_reduction.failures_escalated.alerts_in_population,300.0,,,,,
+fp_reduction.failures_escalated.benign_alerts_in_population,105.0,,,,,
+fp_reduction.failures_escalated.detector_fp,105.0,,,,,
+fp_reduction.failures_escalated.llm_fp,2.0,,,,,
+fp_reduction.failures_escalated.fp_removed,103.0,,,,,
+fp_reduction.failures_escalated.fp_reduction_pct,98.0952380952381,,,,,
+fp_reduction.failures_escalated.detector_fp_rate_among_benign_alerts,1.0,,,,,
+fp_reduction.failures_escalated.llm_fp_rate_among_benign_alerts,0.01904761904761905,,,,,
+fp_reduction.failures_escalated.detector_fp_share_of_alerts,0.35,,,,,
+fp_reduction.failures_escalated.llm_fp_share_of_alerts,0.011976047904191617,,,,,
+fp_reduction.failures_escalated.alerts_raised_detector,300.0,,,,,
+fp_reduction.failures_escalated.alerts_raised_llm,167.0,,,,,
+fp_reduction.failures_escalated.alert_volume_reduction_pct,44.333333333333336,,,,,
+fp_reduction.failures_escalated.attacks_missed_by_llm,30.0,,,,,
+fp_reduction.failures_escalated.attacks_missed_by_detector,0.0,,,,,
+fp_reduction.failures_escalated.benign_dismissal_rate,0.9809523809523809,103.0,105.0,0.9331930898467633,0.9947609277347496,benign alerts in the population
+fp_reduction.failures_wrong.alerts_in_population,300.0,,,,,
+fp_reduction.failures_wrong.benign_alerts_in_population,105.0,,,,,
+fp_reduction.failures_wrong.detector_fp,105.0,,,,,
+fp_reduction.failures_wrong.llm_fp,2.0,,,,,
+fp_reduction.failures_wrong.fp_removed,103.0,,,,,
+fp_reduction.failures_wrong.fp_reduction_pct,98.0952380952381,,,,,
+fp_reduction.failures_wrong.detector_fp_rate_among_benign_alerts,1.0,,,,,
+fp_reduction.failures_wrong.llm_fp_rate_among_benign_alerts,0.01904761904761905,,,,,
+fp_reduction.failures_wrong.detector_fp_share_of_alerts,0.35,,,,,
+fp_reduction.failures_wrong.llm_fp_share_of_alerts,0.011976047904191617,,,,,
+fp_reduction.failures_wrong.alerts_raised_detector,300.0,,,,,
+fp_reduction.failures_wrong.alerts_raised_llm,167.0,,,,,
+fp_reduction.failures_wrong.alert_volume_reduction_pct,44.333333333333336,,,,,
+fp_reduction.failures_wrong.attacks_missed_by_llm,30.0,,,,,
+fp_reduction.failures_wrong.attacks_missed_by_detector,0.0,,,,,
+fp_reduction.failures_wrong.benign_dismissal_rate,0.9809523809523809,103.0,105.0,0.9331930898467633,0.9947609277347496,benign alerts in the population
+attack_type.on_attacks_with_valid_verdict,0.28717948717948716,56.0,195.0,0.22826867762934105,0.35431363914944164,true attacks with a valid verdict
+attack_type.on_attacks_flagged_malicious,0.3393939393939394,56.0,165.0,0.2715314811155468,0.41456483637966757,true attacks the baseline called malicious
+attack_type.all_attacks_failures_wrong,0.28717948717948716,56.0,195.0,0.22826867762934105,0.35431363914944164,all true attacks (no-verdict attacks count as wrong; lower bound)
+attack_type.coverage,1.0,195.0,195.0,0.9806800991341854,1.0,true attacks with a valid verdict
+mitre.accepted_on_attacks_with_valid_verdict,0.24615384615384617,48.0,195.0,0.19098239359145158,0.31113386377119284,true attacks with a valid verdict
+mitre.accepted_on_attacks_flagged_malicious,0.2909090909090909,48.0,165.0,0.2269927538113345,0.36434018783337857,true attacks the baseline called malicious
+mitre.accepted_all_attacks_failures_wrong,0.24615384615384617,48.0,195.0,0.19098239359145158,0.31113386377119284,all true attacks (no-verdict attacks count as wrong; lower bound)
+mitre.primary_on_attacks_with_valid_verdict,0.13333333333333333,26.0,195.0,0.09263964092156113,0.18819495304670308,true attacks with a valid verdict (strict: the single primary id)
+mitre.coverage,1.0,195.0,195.0,0.9806800991341854,1.0,true attacks with a valid verdict
+mitre.benign_alerts_given_NONE,0.9809523809523809,103.0,105.0,0.9331930898467633,0.9947609277347496,true benign alerts with a valid verdict (reported apart from MITRE accuracy)
+tokens.prompt_tokens,840357.0,,,,,
+tokens.output_tokens,25126.0,,,,,
+tokens.total_tokens,865483.0,,,,,
+tokens.alerts_with_token_counts,300.0,,,,,
+tokens.alerts_without_token_counts,0.0,,,,,
+tokens.prompt_plus_output_plus_thinking,865483.0,,,,,
+tokens.total_tokens_per_alert_mean,2884.943333333333,,,,,
+latency.per_alert_all_observations.n,300.0,,,,,
+latency.per_alert_all_observations.mean,1.28738,,,,,
+latency.per_alert_all_observations.median,1.203,,,,,
+latency.per_alert_all_observations.p95,1.672,,,,,
+latency.per_alert_all_observations.min,0.938,,,,,
+latency.per_alert_all_observations.max,4.766,,,,,
+latency.per_alert_excluding_anomaly.n,300.0,,,,,
+latency.per_alert_excluding_anomaly.mean,1.28738,,,,,
+latency.per_alert_excluding_anomaly.median,1.203,,,,,
+latency.per_alert_excluding_anomaly.p95,1.672,,,,,
+latency.per_alert_excluding_anomaly.min,0.938,,,,,
+latency.per_alert_excluding_anomaly.max,4.766,,,,,
+latency.per_call_all_observations.n,308.0,,,,,
+latency.per_call_all_observations.mean,1.255211038961039,,,,,
+latency.per_call_all_observations.median,1.188,,,,,
+latency.per_call_all_observations.p95,1.6037499999999998,,,,,
+latency.per_call_all_observations.min,0.391,,,,,
+latency.per_call_all_observations.max,4.766,,,,,
+latency.per_call_excluding_anomaly.n,308.0,,,,,
+latency.per_call_excluding_anomaly.mean,1.255211038961039,,,,,
+latency.per_call_excluding_anomaly.median,1.188,,,,,
+latency.per_call_excluding_anomaly.p95,1.6037499999999998,,,,,
+latency.per_call_excluding_anomaly.min,0.391,,,,,
+latency.per_call_excluding_anomaly.max,4.766,,,,,
+latency.excluded_call_count,0.0,,,,,

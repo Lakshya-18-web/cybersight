@@ -1,0 +1,899 @@
+{
+  "allow_partial": false,
+  "frozen_access_log_lines": 1,
+  "generated_utc": "2026-10-11T18:24:42Z",
+  "integrity": {
+    "frozen_log_unchanged": true,
+    "protected_unchanged": true,
+    "run_unchanged": true
+  },
+  "latency_exclusion": {
+    "alert_ids": [],
+    "requested_seconds": null
+  },
+  "metrics": {
+    "attack_type": {
+      "all_attacks_failures_wrong": {
+        "denominator": 195,
+        "numerator": 71,
+        "population": "all true attacks (no-verdict attacks count as wrong; lower bound)",
+        "value": 0.3641025641025641,
+        "wilson95": [
+          0.2997947903239778,
+          0.43366138786006414
+        ]
+      },
+      "coverage": {
+        "denominator": 195,
+        "numerator": 192,
+        "population": "true attacks with a valid verdict",
+        "value": 0.9846153846153847,
+        "wilson95": [
+          0.9557509446677593,
+          0.9947543821853743
+        ]
+      },
+      "definition": "Exact match of the predicted attack_type with the true class. A benign verdict on an attack counts as wrong.",
+      "on_attacks_flagged_malicious": {
+        "denominator": 185,
+        "numerator": 71,
+        "population": "true attacks the baseline called malicious",
+        "value": 0.3837837837837838,
+        "wilson95": [
+          0.3167464061080523,
+          0.45554952868597615
+        ]
+      },
+      "on_attacks_with_valid_verdict": {
+        "denominator": 192,
+        "numerator": 71,
+        "population": "true attacks with a valid verdict",
+        "value": 0.3697916666666667,
+        "wilson95": [
+          0.3046855186979881,
+          0.4400061096383816
+        ]
+      }
+    },
+    "cost": {
+      "available": false,
+      "reason": "No pricing file was given. No price is assumed. Pass --pricing-file with the exact prices, source and date."
+    },
+    "decision_table": {
+      "true_attacks": {
+        "dismissed_as_benign": 7,
+        "kept_as_malicious": 185,
+        "no_verdict": 3,
+        "total": 195
+      },
+      "true_benign_false_positives": {
+        "dismissed_as_benign": 102,
+        "kept_as_malicious": 2,
+        "no_verdict": 1,
+        "total": 105
+      }
+    },
+    "fp_reduction": {
+      "failures_escalated": {
+        "alert_volume_reduction_pct": 36.333333333333336,
+        "alerts_in_population": 300,
+        "alerts_raised_detector": 300,
+        "alerts_raised_llm": 191,
+        "attacks_missed_by_detector": 0,
+        "attacks_missed_by_llm": 7,
+        "benign_alerts_in_population": 105,
+        "benign_dismissal_rate": {
+          "denominator": 105,
+          "numerator": 102,
+          "population": "benign alerts in the population",
+          "value": 0.9714285714285714,
+          "wilson95": [
+            0.9193423526396465,
+            0.9902363378610444
+          ]
+        },
+        "definition": "All alerts. An alert with no verdict stays escalated (counted as predicted malicious), as an analyst queue would treat an untriaged alert.",
+        "detector_fp": 105,
+        "detector_fp_rate_among_benign_alerts": 1.0,
+        "detector_fp_share_of_alerts": 0.35,
+        "fp_reduction_pct": 97.14285714285714,
+        "fp_removed": 102,
+        "llm_fp": 3,
+        "llm_fp_rate_among_benign_alerts": 0.02857142857142857,
+        "llm_fp_share_of_alerts": 0.015706806282722512
+      },
+      "failures_wrong": {
+        "alert_volume_reduction_pct": 37.333333333333336,
+        "alerts_in_population": 300,
+        "alerts_raised_detector": 300,
+        "alerts_raised_llm": 188,
+        "attacks_missed_by_detector": 0,
+        "attacks_missed_by_llm": 10,
+        "benign_alerts_in_population": 105,
+        "benign_dismissal_rate": {
+          "denominator": 105,
+          "numerator": 102,
+          "population": "benign alerts in the population",
+          "value": 0.9714285714285714,
+          "wilson95": [
+            0.9193423526396465,
+            0.9902363378610444
+          ]
+        },
+        "definition": "All alerts. An alert with no verdict is always counted wrong: an attack becomes a miss, a benign alert becomes a false positive. Worst case.",
+        "detector_fp": 105,
+        "detector_fp_rate_among_benign_alerts": 1.0,
+        "detector_fp_share_of_alerts": 0.35,
+        "fp_reduction_pct": 97.14285714285714,
+        "fp_removed": 102,
+        "llm_fp": 3,
+        "llm_fp_rate_among_benign_alerts": 0.02857142857142857,
+        "llm_fp_share_of_alerts": 0.015957446808510637
+      },
+      "valid_only": {
+        "alert_volume_reduction_pct": 36.82432432432432,
+        "alerts_in_population": 296,
+        "alerts_raised_detector": 296,
+        "alerts_raised_llm": 187,
+        "attacks_missed_by_detector": 0,
+        "attacks_missed_by_llm": 7,
+        "benign_alerts_in_population": 104,
+        "benign_dismissal_rate": {
+          "denominator": 104,
+          "numerator": 102,
+          "population": "benign alerts in the population",
+          "value": 0.9807692307692307,
+          "wilson95": [
+            0.9325755460364407,
+            0.9947103992759434
+          ]
+        },
+        "definition": "Only alerts that received a valid verdict. Alerts with no verdict are left out of the denominator.",
+        "detector_fp": 104,
+        "detector_fp_rate_among_benign_alerts": 1.0,
+        "detector_fp_share_of_alerts": 0.35135135135135137,
+        "fp_reduction_pct": 98.07692307692308,
+        "fp_removed": 102,
+        "llm_fp": 2,
+        "llm_fp_rate_among_benign_alerts": 0.019230769230769232,
+        "llm_fp_share_of_alerts": 0.0106951871657754
+      }
+    },
+    "latency": {
+      "excluded_alert_ids": [],
+      "excluded_call_count": 0,
+      "excluded_values": [],
+      "per_alert_all_observations": {
+        "max": 18.656,
+        "mean": 1.8066133333333332,
+        "median": 1.562,
+        "min": 1.016,
+        "n": 300,
+        "p95": 2.8288
+      },
+      "per_alert_excluding_anomaly": {
+        "max": 18.656,
+        "mean": 1.8066133333333332,
+        "median": 1.562,
+        "min": 1.016,
+        "n": 300,
+        "p95": 2.8288
+      },
+      "per_call_all_observations": {
+        "max": 18.656,
+        "mean": 1.7068113207547169,
+        "median": 1.5385,
+        "min": 0.782,
+        "n": 318,
+        "p95": 2.359
+      },
+      "per_call_excluding_anomaly": {
+        "max": 18.656,
+        "mean": 1.7068113207547169,
+        "median": 1.5385,
+        "min": 0.782,
+        "n": 318,
+        "p95": 2.359
+      },
+      "unit": "seconds"
+    },
+    "mitre": {
+      "accepted_all_attacks_failures_wrong": {
+        "denominator": 195,
+        "numerator": 106,
+        "population": "all true attacks (no-verdict attacks count as wrong; lower bound)",
+        "value": 0.5435897435897435,
+        "wilson95": [
+          0.47350905457690146,
+          0.6119861335527454
+        ]
+      },
+      "accepted_on_attacks_flagged_malicious": {
+        "denominator": 185,
+        "numerator": 106,
+        "population": "true attacks the baseline called malicious",
+        "value": 0.572972972972973,
+        "wilson95": [
+          0.5009220625233591,
+          0.6420549086524835
+        ]
+      },
+      "accepted_on_attacks_with_valid_verdict": {
+        "denominator": 192,
+        "numerator": 106,
+        "population": "true attacks with a valid verdict",
+        "value": 0.5520833333333334,
+        "wilson95": [
+          0.4814068425997666,
+          0.6207165060656856
+        ]
+      },
+      "benign_alerts_given_NONE": {
+        "denominator": 104,
+        "numerator": 102,
+        "population": "true benign alerts with a valid verdict (reported apart from MITRE accuracy)",
+        "value": 0.9807692307692307,
+        "wilson95": [
+          0.9325755460364407,
+          0.9947103992759434
+        ]
+      },
+      "coverage": {
+        "denominator": 195,
+        "numerator": 192,
+        "population": "true attacks with a valid verdict",
+        "value": 0.9846153846153847,
+        "wilson95": [
+          0.9557509446677593,
+          0.9947543821853743
+        ]
+      },
+      "definition": "A predicted technique is correct if it is one of the accepted ids for the true class in the answer key (exact id match, no parent/child inference). Only true attacks are scored. A benign verdict gives technique NONE, which is never accepted for an attack, so it counts as wrong.",
+      "primary_on_attacks_with_valid_verdict": {
+        "denominator": 192,
+        "numerator": 46,
+        "population": "true attacks with a valid verdict (strict: the single primary id)",
+        "value": 0.23958333333333334,
+        "wilson95": [
+          0.1846935223353275,
+          0.3046897343374121
+        ]
+      }
+    },
+    "per_class": [
+      {
+        "alerts": 105,
+        "hits": 102,
+        "label": "BENIGN",
+        "no_verdict": 1,
+        "no_verdict_rate": 0.009523809523809525,
+        "rate": 0.9807692307692307,
+        "rate_kind": "dismissed as benign (detector false positives)",
+        "valid_verdicts": 104,
+        "wilson95": [
+          0.9325755460364407,
+          0.9947103992759434
+        ]
+      },
+      {
+        "alerts": 18,
+        "attack_type_accuracy": 0.0,
+        "attack_type_correct": 0,
+        "hits": 10,
+        "label": "Bot",
+        "mitre_accepted": 0,
+        "mitre_accuracy": 0.0,
+        "no_verdict": 1,
+        "no_verdict_rate": 0.05555555555555555,
+        "rate": 0.5882352941176471,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 17,
+        "wilson95": [
+          0.36005074385515545,
+          0.7838921396086862
+        ]
+      },
+      {
+        "alerts": 18,
+        "attack_type_accuracy": 0.0,
+        "attack_type_correct": 0,
+        "hits": 18,
+        "label": "DDoS",
+        "mitre_accepted": 15,
+        "mitre_accuracy": 0.8333333333333334,
+        "no_verdict": 0,
+        "no_verdict_rate": 0.0,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 18,
+        "wilson95": [
+          0.8241154494176252,
+          1.0
+        ]
+      },
+      {
+        "alerts": 18,
+        "attack_type_accuracy": 0.2222222222222222,
+        "attack_type_correct": 4,
+        "hits": 18,
+        "label": "DoS GoldenEye",
+        "mitre_accepted": 15,
+        "mitre_accuracy": 0.8333333333333334,
+        "no_verdict": 0,
+        "no_verdict_rate": 0.0,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 18,
+        "wilson95": [
+          0.8241154494176252,
+          1.0
+        ]
+      },
+      {
+        "alerts": 18,
+        "attack_type_accuracy": 0.0,
+        "attack_type_correct": 0,
+        "hits": 18,
+        "label": "DoS Hulk",
+        "mitre_accepted": 5,
+        "mitre_accuracy": 0.2777777777777778,
+        "no_verdict": 0,
+        "no_verdict_rate": 0.0,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 18,
+        "wilson95": [
+          0.8241154494176252,
+          1.0
+        ]
+      },
+      {
+        "alerts": 18,
+        "attack_type_accuracy": 0.0,
+        "attack_type_correct": 0,
+        "hits": 18,
+        "label": "DoS Slowhttptest",
+        "mitre_accepted": 13,
+        "mitre_accuracy": 0.7222222222222222,
+        "no_verdict": 0,
+        "no_verdict_rate": 0.0,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 18,
+        "wilson95": [
+          0.8241154494176252,
+          1.0
+        ]
+      },
+      {
+        "alerts": 18,
+        "attack_type_accuracy": 0.8888888888888888,
+        "attack_type_correct": 16,
+        "hits": 18,
+        "label": "DoS slowloris",
+        "mitre_accepted": 7,
+        "mitre_accuracy": 0.3888888888888889,
+        "no_verdict": 0,
+        "no_verdict_rate": 0.0,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 18,
+        "wilson95": [
+          0.8241154494176252,
+          1.0
+        ]
+      },
+      {
+        "alerts": 18,
+        "attack_type_accuracy": 1.0,
+        "attack_type_correct": 17,
+        "hits": 17,
+        "label": "FTP-Patator",
+        "mitre_accepted": 17,
+        "mitre_accuracy": 1.0,
+        "no_verdict": 1,
+        "no_verdict_rate": 0.05555555555555555,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 17,
+        "wilson95": [
+          0.8156763396284354,
+          1.0
+        ]
+      },
+      {
+        "alerts": 18,
+        "attack_type_accuracy": 1.0,
+        "attack_type_correct": 17,
+        "hits": 17,
+        "label": "PortScan",
+        "mitre_accepted": 17,
+        "mitre_accuracy": 1.0,
+        "no_verdict": 1,
+        "no_verdict_rate": 0.05555555555555555,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 17,
+        "wilson95": [
+          0.8156763396284354,
+          1.0
+        ]
+      },
+      {
+        "alerts": 17,
+        "attack_type_accuracy": 1.0,
+        "attack_type_correct": 17,
+        "hits": 17,
+        "label": "SSH-Patator",
+        "mitre_accepted": 17,
+        "mitre_accuracy": 1.0,
+        "no_verdict": 0,
+        "no_verdict_rate": 0.0,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 17,
+        "wilson95": [
+          0.8156763396284354,
+          1.0
+        ]
+      },
+      {
+        "alerts": 17,
+        "attack_type_accuracy": 0.0,
+        "attack_type_correct": 0,
+        "hits": 17,
+        "label": "Web Attack - Brute Force",
+        "mitre_accepted": 0,
+        "mitre_accuracy": 0.0,
+        "no_verdict": 0,
+        "no_verdict_rate": 0.0,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 17,
+        "wilson95": [
+          0.8156763396284354,
+          1.0
+        ]
+      },
+      {
+        "alerts": 17,
+        "attack_type_accuracy": 0.0,
+        "attack_type_correct": 0,
+        "hits": 17,
+        "label": "Web Attack - XSS/SQLi",
+        "mitre_accepted": 0,
+        "mitre_accuracy": 0.0,
+        "no_verdict": 0,
+        "no_verdict_rate": 0.0,
+        "rate": 1.0,
+        "rate_kind": "called malicious (recall)",
+        "valid_verdicts": 17,
+        "wilson95": [
+          0.8156763396284354,
+          1.0
+        ]
+      }
+    ],
+    "population": {
+      "alerts": 300,
+      "model_error": 0,
+      "not_run": 0,
+      "ok": 296,
+      "parse_failed": 4,
+      "true_attacks": 195,
+      "true_benign": 105
+    },
+    "reliability": {
+      "final_error_codes": {
+        "extra_fields": 4
+      },
+      "final_parse_failure": {
+        "denominator": 300,
+        "numerator": 4,
+        "population": "all alerts",
+        "value": 0.013333333333333334,
+        "wilson95": [
+          0.005196877684679467,
+          0.03377606084644991
+        ]
+      },
+      "finish_reason_counts": {
+        "STOP": 317
+      },
+      "first_try_error_codes": {
+        "extra_fields": 6,
+        "invalid_field": 1,
+        "invalid_json": 4
+      },
+      "first_try_malformed": {
+        "denominator": 300,
+        "numerator": 11,
+        "population": "alerts that received at least one reply",
+        "value": 0.03666666666666667,
+        "wilson95": [
+          0.02059509146818067,
+          0.06445448699638771
+        ]
+      },
+      "first_try_malformed_of_all_alerts": {
+        "denominator": 300,
+        "numerator": 11,
+        "population": "all alerts",
+        "value": 0.03666666666666667,
+        "wilson95": [
+          0.02059509146818067,
+          0.06445448699638771
+        ]
+      },
+      "model_calls_per_alert_mean": 1.0566666666666666,
+      "model_calls_total": 317,
+      "model_error": {
+        "denominator": 300,
+        "numerator": 0,
+        "population": "all alerts",
+        "value": 0.0,
+        "wilson95": [
+          0.0,
+          0.012643429997735661
+        ]
+      },
+      "no_verdict_by_true_label": {
+        "BENIGN": 1,
+        "Bot": 1,
+        "FTP-Patator": 1,
+        "PortScan": 1
+      },
+      "not_run": {
+        "denominator": 300,
+        "numerator": 0,
+        "population": "all alerts",
+        "value": 0.0,
+        "wilson95": [
+          0.0,
+          0.012643429997735661
+        ]
+      },
+      "recovered_by_retry": {
+        "denominator": 11,
+        "numerator": 7,
+        "population": "alerts whose first reply was malformed",
+        "value": 0.6363636363636364,
+        "wilson95": [
+          0.35379677689163724,
+          0.8483377638586862
+        ]
+      },
+      "retry_needed": {
+        "denominator": 300,
+        "numerator": 11,
+        "population": "alerts that received at least one reply",
+        "value": 0.03666666666666667,
+        "wilson95": [
+          0.02059509146818067,
+          0.06445448699638771
+        ]
+      },
+      "successful_verdict_coverage": {
+        "denominator": 300,
+        "numerator": 296,
+        "population": "all alerts",
+        "value": 0.9866666666666667,
+        "wilson95": [
+          0.9662239391535502,
+          0.9948031223153205
+        ]
+      }
+    },
+    "tokens": {
+      "alerts_with_token_counts": 300,
+      "alerts_without_token_counts": 0,
+      "output_tokens": 26288,
+      "parts_add_up_to_total": true,
+      "prompt_plus_output_plus_thinking": 953789,
+      "prompt_tokens": 927501,
+      "thinking_tokens": null,
+      "total_tokens": 953789,
+      "total_tokens_per_alert_mean": 3179.2966666666666
+    },
+    "verdict": {
+      "failures_escalated": {
+        "alerts_in_population": 300,
+        "definition": "All alerts. An alert with no verdict stays escalated (counted as predicted malicious), as an analyst queue would treat an untriaged alert.",
+        "detector": {
+          "f1": 0.787878787878788,
+          "precision": {
+            "denominator": 300,
+            "numerator": 195,
+            "population": "predicted malicious",
+            "value": 0.65,
+            "wilson95": [
+              0.594438067475952,
+              0.7017689035247274
+            ]
+          },
+          "recall": {
+            "denominator": 195,
+            "numerator": 195,
+            "population": "true attacks",
+            "value": 1.0,
+            "wilson95": [
+              0.9806800991341854,
+              1.0
+            ]
+          },
+          "specificity": {
+            "denominator": 105,
+            "numerator": 0,
+            "population": "true benign",
+            "value": 0.0,
+            "wilson95": [
+              0.0,
+              0.035295328256842964
+            ]
+          }
+        },
+        "detector_confusion": {
+          "fn": 0,
+          "fp": 105,
+          "tn": 0,
+          "tp": 195
+        },
+        "llm": {
+          "f1": 0.9740932642487047,
+          "precision": {
+            "denominator": 191,
+            "numerator": 188,
+            "population": "predicted malicious",
+            "value": 0.9842931937172775,
+            "wilson95": [
+              0.954844991261592,
+              0.9946442348584974
+            ]
+          },
+          "recall": {
+            "denominator": 195,
+            "numerator": 188,
+            "population": "true attacks",
+            "value": 0.9641025641025641,
+            "wilson95": [
+              0.9277676377322618,
+              0.9825046594128025
+            ]
+          },
+          "specificity": {
+            "denominator": 105,
+            "numerator": 102,
+            "population": "true benign",
+            "value": 0.9714285714285714,
+            "wilson95": [
+              0.9193423526396465,
+              0.9902363378610444
+            ]
+          }
+        },
+        "llm_confusion": {
+          "fn": 7,
+          "fp": 3,
+          "tn": 102,
+          "tp": 188
+        }
+      },
+      "failures_wrong": {
+        "alerts_in_population": 300,
+        "definition": "All alerts. An alert with no verdict is always counted wrong: an attack becomes a miss, a benign alert becomes a false positive. Worst case.",
+        "detector": {
+          "f1": 0.787878787878788,
+          "precision": {
+            "denominator": 300,
+            "numerator": 195,
+            "population": "predicted malicious",
+            "value": 0.65,
+            "wilson95": [
+              0.594438067475952,
+              0.7017689035247274
+            ]
+          },
+          "recall": {
+            "denominator": 195,
+            "numerator": 195,
+            "population": "true attacks",
+            "value": 1.0,
+            "wilson95": [
+              0.9806800991341854,
+              1.0
+            ]
+          },
+          "specificity": {
+            "denominator": 105,
+            "numerator": 0,
+            "population": "true benign",
+            "value": 0.0,
+            "wilson95": [
+              0.0,
+              0.035295328256842964
+            ]
+          }
+        },
+        "detector_confusion": {
+          "fn": 0,
+          "fp": 105,
+          "tn": 0,
+          "tp": 195
+        },
+        "llm": {
+          "f1": 0.9660574412532638,
+          "precision": {
+            "denominator": 188,
+            "numerator": 185,
+            "population": "predicted malicious",
+            "value": 0.9840425531914894,
+            "wilson95": [
+              0.9541408035010466,
+              0.9945585401241108
+            ]
+          },
+          "recall": {
+            "denominator": 195,
+            "numerator": 185,
+            "population": "true attacks",
+            "value": 0.9487179487179487,
+            "wilson95": [
+              0.908187963320368,
+              0.9719095615436444
+            ]
+          },
+          "specificity": {
+            "denominator": 105,
+            "numerator": 102,
+            "population": "true benign",
+            "value": 0.9714285714285714,
+            "wilson95": [
+              0.9193423526396465,
+              0.9902363378610444
+            ]
+          }
+        },
+        "llm_confusion": {
+          "fn": 10,
+          "fp": 3,
+          "tn": 102,
+          "tp": 185
+        }
+      },
+      "valid_only": {
+        "alerts_in_population": 296,
+        "definition": "Only alerts that received a valid verdict. Alerts with no verdict are left out of the denominator.",
+        "detector": {
+          "f1": 0.7868852459016393,
+          "precision": {
+            "denominator": 296,
+            "numerator": 192,
+            "population": "predicted malicious",
+            "value": 0.6486486486486487,
+            "wilson95": [
+              0.5926742840303661,
+              0.7008140111228082
+            ]
+          },
+          "recall": {
+            "denominator": 192,
+            "numerator": 192,
+            "population": "true attacks",
+            "value": 1.0,
+            "wilson95": [
+              0.9803841471883398,
+              0.9999999999999999
+            ]
+          },
+          "specificity": {
+            "denominator": 104,
+            "numerator": 0,
+            "population": "true benign",
+            "value": 0.0,
+            "wilson95": [
+              0.0,
+              0.03562261687512055
+            ]
+          }
+        },
+        "detector_confusion": {
+          "fn": 0,
+          "fp": 104,
+          "tn": 0,
+          "tp": 192
+        },
+        "llm": {
+          "f1": 0.9762532981530343,
+          "precision": {
+            "denominator": 187,
+            "numerator": 185,
+            "population": "predicted malicious",
+            "value": 0.9893048128342246,
+            "wilson95": [
+              0.9618482876199855,
+              0.9970621386183188
+            ]
+          },
+          "recall": {
+            "denominator": 192,
+            "numerator": 185,
+            "population": "true attacks",
+            "value": 0.9635416666666666,
+            "wilson95": [
+              0.9266682232288456,
+              0.9822295798936779
+            ]
+          },
+          "specificity": {
+            "denominator": 104,
+            "numerator": 102,
+            "population": "true benign",
+            "value": 0.9807692307692307,
+            "wilson95": [
+              0.9325755460364407,
+              0.9947103992759434
+            ]
+          }
+        },
+        "llm_confusion": {
+          "fn": 7,
+          "fp": 2,
+          "tn": 102,
+          "tp": 185
+        }
+      }
+    }
+  },
+  "protected_file_sha256": {
+    "eval\\MANIFEST.json": "e0aa07db7a739b31765c50ec2fd3ff94e02ff4907b6ba00002b0847bdda57f7f",
+    "eval\\dev_alerts.parquet": "7de717eddd6763f635e2365a1adcde07089462be7e3290747fee8b53e18b0e59",
+    "eval\\dev_labels.parquet": "7ee45be27bff205b5568d7ec52284aef586b5c0681096c95a06f2b4ea2b8c257",
+    "eval\\mitre_map.csv": "3d11350faf04f0795e072f8b1bb9094dad42e4c3b92a5a04a150b520a5f78a24",
+    "models\\detector_xgb.json": "299cba3acf301c93f66a6ab55504e6e9733d1a83e54628ab50db76a8f4b651e7",
+    "models\\feature_list.json": "8689547e10dde3335ecb6f56eafba5dc9e0e7a8a9def0e2f27daaf71caca3766",
+    "models\\threshold.json": "58f865a9cb78ca4eb4efc20c9076e32ff8014b4e7680083a5980ba0b2b0e8fc6"
+  },
+  "run": "day6_arm_B",
+  "run_file_sha256": {
+    "prompt_snapshot.txt": "b72be1d1c7c999db500d52dd923d976f1997eb05c47ac53c2d6c512a80a37769",
+    "raw_responses.jsonl": "40ca23f90376b7c9a40b618557ad3138603d3dd31e58c132bca8885a70d9dfb1",
+    "results.jsonl": "e72cdc47b60c1fbc070207ce8511a5428cb4790ecb443444f35a2daf0d345316",
+    "run_meta.json": "9ec685fb081da79bcb23f319a4f4338519d2ce39c9076476461035cc30720ec2",
+    "verdicts.csv": "b18e61ba6707d799359e3033188ef7c48a57af05e63ff19b321659e83198b11c"
+  },
+  "run_meta": {
+    "model": "gemini-3.5-flash-lite",
+    "prompt_sha256": "8df5e3fee15280d6b409e2a1fd1d01a505cfbe449421d9dafa1f8a30ee99f4c7",
+    "prompt_version": "agent_v1",
+    "provider": "gemini",
+    "run_name": "day6_arm_B",
+    "sessions": 2
+  },
+  "wall_clock_gaps": [
+    {
+      "from_alert_id": "DEV-0163",
+      "seconds": 738.0,
+      "to_alert_id": "DEV-0163"
+    },
+    {
+      "from_alert_id": "DEV-0162",
+      "seconds": 68.0,
+      "to_alert_id": "DEV-0163"
+    },
+    {
+      "from_alert_id": "DEV-0245",
+      "seconds": 24.0,
+      "to_alert_id": "DEV-0246"
+    },
+    {
+      "from_alert_id": "DEV-0203",
+      "seconds": 19.0,
+      "to_alert_id": "DEV-0204"
+    },
+    {
+      "from_alert_id": "DEV-0214",
+      "seconds": 13.0,
+      "to_alert_id": "DEV-0215"
+    }
+  ]
+}
