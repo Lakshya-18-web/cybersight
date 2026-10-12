@@ -1,0 +1,1689 @@
+{
+  "ablation_table": {
+    "json": "reports/week3_day6/ablation_comparison/ablation_table.json",
+    "json_sha256": "027f327b18c2be58a4937a77fb8ecf323e50bd7075df52dc2161e4a48848bdc2",
+    "md": "reports/week3_day6/ablation_comparison/ablation_table.md",
+    "md_sha256": "d6195b22e3825ce7d551cd8560ec8826e253073917bfa4128e946208b154a568"
+  },
+  "arm_metrics": {
+    "A": {
+      "attack_type_all": {
+        "den": 195,
+        "num": 63,
+        "value": 0.3230769230769231
+      },
+      "attack_type_valid": {
+        "den": 189,
+        "num": 63,
+        "value": 0.3333333333333333
+      },
+      "coverage": {
+        "den": 300,
+        "num": 294,
+        "value": 0.98
+      },
+      "failures_escalated.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 9
+      },
+      "failures_escalated.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9712793733681463
+      },
+      "failures_escalated.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "failures_escalated.precision": {
+        "den": 188,
+        "num": 186,
+        "value": 0.9893617021276596
+      },
+      "failures_escalated.recall": {
+        "den": 195,
+        "num": 186,
+        "value": 0.9538461538461539
+      },
+      "failures_escalated.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      },
+      "failures_wrong.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 15
+      },
+      "failures_wrong.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9549071618037136
+      },
+      "failures_wrong.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "failures_wrong.precision": {
+        "den": 182,
+        "num": 180,
+        "value": 0.989010989010989
+      },
+      "failures_wrong.recall": {
+        "den": 195,
+        "num": 180,
+        "value": 0.9230769230769231
+      },
+      "failures_wrong.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      },
+      "first_try_malformed": {
+        "den": null,
+        "num": null,
+        "value": 16
+      },
+      "graph_seconds": {
+        "den": null,
+        "num": null,
+        "value": 1957.169
+      },
+      "latency_alert_mean": {
+        "den": null,
+        "num": null,
+        "value": 1.9057133333333331
+      },
+      "mitre_all": {
+        "den": 195,
+        "num": 98,
+        "value": 0.5025641025641026
+      },
+      "mitre_valid": {
+        "den": 189,
+        "num": 98,
+        "value": 0.5185185185185185
+      },
+      "model_calls": {
+        "den": null,
+        "num": null,
+        "value": 326
+      },
+      "model_errors": {
+        "den": null,
+        "num": null,
+        "value": 0
+      },
+      "parse_failures": {
+        "den": null,
+        "num": null,
+        "value": 6
+      },
+      "tokens_per_alert": {
+        "den": null,
+        "num": null,
+        "value": 3606.67
+      },
+      "tool_calls": {
+        "den": null,
+        "num": null,
+        "value": 2287
+      },
+      "total_tokens": {
+        "den": null,
+        "num": null,
+        "value": 1082001
+      },
+      "valid_only.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 9
+      },
+      "valid_only.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9703504043126684
+      },
+      "valid_only.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "valid_only.precision": {
+        "den": 182,
+        "num": 180,
+        "value": 0.989010989010989
+      },
+      "valid_only.recall": {
+        "den": 189,
+        "num": 180,
+        "value": 0.9523809523809523
+      },
+      "valid_only.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      }
+    },
+    "B": {
+      "attack_type_all": {
+        "den": 195,
+        "num": 71,
+        "value": 0.3641025641025641
+      },
+      "attack_type_valid": {
+        "den": 192,
+        "num": 71,
+        "value": 0.3697916666666667
+      },
+      "coverage": {
+        "den": 300,
+        "num": 296,
+        "value": 0.9866666666666667
+      },
+      "failures_escalated.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 7
+      },
+      "failures_escalated.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9740932642487047
+      },
+      "failures_escalated.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 97.14285714285714
+      },
+      "failures_escalated.precision": {
+        "den": 191,
+        "num": 188,
+        "value": 0.9842931937172775
+      },
+      "failures_escalated.recall": {
+        "den": 195,
+        "num": 188,
+        "value": 0.9641025641025641
+      },
+      "failures_escalated.specificity": {
+        "den": 105,
+        "num": 102,
+        "value": 0.9714285714285714
+      },
+      "failures_wrong.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 10
+      },
+      "failures_wrong.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9660574412532638
+      },
+      "failures_wrong.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 97.14285714285714
+      },
+      "failures_wrong.precision": {
+        "den": 188,
+        "num": 185,
+        "value": 0.9840425531914894
+      },
+      "failures_wrong.recall": {
+        "den": 195,
+        "num": 185,
+        "value": 0.9487179487179487
+      },
+      "failures_wrong.specificity": {
+        "den": 105,
+        "num": 102,
+        "value": 0.9714285714285714
+      },
+      "first_try_malformed": {
+        "den": null,
+        "num": null,
+        "value": 11
+      },
+      "graph_seconds": {
+        "den": null,
+        "num": null,
+        "value": 1921.182
+      },
+      "latency_alert_mean": {
+        "den": null,
+        "num": null,
+        "value": 1.8066133333333332
+      },
+      "mitre_all": {
+        "den": 195,
+        "num": 106,
+        "value": 0.5435897435897435
+      },
+      "mitre_valid": {
+        "den": 192,
+        "num": 106,
+        "value": 0.5520833333333334
+      },
+      "model_calls": {
+        "den": null,
+        "num": null,
+        "value": 317
+      },
+      "model_errors": {
+        "den": null,
+        "num": null,
+        "value": 0
+      },
+      "parse_failures": {
+        "den": null,
+        "num": null,
+        "value": 4
+      },
+      "tokens_per_alert": {
+        "den": null,
+        "num": null,
+        "value": 3179.2966666666666
+      },
+      "tool_calls": {
+        "den": null,
+        "num": null,
+        "value": 1729
+      },
+      "total_tokens": {
+        "den": null,
+        "num": null,
+        "value": 953789
+      },
+      "valid_only.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 7
+      },
+      "valid_only.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9762532981530343
+      },
+      "valid_only.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.07692307692308
+      },
+      "valid_only.precision": {
+        "den": 187,
+        "num": 185,
+        "value": 0.9893048128342246
+      },
+      "valid_only.recall": {
+        "den": 192,
+        "num": 185,
+        "value": 0.9635416666666666
+      },
+      "valid_only.specificity": {
+        "den": 104,
+        "num": 102,
+        "value": 0.9807692307692307
+      }
+    },
+    "C": {
+      "attack_type_all": {
+        "den": 195,
+        "num": 66,
+        "value": 0.3384615384615385
+      },
+      "attack_type_valid": {
+        "den": 186,
+        "num": 66,
+        "value": 0.3548387096774194
+      },
+      "coverage": {
+        "den": 300,
+        "num": 291,
+        "value": 0.97
+      },
+      "failures_escalated.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 8
+      },
+      "failures_escalated.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9739583333333334
+      },
+      "failures_escalated.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "failures_escalated.precision": {
+        "den": 189,
+        "num": 187,
+        "value": 0.9894179894179894
+      },
+      "failures_escalated.recall": {
+        "den": 195,
+        "num": 187,
+        "value": 0.958974358974359
+      },
+      "failures_escalated.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      },
+      "failures_wrong.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 17
+      },
+      "failures_wrong.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9493333333333335
+      },
+      "failures_wrong.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "failures_wrong.precision": {
+        "den": 180,
+        "num": 178,
+        "value": 0.9888888888888889
+      },
+      "failures_wrong.recall": {
+        "den": 195,
+        "num": 178,
+        "value": 0.9128205128205128
+      },
+      "failures_wrong.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      },
+      "first_try_malformed": {
+        "den": null,
+        "num": null,
+        "value": 24
+      },
+      "graph_seconds": {
+        "den": null,
+        "num": null,
+        "value": 2024.539
+      },
+      "latency_alert_mean": {
+        "den": null,
+        "num": null,
+        "value": 1.6781966666666668
+      },
+      "mitre_all": {
+        "den": 195,
+        "num": 108,
+        "value": 0.5538461538461539
+      },
+      "mitre_valid": {
+        "den": 186,
+        "num": 108,
+        "value": 0.5806451612903226
+      },
+      "model_calls": {
+        "den": null,
+        "num": null,
+        "value": 338
+      },
+      "model_errors": {
+        "den": null,
+        "num": null,
+        "value": 0
+      },
+      "parse_failures": {
+        "den": null,
+        "num": null,
+        "value": 9
+      },
+      "tokens_per_alert": {
+        "den": null,
+        "num": null,
+        "value": 3465.69
+      },
+      "tool_calls": {
+        "den": null,
+        "num": null,
+        "value": 1158
+      },
+      "total_tokens": {
+        "den": null,
+        "num": null,
+        "value": 1039707
+      },
+      "valid_only.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 8
+      },
+      "valid_only.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9726775956284154
+      },
+      "valid_only.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "valid_only.precision": {
+        "den": 180,
+        "num": 178,
+        "value": 0.9888888888888889
+      },
+      "valid_only.recall": {
+        "den": 186,
+        "num": 178,
+        "value": 0.956989247311828
+      },
+      "valid_only.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      }
+    },
+    "D": {
+      "attack_type_all": {
+        "den": 195,
+        "num": 56,
+        "value": 0.28717948717948716
+      },
+      "attack_type_valid": {
+        "den": 195,
+        "num": 56,
+        "value": 0.28717948717948716
+      },
+      "coverage": {
+        "den": 300,
+        "num": 300,
+        "value": 1.0
+      },
+      "failures_escalated.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 30
+      },
+      "failures_escalated.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9116022099447514
+      },
+      "failures_escalated.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "failures_escalated.precision": {
+        "den": 167,
+        "num": 165,
+        "value": 0.9880239520958084
+      },
+      "failures_escalated.recall": {
+        "den": 195,
+        "num": 165,
+        "value": 0.8461538461538461
+      },
+      "failures_escalated.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      },
+      "failures_wrong.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 30
+      },
+      "failures_wrong.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9116022099447514
+      },
+      "failures_wrong.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "failures_wrong.precision": {
+        "den": 167,
+        "num": 165,
+        "value": 0.9880239520958084
+      },
+      "failures_wrong.recall": {
+        "den": 195,
+        "num": 165,
+        "value": 0.8461538461538461
+      },
+      "failures_wrong.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      },
+      "first_try_malformed": {
+        "den": null,
+        "num": null,
+        "value": 7
+      },
+      "graph_seconds": {
+        "den": null,
+        "num": null,
+        "value": 1833.892
+      },
+      "latency_alert_mean": {
+        "den": null,
+        "num": null,
+        "value": 1.28738
+      },
+      "mitre_all": {
+        "den": 195,
+        "num": 48,
+        "value": 0.24615384615384617
+      },
+      "mitre_valid": {
+        "den": 195,
+        "num": 48,
+        "value": 0.24615384615384617
+      },
+      "model_calls": {
+        "den": null,
+        "num": null,
+        "value": 307
+      },
+      "model_errors": {
+        "den": null,
+        "num": null,
+        "value": 0
+      },
+      "parse_failures": {
+        "den": null,
+        "num": null,
+        "value": 0
+      },
+      "tokens_per_alert": {
+        "den": null,
+        "num": null,
+        "value": 2884.943333333333
+      },
+      "tool_calls": {
+        "den": null,
+        "num": null,
+        "value": 1129
+      },
+      "total_tokens": {
+        "den": null,
+        "num": null,
+        "value": 865483
+      },
+      "valid_only.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 30
+      },
+      "valid_only.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9116022099447514
+      },
+      "valid_only.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 98.0952380952381
+      },
+      "valid_only.precision": {
+        "den": 167,
+        "num": 165,
+        "value": 0.9880239520958084
+      },
+      "valid_only.recall": {
+        "den": 195,
+        "num": 165,
+        "value": 0.8461538461538461
+      },
+      "valid_only.specificity": {
+        "den": 105,
+        "num": 103,
+        "value": 0.9809523809523809
+      }
+    },
+    "E": {
+      "attack_type_all": {
+        "den": 195,
+        "num": 59,
+        "value": 0.30256410256410254
+      },
+      "attack_type_valid": {
+        "den": 195,
+        "num": 59,
+        "value": 0.30256410256410254
+      },
+      "coverage": {
+        "den": 300,
+        "num": 300,
+        "value": 1.0
+      },
+      "failures_escalated.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 29
+      },
+      "failures_escalated.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9171270718232044
+      },
+      "failures_escalated.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 99.04761904761905
+      },
+      "failures_escalated.precision": {
+        "den": 167,
+        "num": 166,
+        "value": 0.9940119760479041
+      },
+      "failures_escalated.recall": {
+        "den": 195,
+        "num": 166,
+        "value": 0.8512820512820513
+      },
+      "failures_escalated.specificity": {
+        "den": 105,
+        "num": 104,
+        "value": 0.9904761904761905
+      },
+      "failures_wrong.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 29
+      },
+      "failures_wrong.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9171270718232044
+      },
+      "failures_wrong.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 99.04761904761905
+      },
+      "failures_wrong.precision": {
+        "den": 167,
+        "num": 166,
+        "value": 0.9940119760479041
+      },
+      "failures_wrong.recall": {
+        "den": 195,
+        "num": 166,
+        "value": 0.8512820512820513
+      },
+      "failures_wrong.specificity": {
+        "den": 105,
+        "num": 104,
+        "value": 0.9904761904761905
+      },
+      "first_try_malformed": {
+        "den": null,
+        "num": null,
+        "value": 1
+      },
+      "graph_seconds": {
+        "den": null,
+        "num": null,
+        "value": 1836.932
+      },
+      "latency_alert_mean": {
+        "den": null,
+        "num": null,
+        "value": 1.915653333333333
+      },
+      "mitre_all": {
+        "den": 195,
+        "num": 120,
+        "value": 0.6153846153846154
+      },
+      "mitre_valid": {
+        "den": 195,
+        "num": 120,
+        "value": 0.6153846153846154
+      },
+      "model_calls": {
+        "den": null,
+        "num": null,
+        "value": 301
+      },
+      "model_errors": {
+        "den": null,
+        "num": null,
+        "value": 0
+      },
+      "parse_failures": {
+        "den": null,
+        "num": null,
+        "value": 0
+      },
+      "tokens_per_alert": {
+        "den": null,
+        "num": null,
+        "value": 2543.9866666666667
+      },
+      "tool_calls": {
+        "den": null,
+        "num": null,
+        "value": 0
+      },
+      "total_tokens": {
+        "den": null,
+        "num": null,
+        "value": 763196
+      },
+      "valid_only.attacks_missed": {
+        "den": null,
+        "num": null,
+        "value": 29
+      },
+      "valid_only.f1": {
+        "den": null,
+        "num": null,
+        "value": 0.9171270718232044
+      },
+      "valid_only.fp_reduction": {
+        "den": null,
+        "num": null,
+        "value": 99.04761904761905
+      },
+      "valid_only.precision": {
+        "den": 167,
+        "num": 166,
+        "value": 0.9940119760479041
+      },
+      "valid_only.recall": {
+        "den": 195,
+        "num": 166,
+        "value": 0.8512820512820513
+      },
+      "valid_only.specificity": {
+        "den": 105,
+        "num": 104,
+        "value": 0.9904761904761905
+      }
+    }
+  },
+  "audit_reports_sha256": {
+    "reports/week3_day6/audit_artifacts_day5/audit_artifacts.json": "32aa17b250c193933ac85c8af1a76f248e20dbbab1148b8661c5f18936b4687b",
+    "reports/week3_day6/audit_replay_A/audit_replay_A.json": "07f8c68f02f1e5e9d7086ff6949bad5761591a47e077597c1538127f5064ed84",
+    "reports/week3_day6/audit_replay_A_vs_day5/audit_replay_A.json": "bc81b794047e4f14f62abdf3ffffde2e6e7e5fcd3685dbb49381aab674670538",
+    "reports/week3_day6/audit_replay_B/audit_replay_B.json": "30cedffe454611b8cc566f6d3b49b6b904471162c5085526dff23275ab6a318b",
+    "reports/week3_day6/audit_replay_C/audit_replay_C.json": "69fc8f3eb7abe6d7a63caa61b38a6f59f6979f3a254fa29a6a11c71a9cb90beb",
+    "reports/week3_day6/audit_replay_D/audit_replay_D.json": "97be50381da9df9d208eccb19762426e7e75d06a62ef35f60a50b715001b4499",
+    "reports/week3_day6/audit_replay_E/audit_replay_E.json": "a719fc16df40c235ba76c27f317fead7ebc491e36a372d376c7c0fbb78189e2a",
+    "reports/week3_day7/audit_artifacts_A/audit_artifacts.json": "6826586952c2bf3ae508e85034ac3daaf92b4ca6226f379a98e980c6aa72b5a1",
+    "reports/week3_day7/audit_artifacts_B/audit_artifacts.json": "68e7ce4e4445d70303cd293fcc3b4d3cac6d47b0eec161c99c6d4bf4c1d209b3",
+    "reports/week3_day7/audit_artifacts_C/audit_artifacts.json": "48076eb9816a054d3482701fe8cca30250fa0aa682ce656ebf8ede80cfa02c69",
+    "reports/week3_day7/audit_artifacts_D/audit_artifacts.json": "9389345c770267c6392e4b2bd2bf7cc590d0e8a4228d55d62778c97860eb2cb3",
+    "reports/week3_day7/audit_artifacts_E/audit_artifacts.json": "fd6b56a866ac10d89b962af0c0c75b7ca0b216dd71cad2a2a5cc73d0e58dbe10",
+    "reports/week3_day7/audit_replay_vs_run_A/audit_replay_A.json": "13e304cc56bf4318b8d2336c7ae46f6c7897e8e7fc57bf0e740a4772d39015b4",
+    "reports/week3_day7/audit_replay_vs_run_B/audit_replay_B.json": "1ec45095a61ac28206d614add48e67241ba2164bcdcad72fc80b96e295f30dee",
+    "reports/week3_day7/audit_replay_vs_run_C/audit_replay_C.json": "8d7ade48e4dbd1698caa090a4fceaf96539aae9c09afa576620a99d1b7431d4b",
+    "reports/week3_day7/audit_replay_vs_run_D/audit_replay_D.json": "af2e63dd32072322da6e206e24f63a02b326ba8bc7f89837e55b6b7d9f7199c9",
+    "reports/week3_day7/audit_replay_vs_run_E/audit_replay_E.json": "f33f064a72d9147b470a6b9861c60bd78db9966932d65d456238b3599839bdd7"
+  },
+  "baseline_metrics": {
+    "attack_type_all": {
+      "den": 195,
+      "num": 71,
+      "value": 0.3641025641025641
+    },
+    "attack_type_valid": {
+      "den": 194,
+      "num": 71,
+      "value": 0.36597938144329895
+    },
+    "coverage": {
+      "den": 300,
+      "num": 297,
+      "value": 0.99
+    },
+    "failures_escalated.attacks_missed": {
+      "den": null,
+      "num": null,
+      "value": 8
+    },
+    "failures_escalated.f1": {
+      "den": null,
+      "num": null,
+      "value": 0.9234567901234567
+    },
+    "failures_escalated.fp_reduction": {
+      "den": null,
+      "num": null,
+      "value": 78.0952380952381
+    },
+    "failures_escalated.precision": {
+      "den": 210,
+      "num": 187,
+      "value": 0.8904761904761904
+    },
+    "failures_escalated.recall": {
+      "den": 195,
+      "num": 187,
+      "value": 0.958974358974359
+    },
+    "failures_escalated.specificity": {
+      "den": 105,
+      "num": 82,
+      "value": 0.780952380952381
+    },
+    "failures_wrong.attacks_missed": {
+      "den": null,
+      "num": null,
+      "value": 9
+    },
+    "failures_wrong.f1": {
+      "den": null,
+      "num": null,
+      "value": 0.9207920792079208
+    },
+    "failures_wrong.fp_reduction": {
+      "den": null,
+      "num": null,
+      "value": 78.0952380952381
+    },
+    "failures_wrong.precision": {
+      "den": 209,
+      "num": 186,
+      "value": 0.8899521531100478
+    },
+    "failures_wrong.recall": {
+      "den": 195,
+      "num": 186,
+      "value": 0.9538461538461539
+    },
+    "failures_wrong.specificity": {
+      "den": 105,
+      "num": 82,
+      "value": 0.780952380952381
+    },
+    "first_try_malformed": {
+      "den": null,
+      "num": null,
+      "value": 5
+    },
+    "graph_seconds": null,
+    "latency_alert_mean": {
+      "den": null,
+      "num": null,
+      "value": 2.14961
+    },
+    "mitre_all": {
+      "den": 195,
+      "num": 112,
+      "value": 0.5743589743589743
+    },
+    "mitre_valid": {
+      "den": 194,
+      "num": 112,
+      "value": 0.5773195876288659
+    },
+    "model_calls": {
+      "den": null,
+      "num": null,
+      "value": 309
+    },
+    "model_errors": {
+      "den": null,
+      "num": null,
+      "value": 0
+    },
+    "parse_failures": {
+      "den": null,
+      "num": null,
+      "value": 3
+    },
+    "tokens_per_alert": {
+      "den": null,
+      "num": null,
+      "value": 2244.92
+    },
+    "tool_calls": null,
+    "total_tokens": {
+      "den": null,
+      "num": null,
+      "value": 673476
+    },
+    "valid_only.attacks_missed": {
+      "den": null,
+      "num": null,
+      "value": 8
+    },
+    "valid_only.f1": {
+      "den": null,
+      "num": null,
+      "value": 0.9276807980049875
+    },
+    "valid_only.fp_reduction": {
+      "den": null,
+      "num": null,
+      "value": 79.6116504854369
+    },
+    "valid_only.precision": {
+      "den": 207,
+      "num": 186,
+      "value": 0.8985507246376812
+    },
+    "valid_only.recall": {
+      "den": 194,
+      "num": 186,
+      "value": 0.9587628865979382
+    },
+    "valid_only.specificity": {
+      "den": 103,
+      "num": 82,
+      "value": 0.7961165048543689
+    }
+  },
+  "checks": [
+    {
+      "detail": "8df5e3fee15280d6",
+      "name": "the agent_v1 prompt in the code has the pinned hash",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "the graph version is v0.1",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "every arm run and the Day 5 run used prompt agent_v1 with the pinned hash",
+      "passed": true
+    },
+    {
+      "detail": "gemini-3.5-flash-lite",
+      "name": "every run used one model, gemini-3.5-flash-lite",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "every arm run and the Day 5 run used identical generation, retry, timeout and rate settings",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "every arm run and the Day 5 run used the same dev inputs and the same 300-alert list",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "every arm run is a complete real dev run (not a fake-model run)",
+      "passed": true
+    },
+    {
+      "detail": "5 of 5",
+      "name": "each arm run recorded the ablation arm, switched-off specialists and effective specialists that ablation_config defines for it",
+      "passed": true
+    },
+    {
+      "detail": "5 of 5",
+      "name": "every arm run ended with 300 final results and no model_error alert",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "every arm evaluation is complete, for its own run, with the run's prompt hash and true integrity checks",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "the Day 5 and baseline_v3 evaluations are complete and for their own runs",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "no evaluation was partial",
+      "passed": true
+    },
+    {
+      "detail": "6 of 6 match",
+      "name": "every run folder matches the run_file_sha256 its own evaluation recorded",
+      "passed": true
+    },
+    {
+      "detail": "lines now 1, in evaluations [1]",
+      "name": "the frozen access log has the same number of lines now as in every evaluation (frozen set not opened)",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "no run recorded a changed frozen access log or Week 1 file",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "the frozen unlock variable is not set in this shell",
+      "passed": true
+    },
+    {
+      "detail": "30 hash comparisons",
+      "name": "the Week 1 files hash the same now as in every evaluation",
+      "passed": true
+    },
+    {
+      "detail": "used ['A', 'B', 'C', 'D', 'E'], excluded 0",
+      "name": "the ablation table has reference A, all five arms in A to E order, and no excluded run",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "the ablation table was built from exactly the five arm runs and their evaluation folders",
+      "passed": true
+    },
+    {
+      "detail": "all cells match",
+      "name": "every number in the committed ablation table equals what the evaluations give now",
+      "passed": true
+    },
+    {
+      "detail": "17 of 17",
+      "name": "every required audit report exists",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "every audit report says all its checks passed",
+      "passed": true
+    },
+    {
+      "detail": "5 of 5",
+      "name": "the committed code reproduces every arm run: 300 alerts replayed per arm; prompt hash, trace, routing, tool-call counts and upstream statuses identical to the real run",
+      "passed": true
+    },
+    {
+      "detail": "compared 300, identical 300",
+      "name": "arm A's replay matches the Day 5 run on every compared field",
+      "passed": true
+    },
+    {
+      "detail": "5 of 5",
+      "name": "each Day 7 artifacts audit is for its own arm run",
+      "passed": true
+    },
+    {
+      "detail": "16 of 16",
+      "name": "the Week 2 baseline verification passes (16 checks: locked prompt, five locked source files, reference runs, frozen log, Week 1 files)",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "the five locked Week 2 source files hash the same as in the Week 2 lock record",
+      "passed": true
+    },
+    {
+      "detail": "",
+      "name": "the baseline_v3 evaluation used in the comparison is the one the Week 2 lock recorded",
+      "passed": true
+    },
+    {
+      "detail": "ran 1092, OK, Day 7 tests listed: True",
+      "name": "a full-suite log exists, shows OK, 1017 or more tests, and lists the Day 7 tests",
+      "passed": true
+    }
+  ],
+  "day5_metrics": {
+    "attack_type_all": {
+      "den": 195,
+      "num": 61,
+      "value": 0.3128205128205128
+    },
+    "attack_type_valid": {
+      "den": 187,
+      "num": 61,
+      "value": 0.32620320855614976
+    },
+    "coverage": {
+      "den": 300,
+      "num": 292,
+      "value": 0.9733333333333334
+    },
+    "failures_escalated.attacks_missed": {
+      "den": null,
+      "num": null,
+      "value": 10
+    },
+    "failures_escalated.f1": {
+      "den": null,
+      "num": null,
+      "value": 0.9685863874345549
+    },
+    "failures_escalated.fp_reduction": {
+      "den": null,
+      "num": null,
+      "value": 98.0952380952381
+    },
+    "failures_escalated.precision": {
+      "den": 187,
+      "num": 185,
+      "value": 0.9893048128342246
+    },
+    "failures_escalated.recall": {
+      "den": 195,
+      "num": 185,
+      "value": 0.9487179487179487
+    },
+    "failures_escalated.specificity": {
+      "den": 105,
+      "num": 103,
+      "value": 0.9809523809523809
+    },
+    "failures_wrong.attacks_missed": {
+      "den": null,
+      "num": null,
+      "value": 18
+    },
+    "failures_wrong.f1": {
+      "den": null,
+      "num": null,
+      "value": 0.946524064171123
+    },
+    "failures_wrong.fp_reduction": {
+      "den": null,
+      "num": null,
+      "value": 98.0952380952381
+    },
+    "failures_wrong.precision": {
+      "den": 179,
+      "num": 177,
+      "value": 0.9888268156424581
+    },
+    "failures_wrong.recall": {
+      "den": 195,
+      "num": 177,
+      "value": 0.9076923076923077
+    },
+    "failures_wrong.specificity": {
+      "den": 105,
+      "num": 103,
+      "value": 0.9809523809523809
+    },
+    "first_try_malformed": {
+      "den": null,
+      "num": null,
+      "value": 17
+    },
+    "graph_seconds": {
+      "den": null,
+      "num": null,
+      "value": 1969.97
+    },
+    "latency_alert_mean": {
+      "den": null,
+      "num": null,
+      "value": 1.6283766666666668
+    },
+    "mitre_all": {
+      "den": 195,
+      "num": 96,
+      "value": 0.49230769230769234
+    },
+    "mitre_valid": {
+      "den": 187,
+      "num": 96,
+      "value": 0.5133689839572193
+    },
+    "model_calls": {
+      "den": null,
+      "num": null,
+      "value": 329
+    },
+    "model_errors": {
+      "den": null,
+      "num": null,
+      "value": 0
+    },
+    "parse_failures": {
+      "den": null,
+      "num": null,
+      "value": 8
+    },
+    "tokens_per_alert": {
+      "den": null,
+      "num": null,
+      "value": 3636.443333333333
+    },
+    "tool_calls": {
+      "den": null,
+      "num": null,
+      "value": 2287
+    },
+    "total_tokens": {
+      "den": null,
+      "num": null,
+      "value": 1090933
+    },
+    "valid_only.attacks_missed": {
+      "den": null,
+      "num": null,
+      "value": 10
+    },
+    "valid_only.f1": {
+      "den": null,
+      "num": null,
+      "value": 0.9672131147540983
+    },
+    "valid_only.fp_reduction": {
+      "den": null,
+      "num": null,
+      "value": 98.0952380952381
+    },
+    "valid_only.precision": {
+      "den": 179,
+      "num": 177,
+      "value": 0.9888268156424581
+    },
+    "valid_only.recall": {
+      "den": 187,
+      "num": 177,
+      "value": 0.946524064171123
+    },
+    "valid_only.specificity": {
+      "den": 105,
+      "num": 103,
+      "value": 0.9809523809523809
+    }
+  },
+  "frozen_access_log": {
+    "lines": 1,
+    "sha256_normalized": "aca942b50b058a0c3a428541db79bfa600f72976308f319de821e713cd0cfda3"
+  },
+  "git_at_lock": {
+    "branch": "master",
+    "commit": "792d7bf498d06d38379fd1c60917ff43fc4198e7",
+    "modified_tracked_files": [
+      "rc/tools/base.py",
+      "src/tools/flow_query.py",
+      "src/tools/mitre_lookup.py",
+      "tests/test_week3_day2_schemas.py",
+      "tests/test_week3_day2_tools.py"
+    ],
+    "note": "commit before the Day 7 commit; the week3-agents tag is placed on the Day 7 commit",
+    "untracked_entries": 25
+  },
+  "locked_utc": "2026-10-12T20:29:14Z",
+  "purpose": "Week 3 agent system v1 lock record. The full graph (arm A) is the locked system; a change is a new version, never an edit.",
+  "report": {
+    "path": "WEEK3_REPORT.md",
+    "sha256_normalized": "abfbb0bd5e27e48796a3deaf9628cb1af2b271e176301198101d3bbcc2c0a85f"
+  },
+  "runs": {
+    "A": {
+      "counts": {
+        "model_error": 0,
+        "ok": 294,
+        "parse_failed": 6
+      },
+      "evaluation_dir": "reports/week3_day6/eval_A",
+      "evaluation_sha256": "1dd8c6dd3c891140e17dc5454b21c64c8e7db6326408ae8f3b9bb1193f8282f1",
+      "git_recorded_by_run": {
+        "commit": "ce619c4",
+        "dirty": true
+      },
+      "model_calls": 326,
+      "run_dir": "runs/week3_day6/day6_arm_A",
+      "run_files_sha256": {
+        "prompt_snapshot.txt": "fc869c8826b6c5d847eae2a86a0a2f769c0ac65f00c152437d45c8d2551757d8",
+        "raw_responses.jsonl": "eb5f3c752a6f89c5dd18b7a4b237d4c7a9062f5f46f3e76eb3f468be2148d8c6",
+        "results.jsonl": "f0f5045318d11c9b032b508bac726c80c38da0a788d685cd298912b2f9a73970",
+        "run_meta.json": "e473c8712e3555061706fc863bbbaade054614a37477f980b06c2793ab566a93",
+        "verdicts.csv": "6deb3189d32e4b0e52c6d0aa46963e4e3d812caa1506bfc3db6d315668bf762d"
+      },
+      "run_name": "day6_arm_A",
+      "total_tokens": 1082001
+    },
+    "B": {
+      "counts": {
+        "model_error": 0,
+        "ok": 296,
+        "parse_failed": 4
+      },
+      "evaluation_dir": "reports/week3_day6/eval_B",
+      "evaluation_sha256": "8cc73e32622fcf2304f27de0cfe745ca19140f2db26b3b66322196101a258912",
+      "git_recorded_by_run": {
+        "commit": "ce619c4",
+        "dirty": true
+      },
+      "model_calls": 317,
+      "run_dir": "runs/week3_day6/day6_arm_B",
+      "run_files_sha256": {
+        "prompt_snapshot.txt": "b72be1d1c7c999db500d52dd923d976f1997eb05c47ac53c2d6c512a80a37769",
+        "raw_responses.jsonl": "40ca23f90376b7c9a40b618557ad3138603d3dd31e58c132bca8885a70d9dfb1",
+        "results.jsonl": "e72cdc47b60c1fbc070207ce8511a5428cb4790ecb443444f35a2daf0d345316",
+        "run_meta.json": "9ec685fb081da79bcb23f319a4f4338519d2ce39c9076476461035cc30720ec2",
+        "verdicts.csv": "b18e61ba6707d799359e3033188ef7c48a57af05e63ff19b321659e83198b11c"
+      },
+      "run_name": "day6_arm_B",
+      "total_tokens": 953789
+    },
+    "C": {
+      "counts": {
+        "model_error": 0,
+        "ok": 291,
+        "parse_failed": 9
+      },
+      "evaluation_dir": "reports/week3_day6/eval_C",
+      "evaluation_sha256": "b7165a27ed6f58ecdf2f9c286837a0e86ef641e135f47b1ea1bc6ca597a32ccc",
+      "git_recorded_by_run": {
+        "commit": "ce619c4",
+        "dirty": true
+      },
+      "model_calls": 338,
+      "run_dir": "runs/week3_day6/day6_arm_C",
+      "run_files_sha256": {
+        "prompt_snapshot.txt": "22ccc86be40ab23f2bce0bc8273ffd2163b64b2dd2a1a984f53745c7edb2f4ad",
+        "raw_responses.jsonl": "b5f97330a9d57b3ff683c8354578ef19996217026300e8024d0bdfba795e7939",
+        "results.jsonl": "e7442427229777609c3a8550b4baddeb3dd8d5d835893cdfbbae05c452e1ad0c",
+        "run_meta.json": "1f8de928e98776497f724450cd5bdcba3fbb248a07d043ba3e3e7d3f9fcd021c",
+        "verdicts.csv": "f4b4282bd3827339c0f8698172ed3cd72db94cd09699e9265f71c237634810b0"
+      },
+      "run_name": "day6_arm_C",
+      "total_tokens": 1039707
+    },
+    "D": {
+      "counts": {
+        "model_error": 0,
+        "ok": 300,
+        "parse_failed": 0
+      },
+      "evaluation_dir": "reports/week3_day6/eval_D",
+      "evaluation_sha256": "3ac3d08bce1d779dff107629aab92e1934ce0a9ff303ea134e6d9335a33a4294",
+      "git_recorded_by_run": {
+        "commit": "ce619c4",
+        "dirty": true
+      },
+      "model_calls": 307,
+      "run_dir": "runs/week3_day6/day6_arm_D",
+      "run_files_sha256": {
+        "prompt_snapshot.txt": "ac6515a7f4788dcc290c6bcfceee029888f2768d6af890dc776242712ce018aa",
+        "raw_responses.jsonl": "3ecb86dac4fc51559c6bc6379c49726a1ced375a80c511d71a807319f3f3e5b2",
+        "results.jsonl": "263bbc2ee451cc279bcbe0e14b1bda27bb9a14d360b100046daed4a11aadd83d",
+        "run_meta.json": "b8d4aac9fdfbcedf21d33c3cf9a81cfb209c1ac1e314a3b8a3a9c223173c8574",
+        "verdicts.csv": "471b6a2847c805c058473142a478e6c17b6d4c4c1a3591e067926f32ecc5b205"
+      },
+      "run_name": "day6_arm_D",
+      "total_tokens": 865483
+    },
+    "E": {
+      "counts": {
+        "model_error": 0,
+        "ok": 300,
+        "parse_failed": 0
+      },
+      "evaluation_dir": "reports/week3_day6/eval_E",
+      "evaluation_sha256": "373265671410ad70f92d517df7add7ce4a9769e7b11a49423bec9b846b335b23",
+      "git_recorded_by_run": {
+        "commit": "ce619c4",
+        "dirty": true
+      },
+      "model_calls": 301,
+      "run_dir": "runs/week3_day6/day6_arm_E",
+      "run_files_sha256": {
+        "prompt_snapshot.txt": "ea79f217a8ab3dcb6bb9bcff4bfc630fcc0a7cc6a0acae95fc8d22887bb0627c",
+        "raw_responses.jsonl": "0e19683419d7ed840900b27e8e51cb19bb0a7e42a421b64c0035147de5d2d987",
+        "results.jsonl": "513cfd9575f45ef50450849a617b8584141a28a6b9d8b92e34857b0da8629543",
+        "run_meta.json": "59c8d2702a9924637ba655e006ed8a58fd641f2e6f541d9232a7046952b39e4f",
+        "verdicts.csv": "7d2555bfa48c7e2b569e77fa5e213daf3e12cf98a1fb482252585b315f12c953"
+      },
+      "run_name": "day6_arm_E",
+      "total_tokens": 763196
+    },
+    "day5": {
+      "counts": {
+        "model_error": 0,
+        "ok": 292,
+        "parse_failed": 8
+      },
+      "evaluation_dir": "reports/week2_eval/dev_agent_v1_flash_lite",
+      "evaluation_sha256": "2495c83c98a27f73fe1308fa75621a5c9b5b5a00c5af2344a41ac70c94a8b286",
+      "git_recorded_by_run": {
+        "commit": "e75b34e",
+        "dirty": true
+      },
+      "model_calls": 329,
+      "run_dir": "runs/week3_agent_v1/dev_agent_v1_flash_lite",
+      "run_files_sha256": {
+        "prompt_snapshot.txt": "fc869c8826b6c5d847eae2a86a0a2f769c0ac65f00c152437d45c8d2551757d8",
+        "raw_responses.jsonl": "346eb355f6b2b3cf95c7bbd29e6fb65db705be2545c0b0825c2750ca38ec1b1f",
+        "results.jsonl": "73d611e51567a0d935a92ea20271fc1992bb89df9fd0c010553c64e88a9da6b5",
+        "run_meta.json": "54000d9a2aa8efbf3f6d961885b6b188408bf5e82ce0c0e67b494547d017cbdb",
+        "verdicts.csv": "f8dc9ccade8e71956283747d02b9b259e9b9cb9ec661b333529aee86513aa436"
+      },
+      "run_name": "dev_agent_v1_flash_lite",
+      "total_tokens": 1090933
+    }
+  },
+  "schema": "week3_agent_lock_v1",
+  "source_files_sha256": {
+    "src/ablation_config.py": "72a0c9fa4c75eeac2861214fc7102868db0d0a4565469c33489816d93aa7aaf6",
+    "src/ablation_table.py": "8f5efacde22fdd10ae35d260d3f96c1bded5417fab60a34af246a76060c84a50",
+    "src/agents/__init__.py": "bbf4f78e625bd07a6078c700a5cd6a9042440d5d7254c039c0e611cd95978251",
+    "src/agents/c2_beacon_analyst.py": "4af3c0f6239165d7a44ec64c26272c88be665187196b0ac599cb1ff40175b6a5",
+    "src/agents/common.py": "e781a66c23e118c8e5a309f60ddf64114c4672d48080fd8cab3a9b0b4d2f2c5d",
+    "src/agents/enrichment_agent.py": "4547caf09ace9116b37e51ab8be577df58504f5517fc95d234aa298a6feb3ae6",
+    "src/agents/graph.py": "199756d5b6250e5d1738a208a0de928f0a1d60d49ac135ecaac23383be8e390a",
+    "src/agents/state.py": "c4e1ededff8d5192c1c6fb408d37188f5426743d412ea7b5bcea723948a9152b",
+    "src/agents/supervisor.py": "0069a240c949d21193d8fd16efb53f572e82e8311ab00f9451c14bd8b3d495e0",
+    "src/agents/traffic_analyst.py": "3f54abffa03cf74422885cfaa21ceaaf62f518609bee973d7e2d93a4c9312793",
+    "src/agents/verdict_node.py": "c81c711d940528297d64f4cb34e46d512db99077e0d2a63585762838def61010",
+    "src/agents/verdict_prompt.py": "c82bf84345e99767297fabcdb04a5685e2d682e294eb380de7a2fbd3af70d3c7",
+    "src/baseline_prompt.py": "dce06065b4e0a6d53bf2323507fa5d2cb88ddadcf1aced2b7a6f0f1fb49a15a3",
+    "src/baseline_store.py": "7ba81b2bec7f65cc816fc7ef756c0ad6d5c7d305921c8d19511fe375ef9306ad",
+    "src/compare_agent_vs_baseline.py": "0ce010cd40b065c13f9d23c516296da0441b66e9cbe0d347a1b3a1dca850b6ae",
+    "src/config.py": "3ee43472201c36957fddd25233461d2d687dd92a09f3b490141990cf7ca5683f",
+    "src/day6_aggregate.py": "dc00a72adc0f07b29dda5c25cad19f803714e517c4a47902e6b8d8f3087473ca",
+    "src/day6_replicates.py": "c695d6bd1550ce44f2f29c5b5e03a4b8f8ab1354415fece1d2af5f78445d11b2",
+    "src/eval_io.py": "8df246d9fbb93c3423becf9fe5729aa56707b4e4d14c2f8b5d3a78e7d07a01f5",
+    "src/eval_labels.py": "8cb73a37d04b5a923ce782404d4450dabe7b26aee923d332d14adff2d8ab1076",
+    "src/eval_metrics.py": "67d429a52e8dd3d9914ff7611537634a9416356f34c2076d3aa62f628653647a",
+    "src/evaluate.py": "cd3fdf47ed940ea80b7d5b7e6fd95d0d8f7ef09ccdd876b437cce5798109172b",
+    "src/gemini_client.py": "605bb2815398fecaaed478700631b6891d21911a55af4165d2a6c83ef22d5f9c",
+    "src/prompt_registry.py": "c8595e631b0f1c01f501e691726f4a66f6539896b1b6f825878346cc0e19c237",
+    "src/run_agent_dev.py": "4af2e4c64761c39ecb2b94e3621b20c50038d45a1c70e72018944efb0a304914",
+    "src/run_baseline_dev.py": "aa7f9831e81ba4a8e8b4b0ce39e365a97c84c0c3485508b80fa30d55929c7c9c",
+    "src/run_graph_dev.py": "8d8df501cbb14ca8028ceb1e11a4e4faaa7e6669a90e525867d69f16e0af1c4f",
+    "src/tools/__init__.py": "94df420dc5829d9ed94d3a956ecf7f0736f5a626c052d55988a668e0017aeac0",
+    "src/tools/base.py": "a9f27f5975c5eb5dca627f5f936be58174bdf858cac64ede43f5f103a9900620",
+    "src/tools/enrichment.py": "f5a46e04785b93db65d1520b9ae67a4121e829fb106b3b1ed215ea4dbc6ecf6a",
+    "src/tools/flow_query.py": "db99c983db39c2036204c6e4392550c270c1764ceaa1d7bcc20a2580f4d776b9",
+    "src/tools/mitre_lookup.py": "5e522add525602c97486db53dcc31475036098c72e50932bcb6526e3dd11882b",
+    "src/tools/mitre_reference.py": "050c86b0a5481accc5d138bae7abc032b81459a0135215c8b9cc74d36120d11c",
+    "src/tools/reference_data.py": "1297adfe72dc61e0f431d956849c8f419fc6fb3dd596a31d0e6e234f28549b06",
+    "src/tools/registry.py": "d1387b0030dd3b8a4a931043d562877f3b1b9ff6612d66ec18ddf49f0ce347fd",
+    "src/tools/reputation.py": "06813e0eca31359686e6749f4adb4795802f0793a8cb3d1514af7f8e486c1bad",
+    "src/triage_inputs.py": "326e0248497a17f0675dd1d0b7286c92c456791d4e5b30606f429b8512637856",
+    "src/verdict_parser.py": "26027ee0b3bcfd7921e243f170208bbb95507f85b666ab955b0ece617b0852f1",
+    "src/verdict_schema.py": "9dd2390c3874ac22c49c145d18a6fa139e7d16d5f04df75a1405d18f83d5c59a",
+    "src/week2_report.py": "d36dc0c1366443324482e54543e4b6fd05c7f02f64ad0318104f83eb40903c4c",
+    "src/week3_day6_audit.py": "bc1c8dab9332a99f277e7afa09e212beb3eaf5eb400601b8103bd6daaf6410b4",
+    "src/week3_report.py": "3b704f45fd050bfbdc840db8a0ce1e400e1b2bfcfe0e9e22fce94091a8ab2653"
+  },
+  "source_hash_note": "sha256 of the file with CRLF normalized to LF",
+  "suite": {
+    "log": "reports/week3_day7/full_suite_792d7bf.txt",
+    "log_sha256": "6ee87980d334f4f66f6bee780f41ee4aa38234b308012542e353e71738388a6c",
+    "ok": true,
+    "seconds": 577.987,
+    "skipped": 3,
+    "tests_run": 1092
+  },
+  "system": {
+    "graph_version": "v0.1",
+    "inputs": {
+      "dev_alerts_sha256": "7de717eddd6763f635e2365a1adcde07089462be7e3290747fee8b53e18b0e59",
+      "flow_store_dev_sha256": "e3df785fe091e8817e23c4a83e293e7db5837b85cf653e8214bd3cc42aa63800"
+    },
+    "model": "gemini-3.5-flash-lite",
+    "n_alerts": 300,
+    "prompt_sha256": "8df5e3fee15280d6b409e2a1fd1d01a505cfbe449421d9dafa1f8a30ee99f4c7",
+    "prompt_version": "agent_v1",
+    "reference_arm": "A",
+    "reference_run": "day6_arm_A",
+    "settings": {
+      "max_output_tokens": 1024,
+      "parse_retries": 2,
+      "requests_per_minute": 10.0,
+      "seed": 42,
+      "temperature": 0.0,
+      "timeout_seconds": 60,
+      "transport_retries": 4
+    },
+    "specialists": [
+      "traffic_analyst",
+      "c2_beacon_analyst",
+      "enrichment_agent"
+    ]
+  },
+  "timeout_decision": "known-limitation",
+  "transport": {
+    "A": {
+      "estimated_requests_made": 326,
+      "failed_attempts_by_exception_class": {},
+      "failed_attempts_by_http_status": {},
+      "failed_transport_attempts": 0,
+      "latency_seconds": {
+        "max": 10.5,
+        "p95": 2.39075
+      },
+      "lines": 326,
+      "outcomes": {
+        "reply": 326
+      },
+      "replies_that_needed_transport_retries": 0,
+      "reply_calls": 326,
+      "timeout_like_failed_attempts": 0
+    },
+    "B": {
+      "estimated_requests_made": 322,
+      "failed_attempts_by_exception_class": {
+        "ClientError": 5
+      },
+      "failed_attempts_by_http_status": {
+        "429": 5
+      },
+      "failed_transport_attempts": 5,
+      "latency_seconds": {
+        "max": 18.656,
+        "p95": 2.359
+      },
+      "lines": 318,
+      "outcomes": {
+        "reply": 317,
+        "transport_failed": 1
+      },
+      "replies_that_needed_transport_retries": 0,
+      "reply_calls": 317,
+      "timeout_like_failed_attempts": 0
+    },
+    "C": {
+      "estimated_requests_made": 338,
+      "failed_attempts_by_exception_class": {},
+      "failed_attempts_by_http_status": {},
+      "failed_transport_attempts": 0,
+      "latency_seconds": {
+        "max": 3.421,
+        "p95": 1.97125
+      },
+      "lines": 338,
+      "outcomes": {
+        "reply": 338
+      },
+      "replies_that_needed_transport_retries": 0,
+      "reply_calls": 338,
+      "timeout_like_failed_attempts": 0
+    },
+    "D": {
+      "estimated_requests_made": 312,
+      "failed_attempts_by_exception_class": {
+        "ClientError": 5
+      },
+      "failed_attempts_by_http_status": {
+        "429": 5
+      },
+      "failed_transport_attempts": 5,
+      "latency_seconds": {
+        "max": 4.766,
+        "p95": 1.60375
+      },
+      "lines": 308,
+      "outcomes": {
+        "reply": 307,
+        "transport_failed": 1
+      },
+      "replies_that_needed_transport_retries": 0,
+      "reply_calls": 307,
+      "timeout_like_failed_attempts": 0
+    },
+    "E": {
+      "estimated_requests_made": 307,
+      "failed_attempts_by_exception_class": {
+        "ClientError": 5,
+        "ServerError": 1
+      },
+      "failed_attempts_by_http_status": {
+        "429": 5,
+        "503": 1
+      },
+      "failed_transport_attempts": 6,
+      "latency_seconds": {
+        "max": 10.921,
+        "p95": 6.54155
+      },
+      "lines": 302,
+      "outcomes": {
+        "reply": 301,
+        "transport_failed": 1
+      },
+      "replies_that_needed_transport_retries": 1,
+      "reply_calls": 301,
+      "timeout_like_failed_attempts": 0
+    },
+    "day5": {
+      "estimated_requests_made": 329,
+      "failed_attempts_by_exception_class": {},
+      "failed_attempts_by_http_status": {},
+      "failed_transport_attempts": 0,
+      "latency_seconds": {
+        "max": 4.656,
+        "p95": 2.0096
+      },
+      "lines": 329,
+      "outcomes": {
+        "reply": 329
+      },
+      "replies_that_needed_transport_retries": 0,
+      "reply_calls": 329,
+      "timeout_like_failed_attempts": 0
+    }
+  },
+  "week1_files_sha256": {
+    "eval/MANIFEST.json": "e0aa07db7a739b31765c50ec2fd3ff94e02ff4907b6ba00002b0847bdda57f7f",
+    "eval/dev_alerts.parquet": "7de717eddd6763f635e2365a1adcde07089462be7e3290747fee8b53e18b0e59",
+    "eval/flow_store_dev.parquet": "e3df785fe091e8817e23c4a83e293e7db5837b85cf653e8214bd3cc42aa63800",
+    "models/detector_xgb.json": "299cba3acf301c93f66a6ab55504e6e9733d1a83e54628ab50db76a8f4b651e7",
+    "models/feature_list.json": "8689547e10dde3335ecb6f56eafba5dc9e0e7a8a9def0e2f27daaf71caca3766",
+    "models/threshold.json": "58f865a9cb78ca4eb4efc20c9076e32ff8014b4e7680083a5980ba0b2b0e8fc6"
+  },
+  "week2": {
+    "baseline_evaluation_sha256": "a5092154cb8e4a95fa6461fe3572caac6c1283f04252888dbde31bd8e1a2215b",
+    "baseline_run": "dev_flash_lite_v3_final",
+    "lock_file": "reports/week2_baseline_lock.json",
+    "lock_file_sha256": "a6d803be58c053fc945050836f7d1a5e3a3fcd923a58818acf658c8c433d2ddc",
+    "report_sha256_normalized": "dd74ba6be9a1c8780068e490197e87de38a00efb010c718d34029f1b9533f828"
+  }
+}
