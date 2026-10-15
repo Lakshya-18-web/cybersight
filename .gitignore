@@ -6,3 +6,6 @@ __pycache__/
 venv/
 eval/flow_store_*.parquet
 .env
+
+# Week 4: local secrets
+.env.week4

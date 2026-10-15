@@ -1,0 +1,27 @@
+# Week 4 case database (PostgreSQL 16). Local development and demos only.
+#   1. copy .env.week4.example to .env.week4 and set WEEK4_DB_PASSWORD (the file is git-ignored; never commit it)
+#   2. docker compose --env-file .env.week4 up -d db
+#   3. python -m week4.db.migrate apply          (see docs/WEEK4_OPERATIONS.md)
+# No credential is written in this file: the password must come from the environment, and compose refuses to start without it.
+# The port is bound to 127.0.0.1 only. Do not publish it on another interface without TLS and a firewall.
+services:
+  db:
+    image: postgres:16
+    container_name: soc-week4-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${WEEK4_DB_OWNER:-soc_owner}
+      POSTGRES_PASSWORD: ${WEEK4_DB_PASSWORD:?set WEEK4_DB_PASSWORD in .env.week4 (see .env.week4.example)}
+      POSTGRES_DB: ${WEEK4_DB_NAME:-soc}
+    ports:
+      - "127.0.0.1:${WEEK4_DB_PORT:-5432}:5432"
+    volumes:
+      - soc_week4_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  soc_week4_pgdata:

@@ -1,0 +1,42 @@
+{
+  "policy_version": "risk-policy-v1",
+  "description": "Transparent routing rules for the SOC triage agent. Every number below is a policy default chosen before any Week 4 run. None was tuned on the dev set, the frozen set or any run output. Change it only deliberately: the file's sha256 is recorded with every routing decision.",
+  "auto_close": {
+    "max_detector_score": 0.5,
+    "require_verdict_status": "ok",
+    "require_traffic_status": ["ok"],
+    "allowed_beacon_statuses": ["ok", "not_run"],
+    "allowed_enrichment_statuses": ["ok"],
+    "max_graph_errors": 0,
+    "require_memory_ok_when_enabled": true
+  },
+  "memory": {
+    "min_hits": 3,
+    "min_attack_neighbour_share": 0.6,
+    "can_only_raise_risk": true
+  },
+  "severity_to_risk": {
+    "critical": "high",
+    "high": "high",
+    "medium": "medium",
+    "low": "low",
+    "none": "low"
+  },
+  "containment_proposals": {
+    "min_severity_for_containment": "high",
+    "monitoring_action": "increase_monitoring",
+    "by_attack_type": {
+      "Bot": "isolate_host",
+      "DDoS": "rate_limit_source",
+      "DoS GoldenEye": "rate_limit_source",
+      "DoS Hulk": "rate_limit_source",
+      "DoS Slowhttptest": "rate_limit_source",
+      "DoS slowloris": "rate_limit_source",
+      "FTP-Patator": "block_source_ip",
+      "PortScan": "block_source_ip",
+      "SSH-Patator": "block_source_ip",
+      "Web Attack - Brute Force": "block_source_ip",
+      "Web Attack - XSS/SQLi": "block_source_ip"
+    }
+  }
+}

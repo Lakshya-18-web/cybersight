@@ -1,0 +1,589 @@
+metric,value
+arms.memory_off.metrics.actions.approval_note,"Every proposed action starts as 'pending'. Approving or rejecting is a human decision made through the approval API; these runs contain none, so no approval rate exists and none is invented. Nothing is ever executed."
+arms.memory_off.metrics.actions.by_type.block_source_ip,20
+arms.memory_off.metrics.actions.by_type.increase_monitoring,41
+arms.memory_off.metrics.actions.by_type.rate_limit_source,121
+arms.memory_off.metrics.actions.executed,0
+arms.memory_off.metrics.actions.proposed_actions,182
+arms.memory_off.metrics.attack_type.all_attacks_failures_wrong.denominator,195
+arms.memory_off.metrics.attack_type.all_attacks_failures_wrong.numerator,63
+arms.memory_off.metrics.attack_type.all_attacks_failures_wrong.population,all true attacks (no-verdict attacks count as wrong; lower bound)
+arms.memory_off.metrics.attack_type.all_attacks_failures_wrong.value,0.3230769230769231
+arms.memory_off.metrics.attack_type.coverage.denominator,195
+arms.memory_off.metrics.attack_type.coverage.numerator,190
+arms.memory_off.metrics.attack_type.coverage.population,true attacks with a valid verdict
+arms.memory_off.metrics.attack_type.coverage.value,0.9743589743589743
+arms.memory_off.metrics.attack_type.definition,Exact match of the predicted attack_type with the true class. A benign verdict on an attack counts as wrong.
+arms.memory_off.metrics.attack_type.on_attacks_flagged_malicious.denominator,180
+arms.memory_off.metrics.attack_type.on_attacks_flagged_malicious.numerator,63
+arms.memory_off.metrics.attack_type.on_attacks_flagged_malicious.population,true attacks the baseline called malicious
+arms.memory_off.metrics.attack_type.on_attacks_flagged_malicious.value,0.35
+arms.memory_off.metrics.attack_type.on_attacks_with_valid_verdict.denominator,190
+arms.memory_off.metrics.attack_type.on_attacks_with_valid_verdict.numerator,63
+arms.memory_off.metrics.attack_type.on_attacks_with_valid_verdict.population,true attacks with a valid verdict
+arms.memory_off.metrics.attack_type.on_attacks_with_valid_verdict.value,0.33157894736842103
+arms.memory_off.metrics.errors.error_code_counts.extra_fields,3
+arms.memory_off.metrics.errors.error_code_counts.invalid_json,2
+arms.memory_off.metrics.errors.first_try_malformed_replies,15
+arms.memory_off.metrics.errors.graph_error_alerts,5
+arms.memory_off.metrics.errors.graph_status_counts.completed,295
+arms.memory_off.metrics.errors.graph_status_counts.completed_with_errors,5
+arms.memory_off.metrics.errors.routing_errors,0
+arms.memory_off.metrics.errors.status_counts.ok,295
+arms.memory_off.metrics.errors.status_counts.parse_failed,5
+arms.memory_off.metrics.mitre.accepted_all_attacks_failures_wrong.denominator,195
+arms.memory_off.metrics.mitre.accepted_all_attacks_failures_wrong.numerator,96
+arms.memory_off.metrics.mitre.accepted_all_attacks_failures_wrong.population,all true attacks (no-verdict attacks count as wrong; lower bound)
+arms.memory_off.metrics.mitre.accepted_all_attacks_failures_wrong.value,0.49230769230769234
+arms.memory_off.metrics.mitre.accepted_on_attacks_flagged_malicious.denominator,180
+arms.memory_off.metrics.mitre.accepted_on_attacks_flagged_malicious.numerator,96
+arms.memory_off.metrics.mitre.accepted_on_attacks_flagged_malicious.population,true attacks the baseline called malicious
+arms.memory_off.metrics.mitre.accepted_on_attacks_flagged_malicious.value,0.5333333333333333
+arms.memory_off.metrics.mitre.accepted_on_attacks_with_valid_verdict.denominator,190
+arms.memory_off.metrics.mitre.accepted_on_attacks_with_valid_verdict.numerator,96
+arms.memory_off.metrics.mitre.accepted_on_attacks_with_valid_verdict.population,true attacks with a valid verdict
+arms.memory_off.metrics.mitre.accepted_on_attacks_with_valid_verdict.value,0.5052631578947369
+arms.memory_off.metrics.mitre.benign_alerts_given_NONE.denominator,105
+arms.memory_off.metrics.mitre.benign_alerts_given_NONE.numerator,103
+arms.memory_off.metrics.mitre.benign_alerts_given_NONE.population,true benign alerts with a valid verdict (reported apart from MITRE accuracy)
+arms.memory_off.metrics.mitre.benign_alerts_given_NONE.value,0.9809523809523809
+arms.memory_off.metrics.mitre.coverage.denominator,195
+arms.memory_off.metrics.mitre.coverage.numerator,190
+arms.memory_off.metrics.mitre.coverage.population,true attacks with a valid verdict
+arms.memory_off.metrics.mitre.coverage.value,0.9743589743589743
+arms.memory_off.metrics.mitre.definition,"A predicted technique is correct if it is one of the accepted ids for the true class in the answer key (exact id match, no parent/child inference). Only true attacks are scored. A benign verdict gives technique NONE, which is never accepted for an attack, so it counts as wrong."
+arms.memory_off.metrics.mitre.primary_on_attacks_with_valid_verdict.denominator,190
+arms.memory_off.metrics.mitre.primary_on_attacks_with_valid_verdict.numerator,48
+arms.memory_off.metrics.mitre.primary_on_attacks_with_valid_verdict.population,true attacks with a valid verdict (strict: the single primary id)
+arms.memory_off.metrics.mitre.primary_on_attacks_with_valid_verdict.value,0.25263157894736843
+arms.memory_off.metrics.population.alerts,300
+arms.memory_off.metrics.population.model_error,0
+arms.memory_off.metrics.population.not_run,0
+arms.memory_off.metrics.population.ok,295
+arms.memory_off.metrics.population.parse_failed,5
+arms.memory_off.metrics.population.true_attacks,195
+arms.memory_off.metrics.population.true_benign,105
+arms.memory_off.metrics.reliability.final_error_codes.extra_fields,3
+arms.memory_off.metrics.reliability.final_error_codes.invalid_json,2
+arms.memory_off.metrics.reliability.final_parse_failure.denominator,300
+arms.memory_off.metrics.reliability.final_parse_failure.numerator,5
+arms.memory_off.metrics.reliability.final_parse_failure.population,all alerts
+arms.memory_off.metrics.reliability.final_parse_failure.value,0.016666666666666666
+arms.memory_off.metrics.reliability.finish_reason_counts.STOP,324
+arms.memory_off.metrics.reliability.first_try_error_codes.extra_fields,9
+arms.memory_off.metrics.reliability.first_try_error_codes.invalid_json,6
+arms.memory_off.metrics.reliability.first_try_malformed.denominator,300
+arms.memory_off.metrics.reliability.first_try_malformed.numerator,15
+arms.memory_off.metrics.reliability.first_try_malformed.population,alerts that received at least one reply
+arms.memory_off.metrics.reliability.first_try_malformed.value,0.05
+arms.memory_off.metrics.reliability.first_try_malformed_of_all_alerts.denominator,300
+arms.memory_off.metrics.reliability.first_try_malformed_of_all_alerts.numerator,15
+arms.memory_off.metrics.reliability.first_try_malformed_of_all_alerts.population,all alerts
+arms.memory_off.metrics.reliability.first_try_malformed_of_all_alerts.value,0.05
+arms.memory_off.metrics.reliability.model_calls_per_alert_mean,1.08
+arms.memory_off.metrics.reliability.model_calls_total,324
+arms.memory_off.metrics.reliability.model_error.denominator,300
+arms.memory_off.metrics.reliability.model_error.numerator,0
+arms.memory_off.metrics.reliability.model_error.population,all alerts
+arms.memory_off.metrics.reliability.model_error.value,0.0
+arms.memory_off.metrics.reliability.no_verdict_by_true_label.FTP-Patator,4
+arms.memory_off.metrics.reliability.no_verdict_by_true_label.SSH-Patator,1
+arms.memory_off.metrics.reliability.not_run.denominator,300
+arms.memory_off.metrics.reliability.not_run.numerator,0
+arms.memory_off.metrics.reliability.not_run.population,all alerts
+arms.memory_off.metrics.reliability.not_run.value,0.0
+arms.memory_off.metrics.reliability.recovered_by_retry.denominator,15
+arms.memory_off.metrics.reliability.recovered_by_retry.numerator,10
+arms.memory_off.metrics.reliability.recovered_by_retry.population,alerts whose first reply was malformed
+arms.memory_off.metrics.reliability.recovered_by_retry.value,0.6666666666666666
+arms.memory_off.metrics.reliability.retry_needed.denominator,300
+arms.memory_off.metrics.reliability.retry_needed.numerator,15
+arms.memory_off.metrics.reliability.retry_needed.population,alerts that received at least one reply
+arms.memory_off.metrics.reliability.retry_needed.value,0.05
+arms.memory_off.metrics.reliability.successful_verdict_coverage.denominator,300
+arms.memory_off.metrics.reliability.successful_verdict_coverage.numerator,295
+arms.memory_off.metrics.reliability.successful_verdict_coverage.population,all alerts
+arms.memory_off.metrics.reliability.successful_verdict_coverage.value,0.9833333333333333
+arms.memory_off.metrics.routing.auto_close_rate.denominator,300
+arms.memory_off.metrics.routing.auto_close_rate.numerator,108
+arms.memory_off.metrics.routing.auto_close_rate.population,all alerts in the comparison
+arms.memory_off.metrics.routing.auto_close_rate.value,0.36
+arms.memory_off.metrics.routing.auto_closed_that_were_benign.denominator,108
+arms.memory_off.metrics.routing.auto_closed_that_were_benign.numerator,102
+arms.memory_off.metrics.routing.auto_closed_that_were_benign.population,auto-closed alerts (undefined when nothing was auto-closed)
+arms.memory_off.metrics.routing.auto_closed_that_were_benign.value,0.9444444444444444
+arms.memory_off.metrics.routing.counts.auto_close,108
+arms.memory_off.metrics.routing.counts.escalate,187
+arms.memory_off.metrics.routing.counts.needs_review,5
+arms.memory_off.metrics.routing.counts.no_routing,0
+arms.memory_off.metrics.routing.definition,"Decisions of the risk policy recorded in each run, applied identically to both arms. 'no_routing' = the graph or policy produced no decision for the alert (never counted as closed)."
+arms.memory_off.metrics.routing.escalation_rate_escalate_only.denominator,300
+arms.memory_off.metrics.routing.escalation_rate_escalate_only.numerator,187
+arms.memory_off.metrics.routing.escalation_rate_escalate_only.population,all alerts in the comparison
+arms.memory_off.metrics.routing.escalation_rate_escalate_only.value,0.6233333333333333
+arms.memory_off.metrics.routing.rates_of_all_alerts.auto_close.denominator,300
+arms.memory_off.metrics.routing.rates_of_all_alerts.auto_close.numerator,108
+arms.memory_off.metrics.routing.rates_of_all_alerts.auto_close.population,all alerts in the comparison
+arms.memory_off.metrics.routing.rates_of_all_alerts.auto_close.value,0.36
+arms.memory_off.metrics.routing.rates_of_all_alerts.escalate.denominator,300
+arms.memory_off.metrics.routing.rates_of_all_alerts.escalate.numerator,187
+arms.memory_off.metrics.routing.rates_of_all_alerts.escalate.population,all alerts in the comparison
+arms.memory_off.metrics.routing.rates_of_all_alerts.escalate.value,0.6233333333333333
+arms.memory_off.metrics.routing.rates_of_all_alerts.needs_review.denominator,300
+arms.memory_off.metrics.routing.rates_of_all_alerts.needs_review.numerator,5
+arms.memory_off.metrics.routing.rates_of_all_alerts.needs_review.population,all alerts in the comparison
+arms.memory_off.metrics.routing.rates_of_all_alerts.needs_review.value,0.016666666666666666
+arms.memory_off.metrics.routing.rates_of_all_alerts.no_routing.denominator,300
+arms.memory_off.metrics.routing.rates_of_all_alerts.no_routing.numerator,0
+arms.memory_off.metrics.routing.rates_of_all_alerts.no_routing.population,all alerts in the comparison
+arms.memory_off.metrics.routing.rates_of_all_alerts.no_routing.value,0.0
+arms.memory_off.metrics.routing.review_queue_rate_escalate_or_needs_review.denominator,300
+arms.memory_off.metrics.routing.review_queue_rate_escalate_or_needs_review.numerator,192
+arms.memory_off.metrics.routing.review_queue_rate_escalate_or_needs_review.population,all alerts in the comparison
+arms.memory_off.metrics.routing.review_queue_rate_escalate_or_needs_review.value,0.64
+arms.memory_off.metrics.routing.true_attacks_auto_closed.denominator,195
+arms.memory_off.metrics.routing.true_attacks_auto_closed.numerator,6
+arms.memory_off.metrics.routing.true_attacks_auto_closed.population,true attacks (a closed attack is a missed attack)
+arms.memory_off.metrics.routing.true_attacks_auto_closed.value,0.03076923076923077
+arms.memory_off.metrics.routing.true_attacks_in_review_queue.denominator,195
+arms.memory_off.metrics.routing.true_attacks_in_review_queue.numerator,189
+arms.memory_off.metrics.routing.true_attacks_in_review_queue.population,true attacks
+arms.memory_off.metrics.routing.true_attacks_in_review_queue.value,0.9692307692307692
+arms.memory_off.metrics.routing.true_benign_auto_closed.denominator,105
+arms.memory_off.metrics.routing.true_benign_auto_closed.numerator,102
+arms.memory_off.metrics.routing.true_benign_auto_closed.population,true benign alerts
+arms.memory_off.metrics.routing.true_benign_auto_closed.value,0.9714285714285714
+arms.memory_off.metrics.routing.true_benign_in_review_queue.denominator,105
+arms.memory_off.metrics.routing.true_benign_in_review_queue.numerator,3
+arms.memory_off.metrics.routing.true_benign_in_review_queue.population,true benign alerts (analyst workload that was not needed)
+arms.memory_off.metrics.routing.true_benign_in_review_queue.value,0.02857142857142857
+arms.memory_off.metrics.usage.model_calls,324
+arms.memory_off.metrics.usage.total_tokens,1073340
+arms.memory_off.metrics.verdict.failures_escalated.alerts_in_population,300
+arms.memory_off.metrics.verdict.failures_escalated.definition,"All alerts. An alert with no verdict stays escalated (counted as predicted malicious), as an analyst queue would treat an untriaged alert."
+arms.memory_off.metrics.verdict.failures_escalated.detector.f1,0.787878787878788
+arms.memory_off.metrics.verdict.failures_escalated.detector.precision.denominator,300
+arms.memory_off.metrics.verdict.failures_escalated.detector.precision.numerator,195
+arms.memory_off.metrics.verdict.failures_escalated.detector.precision.population,predicted malicious
+arms.memory_off.metrics.verdict.failures_escalated.detector.precision.value,0.65
+arms.memory_off.metrics.verdict.failures_escalated.detector.recall.denominator,195
+arms.memory_off.metrics.verdict.failures_escalated.detector.recall.numerator,195
+arms.memory_off.metrics.verdict.failures_escalated.detector.recall.population,true attacks
+arms.memory_off.metrics.verdict.failures_escalated.detector.recall.value,1.0
+arms.memory_off.metrics.verdict.failures_escalated.detector.specificity.denominator,105
+arms.memory_off.metrics.verdict.failures_escalated.detector.specificity.numerator,0
+arms.memory_off.metrics.verdict.failures_escalated.detector.specificity.population,true benign
+arms.memory_off.metrics.verdict.failures_escalated.detector.specificity.value,0.0
+arms.memory_off.metrics.verdict.failures_escalated.detector_confusion.fn,0
+arms.memory_off.metrics.verdict.failures_escalated.detector_confusion.fp,105
+arms.memory_off.metrics.verdict.failures_escalated.detector_confusion.tn,0
+arms.memory_off.metrics.verdict.failures_escalated.detector_confusion.tp,195
+arms.memory_off.metrics.verdict.failures_escalated.llm.f1,0.9685863874345549
+arms.memory_off.metrics.verdict.failures_escalated.llm.precision.denominator,187
+arms.memory_off.metrics.verdict.failures_escalated.llm.precision.numerator,185
+arms.memory_off.metrics.verdict.failures_escalated.llm.precision.population,predicted malicious
+arms.memory_off.metrics.verdict.failures_escalated.llm.precision.value,0.9893048128342246
+arms.memory_off.metrics.verdict.failures_escalated.llm.recall.denominator,195
+arms.memory_off.metrics.verdict.failures_escalated.llm.recall.numerator,185
+arms.memory_off.metrics.verdict.failures_escalated.llm.recall.population,true attacks
+arms.memory_off.metrics.verdict.failures_escalated.llm.recall.value,0.9487179487179487
+arms.memory_off.metrics.verdict.failures_escalated.llm.specificity.denominator,105
+arms.memory_off.metrics.verdict.failures_escalated.llm.specificity.numerator,103
+arms.memory_off.metrics.verdict.failures_escalated.llm.specificity.population,true benign
+arms.memory_off.metrics.verdict.failures_escalated.llm.specificity.value,0.9809523809523809
+arms.memory_off.metrics.verdict.failures_escalated.llm_confusion.fn,10
+arms.memory_off.metrics.verdict.failures_escalated.llm_confusion.fp,2
+arms.memory_off.metrics.verdict.failures_escalated.llm_confusion.tn,103
+arms.memory_off.metrics.verdict.failures_escalated.llm_confusion.tp,185
+arms.memory_off.metrics.verdict.failures_wrong.alerts_in_population,300
+arms.memory_off.metrics.verdict.failures_wrong.definition,"All alerts. An alert with no verdict is always counted wrong: an attack becomes a miss, a benign alert becomes a false positive. Worst case."
+arms.memory_off.metrics.verdict.failures_wrong.detector.f1,0.787878787878788
+arms.memory_off.metrics.verdict.failures_wrong.detector.precision.denominator,300
+arms.memory_off.metrics.verdict.failures_wrong.detector.precision.numerator,195
+arms.memory_off.metrics.verdict.failures_wrong.detector.precision.population,predicted malicious
+arms.memory_off.metrics.verdict.failures_wrong.detector.precision.value,0.65
+arms.memory_off.metrics.verdict.failures_wrong.detector.recall.denominator,195
+arms.memory_off.metrics.verdict.failures_wrong.detector.recall.numerator,195
+arms.memory_off.metrics.verdict.failures_wrong.detector.recall.population,true attacks
+arms.memory_off.metrics.verdict.failures_wrong.detector.recall.value,1.0
+arms.memory_off.metrics.verdict.failures_wrong.detector.specificity.denominator,105
+arms.memory_off.metrics.verdict.failures_wrong.detector.specificity.numerator,0
+arms.memory_off.metrics.verdict.failures_wrong.detector.specificity.population,true benign
+arms.memory_off.metrics.verdict.failures_wrong.detector.specificity.value,0.0
+arms.memory_off.metrics.verdict.failures_wrong.detector_confusion.fn,0
+arms.memory_off.metrics.verdict.failures_wrong.detector_confusion.fp,105
+arms.memory_off.metrics.verdict.failures_wrong.detector_confusion.tn,0
+arms.memory_off.metrics.verdict.failures_wrong.detector_confusion.tp,195
+arms.memory_off.metrics.verdict.failures_wrong.llm.f1,0.9549071618037136
+arms.memory_off.metrics.verdict.failures_wrong.llm.precision.denominator,182
+arms.memory_off.metrics.verdict.failures_wrong.llm.precision.numerator,180
+arms.memory_off.metrics.verdict.failures_wrong.llm.precision.population,predicted malicious
+arms.memory_off.metrics.verdict.failures_wrong.llm.precision.value,0.989010989010989
+arms.memory_off.metrics.verdict.failures_wrong.llm.recall.denominator,195
+arms.memory_off.metrics.verdict.failures_wrong.llm.recall.numerator,180
+arms.memory_off.metrics.verdict.failures_wrong.llm.recall.population,true attacks
+arms.memory_off.metrics.verdict.failures_wrong.llm.recall.value,0.9230769230769231
+arms.memory_off.metrics.verdict.failures_wrong.llm.specificity.denominator,105
+arms.memory_off.metrics.verdict.failures_wrong.llm.specificity.numerator,103
+arms.memory_off.metrics.verdict.failures_wrong.llm.specificity.population,true benign
+arms.memory_off.metrics.verdict.failures_wrong.llm.specificity.value,0.9809523809523809
+arms.memory_off.metrics.verdict.failures_wrong.llm_confusion.fn,15
+arms.memory_off.metrics.verdict.failures_wrong.llm_confusion.fp,2
+arms.memory_off.metrics.verdict.failures_wrong.llm_confusion.tn,103
+arms.memory_off.metrics.verdict.failures_wrong.llm_confusion.tp,180
+arms.memory_off.metrics.verdict.valid_only.alerts_in_population,295
+arms.memory_off.metrics.verdict.valid_only.definition,Only alerts that received a valid verdict. Alerts with no verdict are left out of the denominator.
+arms.memory_off.metrics.verdict.valid_only.detector.f1,0.7835051546391751
+arms.memory_off.metrics.verdict.valid_only.detector.precision.denominator,295
+arms.memory_off.metrics.verdict.valid_only.detector.precision.numerator,190
+arms.memory_off.metrics.verdict.valid_only.detector.precision.population,predicted malicious
+arms.memory_off.metrics.verdict.valid_only.detector.precision.value,0.6440677966101694
+arms.memory_off.metrics.verdict.valid_only.detector.recall.denominator,190
+arms.memory_off.metrics.verdict.valid_only.detector.recall.numerator,190
+arms.memory_off.metrics.verdict.valid_only.detector.recall.population,true attacks
+arms.memory_off.metrics.verdict.valid_only.detector.recall.value,1.0
+arms.memory_off.metrics.verdict.valid_only.detector.specificity.denominator,105
+arms.memory_off.metrics.verdict.valid_only.detector.specificity.numerator,0
+arms.memory_off.metrics.verdict.valid_only.detector.specificity.population,true benign
+arms.memory_off.metrics.verdict.valid_only.detector.specificity.value,0.0
+arms.memory_off.metrics.verdict.valid_only.detector_confusion.fn,0
+arms.memory_off.metrics.verdict.valid_only.detector_confusion.fp,105
+arms.memory_off.metrics.verdict.valid_only.detector_confusion.tn,0
+arms.memory_off.metrics.verdict.valid_only.detector_confusion.tp,190
+arms.memory_off.metrics.verdict.valid_only.llm.f1,0.967741935483871
+arms.memory_off.metrics.verdict.valid_only.llm.precision.denominator,182
+arms.memory_off.metrics.verdict.valid_only.llm.precision.numerator,180
+arms.memory_off.metrics.verdict.valid_only.llm.precision.population,predicted malicious
+arms.memory_off.metrics.verdict.valid_only.llm.precision.value,0.989010989010989
+arms.memory_off.metrics.verdict.valid_only.llm.recall.denominator,190
+arms.memory_off.metrics.verdict.valid_only.llm.recall.numerator,180
+arms.memory_off.metrics.verdict.valid_only.llm.recall.population,true attacks
+arms.memory_off.metrics.verdict.valid_only.llm.recall.value,0.9473684210526315
+arms.memory_off.metrics.verdict.valid_only.llm.specificity.denominator,105
+arms.memory_off.metrics.verdict.valid_only.llm.specificity.numerator,103
+arms.memory_off.metrics.verdict.valid_only.llm.specificity.population,true benign
+arms.memory_off.metrics.verdict.valid_only.llm.specificity.value,0.9809523809523809
+arms.memory_off.metrics.verdict.valid_only.llm_confusion.fn,10
+arms.memory_off.metrics.verdict.valid_only.llm_confusion.fp,2
+arms.memory_off.metrics.verdict.valid_only.llm_confusion.tn,103
+arms.memory_off.metrics.verdict.valid_only.llm_confusion.tp,180
+arms.memory_off.population.alerts,300
+arms.memory_off.population.model_error,0
+arms.memory_off.population.not_run,0
+arms.memory_off.population.ok,295
+arms.memory_off.population.parse_failed,5
+arms.memory_off.population.true_attacks,195
+arms.memory_off.population.true_benign,105
+arms.memory_on.metrics.actions.approval_note,"Every proposed action starts as 'pending'. Approving or rejecting is a human decision made through the approval API; these runs contain none, so no approval rate exists and none is invented. Nothing is ever executed."
+arms.memory_on.metrics.actions.by_type.block_source_ip,12
+arms.memory_on.metrics.actions.by_type.increase_monitoring,71
+arms.memory_on.metrics.actions.by_type.rate_limit_source,92
+arms.memory_on.metrics.actions.executed,0
+arms.memory_on.metrics.actions.proposed_actions,175
+arms.memory_on.metrics.attack_type.all_attacks_failures_wrong.denominator,195
+arms.memory_on.metrics.attack_type.all_attacks_failures_wrong.numerator,157
+arms.memory_on.metrics.attack_type.all_attacks_failures_wrong.population,all true attacks (no-verdict attacks count as wrong; lower bound)
+arms.memory_on.metrics.attack_type.all_attacks_failures_wrong.value,0.8051282051282052
+arms.memory_on.metrics.attack_type.coverage.denominator,195
+arms.memory_on.metrics.attack_type.coverage.numerator,183
+arms.memory_on.metrics.attack_type.coverage.population,true attacks with a valid verdict
+arms.memory_on.metrics.attack_type.coverage.value,0.9384615384615385
+arms.memory_on.metrics.attack_type.definition,Exact match of the predicted attack_type with the true class. A benign verdict on an attack counts as wrong.
+arms.memory_on.metrics.attack_type.on_attacks_flagged_malicious.denominator,172
+arms.memory_on.metrics.attack_type.on_attacks_flagged_malicious.numerator,157
+arms.memory_on.metrics.attack_type.on_attacks_flagged_malicious.population,true attacks the baseline called malicious
+arms.memory_on.metrics.attack_type.on_attacks_flagged_malicious.value,0.9127906976744186
+arms.memory_on.metrics.attack_type.on_attacks_with_valid_verdict.denominator,183
+arms.memory_on.metrics.attack_type.on_attacks_with_valid_verdict.numerator,157
+arms.memory_on.metrics.attack_type.on_attacks_with_valid_verdict.population,true attacks with a valid verdict
+arms.memory_on.metrics.attack_type.on_attacks_with_valid_verdict.value,0.8579234972677595
+arms.memory_on.metrics.errors.error_code_counts.extra_fields,9
+arms.memory_on.metrics.errors.error_code_counts.invalid_json,4
+arms.memory_on.metrics.errors.first_try_malformed_replies,23
+arms.memory_on.metrics.errors.graph_error_alerts,13
+arms.memory_on.metrics.errors.graph_status_counts.completed,287
+arms.memory_on.metrics.errors.graph_status_counts.completed_with_errors,13
+arms.memory_on.metrics.errors.routing_errors,0
+arms.memory_on.metrics.errors.status_counts.ok,287
+arms.memory_on.metrics.errors.status_counts.parse_failed,13
+arms.memory_on.metrics.memory.alerts_with_neighbours,300
+arms.memory_on.metrics.memory.closest_neighbour_label_equals_true_label.denominator,300
+arms.memory_on.metrics.memory.closest_neighbour_label_equals_true_label.numerator,207
+arms.memory_on.metrics.memory.closest_neighbour_label_equals_true_label.population,alerts whose memory step returned neighbours
+arms.memory_on.metrics.memory.closest_neighbour_label_equals_true_label.value,0.69
+arms.memory_on.metrics.memory.majority_neighbour_label_equals_true_label.denominator,300
+arms.memory_on.metrics.memory.majority_neighbour_label_equals_true_label.numerator,186
+arms.memory_on.metrics.memory.majority_neighbour_label_equals_true_label.population,alerts whose memory step returned neighbours
+arms.memory_on.metrics.memory.majority_neighbour_label_equals_true_label.value,0.62
+arms.memory_on.metrics.memory.mean_attack_neighbour_share_on_true_attacks.n,195
+arms.memory_on.metrics.memory.mean_attack_neighbour_share_on_true_attacks.value,0.9917948717948718
+arms.memory_on.metrics.memory.mean_attack_neighbour_share_on_true_benign.n,105
+arms.memory_on.metrics.memory.mean_attack_neighbour_share_on_true_benign.value,0.8419047619047617
+arms.memory_on.metrics.memory.memory_step_status_counts.ok,300
+arms.memory_on.metrics.memory.note,Descriptive only: how similar past training flows were labelled compared with this dev alert's true label.
+arms.memory_on.metrics.mitre.accepted_all_attacks_failures_wrong.denominator,195
+arms.memory_on.metrics.mitre.accepted_all_attacks_failures_wrong.numerator,147
+arms.memory_on.metrics.mitre.accepted_all_attacks_failures_wrong.population,all true attacks (no-verdict attacks count as wrong; lower bound)
+arms.memory_on.metrics.mitre.accepted_all_attacks_failures_wrong.value,0.7538461538461538
+arms.memory_on.metrics.mitre.accepted_on_attacks_flagged_malicious.denominator,172
+arms.memory_on.metrics.mitre.accepted_on_attacks_flagged_malicious.numerator,147
+arms.memory_on.metrics.mitre.accepted_on_attacks_flagged_malicious.population,true attacks the baseline called malicious
+arms.memory_on.metrics.mitre.accepted_on_attacks_flagged_malicious.value,0.8546511627906976
+arms.memory_on.metrics.mitre.accepted_on_attacks_with_valid_verdict.denominator,183
+arms.memory_on.metrics.mitre.accepted_on_attacks_with_valid_verdict.numerator,147
+arms.memory_on.metrics.mitre.accepted_on_attacks_with_valid_verdict.population,true attacks with a valid verdict
+arms.memory_on.metrics.mitre.accepted_on_attacks_with_valid_verdict.value,0.8032786885245902
+arms.memory_on.metrics.mitre.benign_alerts_given_NONE.denominator,104
+arms.memory_on.metrics.mitre.benign_alerts_given_NONE.numerator,101
+arms.memory_on.metrics.mitre.benign_alerts_given_NONE.population,true benign alerts with a valid verdict (reported apart from MITRE accuracy)
+arms.memory_on.metrics.mitre.benign_alerts_given_NONE.value,0.9711538461538461
+arms.memory_on.metrics.mitre.coverage.denominator,195
+arms.memory_on.metrics.mitre.coverage.numerator,183
+arms.memory_on.metrics.mitre.coverage.population,true attacks with a valid verdict
+arms.memory_on.metrics.mitre.coverage.value,0.9384615384615385
+arms.memory_on.metrics.mitre.definition,"A predicted technique is correct if it is one of the accepted ids for the true class in the answer key (exact id match, no parent/child inference). Only true attacks are scored. A benign verdict gives technique NONE, which is never accepted for an attack, so it counts as wrong."
+arms.memory_on.metrics.mitre.primary_on_attacks_with_valid_verdict.denominator,183
+arms.memory_on.metrics.mitre.primary_on_attacks_with_valid_verdict.numerator,67
+arms.memory_on.metrics.mitre.primary_on_attacks_with_valid_verdict.population,true attacks with a valid verdict (strict: the single primary id)
+arms.memory_on.metrics.mitre.primary_on_attacks_with_valid_verdict.value,0.366120218579235
+arms.memory_on.metrics.population.alerts,300
+arms.memory_on.metrics.population.model_error,0
+arms.memory_on.metrics.population.not_run,0
+arms.memory_on.metrics.population.ok,287
+arms.memory_on.metrics.population.parse_failed,13
+arms.memory_on.metrics.population.true_attacks,195
+arms.memory_on.metrics.population.true_benign,105
+arms.memory_on.metrics.reliability.final_error_codes.extra_fields,9
+arms.memory_on.metrics.reliability.final_error_codes.invalid_json,4
+arms.memory_on.metrics.reliability.final_parse_failure.denominator,300
+arms.memory_on.metrics.reliability.final_parse_failure.numerator,13
+arms.memory_on.metrics.reliability.final_parse_failure.population,all alerts
+arms.memory_on.metrics.reliability.final_parse_failure.value,0.043333333333333335
+arms.memory_on.metrics.reliability.finish_reason_counts.STOP,339
+arms.memory_on.metrics.reliability.first_try_error_codes.extra_fields,16
+arms.memory_on.metrics.reliability.first_try_error_codes.invalid_json,7
+arms.memory_on.metrics.reliability.first_try_malformed.denominator,300
+arms.memory_on.metrics.reliability.first_try_malformed.numerator,23
+arms.memory_on.metrics.reliability.first_try_malformed.population,alerts that received at least one reply
+arms.memory_on.metrics.reliability.first_try_malformed.value,0.07666666666666666
+arms.memory_on.metrics.reliability.first_try_malformed_of_all_alerts.denominator,300
+arms.memory_on.metrics.reliability.first_try_malformed_of_all_alerts.numerator,23
+arms.memory_on.metrics.reliability.first_try_malformed_of_all_alerts.population,all alerts
+arms.memory_on.metrics.reliability.first_try_malformed_of_all_alerts.value,0.07666666666666666
+arms.memory_on.metrics.reliability.model_calls_per_alert_mean,1.13
+arms.memory_on.metrics.reliability.model_calls_total,339
+arms.memory_on.metrics.reliability.model_error.denominator,300
+arms.memory_on.metrics.reliability.model_error.numerator,0
+arms.memory_on.metrics.reliability.model_error.population,all alerts
+arms.memory_on.metrics.reliability.model_error.value,0.0
+arms.memory_on.metrics.reliability.no_verdict_by_true_label.BENIGN,1
+arms.memory_on.metrics.reliability.no_verdict_by_true_label.Bot,2
+arms.memory_on.metrics.reliability.no_verdict_by_true_label.FTP-Patator,4
+arms.memory_on.metrics.reliability.no_verdict_by_true_label.PortScan,4
+arms.memory_on.metrics.reliability.no_verdict_by_true_label.SSH-Patator,2
+arms.memory_on.metrics.reliability.not_run.denominator,300
+arms.memory_on.metrics.reliability.not_run.numerator,0
+arms.memory_on.metrics.reliability.not_run.population,all alerts
+arms.memory_on.metrics.reliability.not_run.value,0.0
+arms.memory_on.metrics.reliability.recovered_by_retry.denominator,23
+arms.memory_on.metrics.reliability.recovered_by_retry.numerator,10
+arms.memory_on.metrics.reliability.recovered_by_retry.population,alerts whose first reply was malformed
+arms.memory_on.metrics.reliability.recovered_by_retry.value,0.43478260869565216
+arms.memory_on.metrics.reliability.retry_needed.denominator,300
+arms.memory_on.metrics.reliability.retry_needed.numerator,23
+arms.memory_on.metrics.reliability.retry_needed.population,alerts that received at least one reply
+arms.memory_on.metrics.reliability.retry_needed.value,0.07666666666666666
+arms.memory_on.metrics.reliability.successful_verdict_coverage.denominator,300
+arms.memory_on.metrics.reliability.successful_verdict_coverage.numerator,287
+arms.memory_on.metrics.reliability.successful_verdict_coverage.population,all alerts
+arms.memory_on.metrics.reliability.successful_verdict_coverage.value,0.9566666666666667
+arms.memory_on.metrics.routing.auto_close_rate.denominator,300
+arms.memory_on.metrics.routing.auto_close_rate.numerator,11
+arms.memory_on.metrics.routing.auto_close_rate.population,all alerts in the comparison
+arms.memory_on.metrics.routing.auto_close_rate.value,0.03666666666666667
+arms.memory_on.metrics.routing.auto_closed_that_were_benign.denominator,11
+arms.memory_on.metrics.routing.auto_closed_that_were_benign.numerator,10
+arms.memory_on.metrics.routing.auto_closed_that_were_benign.population,auto-closed alerts (undefined when nothing was auto-closed)
+arms.memory_on.metrics.routing.auto_closed_that_were_benign.value,0.9090909090909091
+arms.memory_on.metrics.routing.counts.auto_close,11
+arms.memory_on.metrics.routing.counts.escalate,276
+arms.memory_on.metrics.routing.counts.needs_review,13
+arms.memory_on.metrics.routing.counts.no_routing,0
+arms.memory_on.metrics.routing.definition,"Decisions of the risk policy recorded in each run, applied identically to both arms. 'no_routing' = the graph or policy produced no decision for the alert (never counted as closed)."
+arms.memory_on.metrics.routing.escalation_rate_escalate_only.denominator,300
+arms.memory_on.metrics.routing.escalation_rate_escalate_only.numerator,276
+arms.memory_on.metrics.routing.escalation_rate_escalate_only.population,all alerts in the comparison
+arms.memory_on.metrics.routing.escalation_rate_escalate_only.value,0.92
+arms.memory_on.metrics.routing.rates_of_all_alerts.auto_close.denominator,300
+arms.memory_on.metrics.routing.rates_of_all_alerts.auto_close.numerator,11
+arms.memory_on.metrics.routing.rates_of_all_alerts.auto_close.population,all alerts in the comparison
+arms.memory_on.metrics.routing.rates_of_all_alerts.auto_close.value,0.03666666666666667
+arms.memory_on.metrics.routing.rates_of_all_alerts.escalate.denominator,300
+arms.memory_on.metrics.routing.rates_of_all_alerts.escalate.numerator,276
+arms.memory_on.metrics.routing.rates_of_all_alerts.escalate.population,all alerts in the comparison
+arms.memory_on.metrics.routing.rates_of_all_alerts.escalate.value,0.92
+arms.memory_on.metrics.routing.rates_of_all_alerts.needs_review.denominator,300
+arms.memory_on.metrics.routing.rates_of_all_alerts.needs_review.numerator,13
+arms.memory_on.metrics.routing.rates_of_all_alerts.needs_review.population,all alerts in the comparison
+arms.memory_on.metrics.routing.rates_of_all_alerts.needs_review.value,0.043333333333333335
+arms.memory_on.metrics.routing.rates_of_all_alerts.no_routing.denominator,300
+arms.memory_on.metrics.routing.rates_of_all_alerts.no_routing.numerator,0
+arms.memory_on.metrics.routing.rates_of_all_alerts.no_routing.population,all alerts in the comparison
+arms.memory_on.metrics.routing.rates_of_all_alerts.no_routing.value,0.0
+arms.memory_on.metrics.routing.review_queue_rate_escalate_or_needs_review.denominator,300
+arms.memory_on.metrics.routing.review_queue_rate_escalate_or_needs_review.numerator,289
+arms.memory_on.metrics.routing.review_queue_rate_escalate_or_needs_review.population,all alerts in the comparison
+arms.memory_on.metrics.routing.review_queue_rate_escalate_or_needs_review.value,0.9633333333333334
+arms.memory_on.metrics.routing.true_attacks_auto_closed.denominator,195
+arms.memory_on.metrics.routing.true_attacks_auto_closed.numerator,1
+arms.memory_on.metrics.routing.true_attacks_auto_closed.population,true attacks (a closed attack is a missed attack)
+arms.memory_on.metrics.routing.true_attacks_auto_closed.value,0.005128205128205128
+arms.memory_on.metrics.routing.true_attacks_in_review_queue.denominator,195
+arms.memory_on.metrics.routing.true_attacks_in_review_queue.numerator,194
+arms.memory_on.metrics.routing.true_attacks_in_review_queue.population,true attacks
+arms.memory_on.metrics.routing.true_attacks_in_review_queue.value,0.9948717948717949
+arms.memory_on.metrics.routing.true_benign_auto_closed.denominator,105
+arms.memory_on.metrics.routing.true_benign_auto_closed.numerator,10
+arms.memory_on.metrics.routing.true_benign_auto_closed.population,true benign alerts
+arms.memory_on.metrics.routing.true_benign_auto_closed.value,0.09523809523809523
+arms.memory_on.metrics.routing.true_benign_in_review_queue.denominator,105
+arms.memory_on.metrics.routing.true_benign_in_review_queue.numerator,95
+arms.memory_on.metrics.routing.true_benign_in_review_queue.population,true benign alerts (analyst workload that was not needed)
+arms.memory_on.metrics.routing.true_benign_in_review_queue.value,0.9047619047619048
+arms.memory_on.metrics.usage.model_calls,339
+arms.memory_on.metrics.usage.total_tokens,1223572
+arms.memory_on.metrics.verdict.failures_escalated.alerts_in_population,300
+arms.memory_on.metrics.verdict.failures_escalated.definition,"All alerts. An alert with no verdict stays escalated (counted as predicted malicious), as an analyst queue would treat an untriaged alert."
+arms.memory_on.metrics.verdict.failures_escalated.detector.f1,0.787878787878788
+arms.memory_on.metrics.verdict.failures_escalated.detector.precision.denominator,300
+arms.memory_on.metrics.verdict.failures_escalated.detector.precision.numerator,195
+arms.memory_on.metrics.verdict.failures_escalated.detector.precision.population,predicted malicious
+arms.memory_on.metrics.verdict.failures_escalated.detector.precision.value,0.65
+arms.memory_on.metrics.verdict.failures_escalated.detector.recall.denominator,195
+arms.memory_on.metrics.verdict.failures_escalated.detector.recall.numerator,195
+arms.memory_on.metrics.verdict.failures_escalated.detector.recall.population,true attacks
+arms.memory_on.metrics.verdict.failures_escalated.detector.recall.value,1.0
+arms.memory_on.metrics.verdict.failures_escalated.detector.specificity.denominator,105
+arms.memory_on.metrics.verdict.failures_escalated.detector.specificity.numerator,0
+arms.memory_on.metrics.verdict.failures_escalated.detector.specificity.population,true benign
+arms.memory_on.metrics.verdict.failures_escalated.detector.specificity.value,0.0
+arms.memory_on.metrics.verdict.failures_escalated.detector_confusion.fn,0
+arms.memory_on.metrics.verdict.failures_escalated.detector_confusion.fp,105
+arms.memory_on.metrics.verdict.failures_escalated.detector_confusion.tn,0
+arms.memory_on.metrics.verdict.failures_escalated.detector_confusion.tp,195
+arms.memory_on.metrics.verdict.failures_escalated.llm.f1,0.9608355091383811
+arms.memory_on.metrics.verdict.failures_escalated.llm.precision.denominator,188
+arms.memory_on.metrics.verdict.failures_escalated.llm.precision.numerator,184
+arms.memory_on.metrics.verdict.failures_escalated.llm.precision.population,predicted malicious
+arms.memory_on.metrics.verdict.failures_escalated.llm.precision.value,0.9787234042553191
+arms.memory_on.metrics.verdict.failures_escalated.llm.recall.denominator,195
+arms.memory_on.metrics.verdict.failures_escalated.llm.recall.numerator,184
+arms.memory_on.metrics.verdict.failures_escalated.llm.recall.population,true attacks
+arms.memory_on.metrics.verdict.failures_escalated.llm.recall.value,0.9435897435897436
+arms.memory_on.metrics.verdict.failures_escalated.llm.specificity.denominator,105
+arms.memory_on.metrics.verdict.failures_escalated.llm.specificity.numerator,101
+arms.memory_on.metrics.verdict.failures_escalated.llm.specificity.population,true benign
+arms.memory_on.metrics.verdict.failures_escalated.llm.specificity.value,0.9619047619047619
+arms.memory_on.metrics.verdict.failures_escalated.llm_confusion.fn,11
+arms.memory_on.metrics.verdict.failures_escalated.llm_confusion.fp,4
+arms.memory_on.metrics.verdict.failures_escalated.llm_confusion.tn,101
+arms.memory_on.metrics.verdict.failures_escalated.llm_confusion.tp,184
+arms.memory_on.metrics.verdict.failures_wrong.alerts_in_population,300
+arms.memory_on.metrics.verdict.failures_wrong.definition,"All alerts. An alert with no verdict is always counted wrong: an attack becomes a miss, a benign alert becomes a false positive. Worst case."
+arms.memory_on.metrics.verdict.failures_wrong.detector.f1,0.787878787878788
+arms.memory_on.metrics.verdict.failures_wrong.detector.precision.denominator,300
+arms.memory_on.metrics.verdict.failures_wrong.detector.precision.numerator,195
+arms.memory_on.metrics.verdict.failures_wrong.detector.precision.population,predicted malicious
+arms.memory_on.metrics.verdict.failures_wrong.detector.precision.value,0.65
+arms.memory_on.metrics.verdict.failures_wrong.detector.recall.denominator,195
+arms.memory_on.metrics.verdict.failures_wrong.detector.recall.numerator,195
+arms.memory_on.metrics.verdict.failures_wrong.detector.recall.population,true attacks
+arms.memory_on.metrics.verdict.failures_wrong.detector.recall.value,1.0
+arms.memory_on.metrics.verdict.failures_wrong.detector.specificity.denominator,105
+arms.memory_on.metrics.verdict.failures_wrong.detector.specificity.numerator,0
+arms.memory_on.metrics.verdict.failures_wrong.detector.specificity.population,true benign
+arms.memory_on.metrics.verdict.failures_wrong.detector.specificity.value,0.0
+arms.memory_on.metrics.verdict.failures_wrong.detector_confusion.fn,0
+arms.memory_on.metrics.verdict.failures_wrong.detector_confusion.fp,105
+arms.memory_on.metrics.verdict.failures_wrong.detector_confusion.tn,0
+arms.memory_on.metrics.verdict.failures_wrong.detector_confusion.tp,195
+arms.memory_on.metrics.verdict.failures_wrong.llm.f1,0.9272237196765498
+arms.memory_on.metrics.verdict.failures_wrong.llm.precision.denominator,176
+arms.memory_on.metrics.verdict.failures_wrong.llm.precision.numerator,172
+arms.memory_on.metrics.verdict.failures_wrong.llm.precision.population,predicted malicious
+arms.memory_on.metrics.verdict.failures_wrong.llm.precision.value,0.9772727272727273
+arms.memory_on.metrics.verdict.failures_wrong.llm.recall.denominator,195
+arms.memory_on.metrics.verdict.failures_wrong.llm.recall.numerator,172
+arms.memory_on.metrics.verdict.failures_wrong.llm.recall.population,true attacks
+arms.memory_on.metrics.verdict.failures_wrong.llm.recall.value,0.882051282051282
+arms.memory_on.metrics.verdict.failures_wrong.llm.specificity.denominator,105
+arms.memory_on.metrics.verdict.failures_wrong.llm.specificity.numerator,101
+arms.memory_on.metrics.verdict.failures_wrong.llm.specificity.population,true benign
+arms.memory_on.metrics.verdict.failures_wrong.llm.specificity.value,0.9619047619047619
+arms.memory_on.metrics.verdict.failures_wrong.llm_confusion.fn,23
+arms.memory_on.metrics.verdict.failures_wrong.llm_confusion.fp,4
+arms.memory_on.metrics.verdict.failures_wrong.llm_confusion.tn,101
+arms.memory_on.metrics.verdict.failures_wrong.llm_confusion.tp,172
+arms.memory_on.metrics.verdict.valid_only.alerts_in_population,287
+arms.memory_on.metrics.verdict.valid_only.definition,Only alerts that received a valid verdict. Alerts with no verdict are left out of the denominator.
+arms.memory_on.metrics.verdict.valid_only.detector.f1,0.7787234042553192
+arms.memory_on.metrics.verdict.valid_only.detector.precision.denominator,287
+arms.memory_on.metrics.verdict.valid_only.detector.precision.numerator,183
+arms.memory_on.metrics.verdict.valid_only.detector.precision.population,predicted malicious
+arms.memory_on.metrics.verdict.valid_only.detector.precision.value,0.6376306620209059
+arms.memory_on.metrics.verdict.valid_only.detector.recall.denominator,183
+arms.memory_on.metrics.verdict.valid_only.detector.recall.numerator,183
+arms.memory_on.metrics.verdict.valid_only.detector.recall.population,true attacks
+arms.memory_on.metrics.verdict.valid_only.detector.recall.value,1.0
+arms.memory_on.metrics.verdict.valid_only.detector.specificity.denominator,104
+arms.memory_on.metrics.verdict.valid_only.detector.specificity.numerator,0
+arms.memory_on.metrics.verdict.valid_only.detector.specificity.population,true benign
+arms.memory_on.metrics.verdict.valid_only.detector.specificity.value,0.0
+arms.memory_on.metrics.verdict.valid_only.detector_confusion.fn,0
+arms.memory_on.metrics.verdict.valid_only.detector_confusion.fp,104
+arms.memory_on.metrics.verdict.valid_only.detector_confusion.tn,0
+arms.memory_on.metrics.verdict.valid_only.detector_confusion.tp,183
+arms.memory_on.metrics.verdict.valid_only.llm.f1,0.9608938547486033
+arms.memory_on.metrics.verdict.valid_only.llm.precision.denominator,175
+arms.memory_on.metrics.verdict.valid_only.llm.precision.numerator,172
+arms.memory_on.metrics.verdict.valid_only.llm.precision.population,predicted malicious
+arms.memory_on.metrics.verdict.valid_only.llm.precision.value,0.9828571428571429
+arms.memory_on.metrics.verdict.valid_only.llm.recall.denominator,183
+arms.memory_on.metrics.verdict.valid_only.llm.recall.numerator,172
+arms.memory_on.metrics.verdict.valid_only.llm.recall.population,true attacks
+arms.memory_on.metrics.verdict.valid_only.llm.recall.value,0.9398907103825137
+arms.memory_on.metrics.verdict.valid_only.llm.specificity.denominator,104
+arms.memory_on.metrics.verdict.valid_only.llm.specificity.numerator,101
+arms.memory_on.metrics.verdict.valid_only.llm.specificity.population,true benign
+arms.memory_on.metrics.verdict.valid_only.llm.specificity.value,0.9711538461538461
+arms.memory_on.metrics.verdict.valid_only.llm_confusion.fn,11
+arms.memory_on.metrics.verdict.valid_only.llm_confusion.fp,3
+arms.memory_on.metrics.verdict.valid_only.llm_confusion.tn,101
+arms.memory_on.metrics.verdict.valid_only.llm_confusion.tp,172
+arms.memory_on.population.alerts,300
+arms.memory_on.population.model_error,0
+arms.memory_on.population.not_run,0
+arms.memory_on.population.ok,287
+arms.memory_on.population.parse_failed,13
+arms.memory_on.population.true_attacks,195
+arms.memory_on.population.true_benign,105
+paired.alerts_in_both,300
+paired.attack_type_correct_on_true_attacks.both_correct,53
+paired.attack_type_correct_on_true_attacks.definition,a no-verdict alert counts as not correct in its arm
+paired.attack_type_correct_on_true_attacks.neither_correct,28
+paired.attack_type_correct_on_true_attacks.only_memory_off_correct,10
+paired.attack_type_correct_on_true_attacks.only_memory_on_correct,104
+paired.attack_type_correct_on_true_attacks.true_attacks_compared,195
+paired.routing.changed_decision,116
+paired.routing.changes.auto_close->escalate,97
+paired.routing.changes.auto_close->needs_review,1
+paired.routing.changes.escalate->auto_close,1
+paired.routing.changes.escalate->needs_review,12
+paired.routing.changes.needs_review->escalate,5
+paired.routing.same_decision,184
+paired.technique_correct_on_true_attacks.both_correct,86
+paired.technique_correct_on_true_attacks.definition,a no-verdict alert counts as not correct in its arm
+paired.technique_correct_on_true_attacks.neither_correct,38
+paired.technique_correct_on_true_attacks.only_memory_off_correct,10
+paired.technique_correct_on_true_attacks.only_memory_on_correct,61
+paired.technique_correct_on_true_attacks.true_attacks_compared,195
