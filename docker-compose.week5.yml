@@ -1,0 +1,192 @@
+# Week 5 deployment: FastAPI + Celery worker + sweeper + Redis + PostgreSQL. Local demonstration and load testing with the FAKE model on SYNTHETIC alerts.
+#   1. copy .env.week5.example to .env.week5 and fill in every value (the file is git-ignored; never commit it)
+#   2. docker compose -f docker-compose.week5.yml --env-file .env.week5 config -q          (checks the file and that no required value is missing)
+#   3. docker compose -f docker-compose.week5.yml --env-file .env.week5 up -d --build
+# Design (docs/WEEK5_DEPLOYMENT.md):
+#   - No secret is written in this file or in the image: each service receives only the variables it needs, and every required one fails loudly when unset.
+#   - The only published port is the API, bound to 127.0.0.1. PostgreSQL and Redis are reachable only from inside the `backend` network, which has no route to the internet.
+#   - The API, worker, sweeper and migrate containers run as uid 10001, with a read-only root file system, no Linux capabilities and no-new-privileges.
+#   - PostgreSQL is the source of truth for jobs. Redis only carries "job X is waiting" messages and is not persisted: if it is wiped, the sweeper republishes undelivered jobs.
+#   - The model is the fake one. Live Gemini calls are off and the backend network cannot reach the internet anyway.
+name: soc-week5
+
+x-app: &app
+  image: soc-week5:local
+  build:
+    context: .
+    dockerfile: Dockerfile.week5
+  init: true
+  restart: unless-stopped
+  read_only: true
+  tmpfs:
+    - /tmp:size=64m,mode=1777
+  cap_drop: [ALL]
+  security_opt:
+    - no-new-privileges:true
+  networks: [backend]
+
+x-common-env: &common-env
+  WEEK5_QUEUE_BACKEND: celery
+  WEEK5_MODEL_MODE: fake
+  WEEK5_ALERT_SET: synthetic
+  WEEK5_FLOW_STORE: fixture
+  WEEK5_ENGINE: langgraph
+  WEEK5_CELERY_BROKER_URL: redis://:${WEEK5_REDIS_PASSWORD:?set WEEK5_REDIS_PASSWORD in .env.week5}@redis:6379/0
+  WEEK5_MAX_ATTEMPTS: ${WEEK5_MAX_ATTEMPTS:-3}
+  WEEK5_JOB_TIMEOUT_SECONDS: ${WEEK5_JOB_TIMEOUT_SECONDS:-60}
+  WEEK5_MAX_QUEUE_DEPTH: ${WEEK5_MAX_QUEUE_DEPTH:-1000}
+
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    init: true
+    environment:
+      POSTGRES_USER: ${WEEK5_DB_OWNER:-soc_owner}
+      POSTGRES_PASSWORD: ${WEEK5_DB_PASSWORD:?set WEEK5_DB_PASSWORD in .env.week5}
+      POSTGRES_DB: ${WEEK5_DB_NAME:-soc}
+    volumes:
+      - soc_week5_pgdata:/var/lib/postgresql/data
+    networks: [backend]
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    stop_grace_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    init: true
+    # No snapshots or append-only file: PostgreSQL holds the truth. The password is read from the environment by the shell, not written in this file.
+    command: ["sh", "-c", "exec redis-server --requirepass \"$$REDIS_PASSWORD\" --save '' --appendonly no --maxmemory 128mb --maxmemory-policy noeviction"]
+    environment:
+      REDIS_PASSWORD: ${WEEK5_REDIS_PASSWORD:?set WEEK5_REDIS_PASSWORD in .env.week5}
+      REDISCLI_AUTH: ${WEEK5_REDIS_PASSWORD:?set WEEK5_REDIS_PASSWORD in .env.week5}
+    networks: [backend]
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep -q PONG"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 192M
+
+  migrate:
+    <<: *app
+    restart: "no"
+    command: ["sh", "/app/docker/migrate.sh"]
+    environment:
+      WEEK4_DATABASE_URL: postgresql://${WEEK5_DB_OWNER:-soc_owner}:${WEEK5_DB_PASSWORD:?set WEEK5_DB_PASSWORD in .env.week5}@postgres:5432/${WEEK5_DB_NAME:-soc}
+      WEEK4_ADMIN_DATABASE_URL: postgresql://${WEEK5_DB_OWNER:-soc_owner}:${WEEK5_DB_PASSWORD:?set WEEK5_DB_PASSWORD in .env.week5}@postgres:5432/${WEEK5_DB_NAME:-soc}
+      WEEK4_API_DB_PASSWORD: ${WEEK4_API_DB_PASSWORD:?set WEEK4_API_DB_PASSWORD in .env.week5}
+      WEEK5_WORKER_DB_PASSWORD: ${WEEK5_WORKER_DB_PASSWORD:?set WEEK5_WORKER_DB_PASSWORD in .env.week5}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  api:
+    <<: *app
+    command: ["python", "-m", "week5.api.serve5", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      <<: *common-env
+      WEEK5_API_DATABASE_URL: postgresql://soc_api_login:${WEEK4_API_DB_PASSWORD:?set WEEK4_API_DB_PASSWORD in .env.week5}@postgres:5432/${WEEK5_DB_NAME:-soc}
+      WEEK4_API_TOKEN_HASHES: ${WEEK4_API_TOKEN_HASHES:?set WEEK4_API_TOKEN_HASHES in .env.week5 (python -m week4.api.auth new-token)}
+      WEEK5_RATE_LIMIT_PER_MINUTE: ${WEEK5_RATE_LIMIT_PER_MINUTE:-120}
+    # The API is the only service on the `edge` network, which exists so that one port can be published. It is published on the loopback address only.
+    networks: [backend, edge]
+    ports:
+      - "127.0.0.1:${WEEK5_API_PORT:-8000}:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=5).status == 200 else 1)"]
+      interval: 15s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    stop_grace_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+          pids: 256
+
+  worker:
+    <<: *app
+    # --concurrency 2: two job processes. Celery's soft/hard time limits come from WEEK5_JOB_TIMEOUT_SECONDS and cannot leave a stuck thread behind.
+    command: ["celery", "-A", "week5.celery_app:app", "worker", "-Q", "soc_triage", "-n", "worker@%h", "--concurrency", "2", "--loglevel", "INFO"]
+    environment:
+      <<: *common-env
+      WEEK5_WORKER_DATABASE_URL: postgresql://soc_worker_login:${WEEK5_WORKER_DB_PASSWORD:?set WEEK5_WORKER_DB_PASSWORD in .env.week5}@postgres:5432/${WEEK5_DB_NAME:-soc}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "celery -A week5.celery_app:app inspect ping -d worker@$$(hostname) -t 10 | grep -q pong"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+      start_period: 40s
+    stop_grace_period: 120s       # longer than the job's hard time limit (WEEK5_JOB_TIMEOUT_SECONDS + slack), so a stop waits for the running job
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1G
+          pids: 256
+
+  sweeper:
+    <<: *app
+    # Republishes jobs whose queue message was never sent or was lost (for example after Redis was wiped) and requeues jobs whose worker died. One small process.
+    command: ["python", "-m", "week5.worker", "--mode", "sweep"]
+    environment:
+      <<: *common-env
+      WEEK5_WORKER_DATABASE_URL: postgresql://soc_worker_login:${WEEK5_WORKER_DB_PASSWORD:?set WEEK5_WORKER_DB_PASSWORD in .env.week5}@postgres:5432/${WEEK5_DB_NAME:-soc}
+      WEEK5_HEARTBEAT_FILE: /tmp/week5-heartbeat
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-m", "week5.worker", "--health", "--max-age", "120"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 30s
+    stop_grace_period: 30s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+          pids: 128
+
+networks:
+  # internal: containers on it have no route to the internet and nothing outside can reach them.
+  backend:
+    internal: true
+  edge: {}
+
+volumes:
+  soc_week5_pgdata:

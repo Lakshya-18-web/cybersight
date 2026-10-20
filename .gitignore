@@ -9,3 +9,5 @@ eval/flow_store_*.parquet
 
 # Week 4: local secrets
 .env.week4
+# Week 5: local secrets
+.env.week5

@@ -1,0 +1,23 @@
+# Keep secrets, data and local state out of the build context. The image needs only src/, config/ and docker/ (see Dockerfile.week5).
+.git
+.gitignore
+.venv
+venv
+**/__pycache__
+**/*.pyc
+.ipynb_checkpoints
+.env
+.env.*
+!.env.week5.example
+data
+eval
+models
+memory_store
+runs
+runs_tmp
+*.parquet
+*.pkl
+*.joblib
+tests
+docs
+*.md

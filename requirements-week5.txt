@@ -1,0 +1,14 @@
+# Week 5 RUNTIME requirements (what the container image installs). Install locally with: pip install -r requirements-week5.txt
+# Lower bounds only: after you run the full suite on your machine, pin exact versions (pip freeze) before building a release image.
+# The sandbox that wrote this code could not install fastapi, uvicorn, celery, redis, psycopg or langgraph, so those parts were not executed there (docs/WEEK5_BACKEND.md, "What was and was not tested").
+pydantic>=2.5
+python-dotenv>=1.0
+langgraph>=0.2           # the Week 3/4 graph (WEEK5_ENGINE=langgraph); WEEK5_ENGINE=instrumented does not need it
+numpy>=1.26
+pandas>=2.1              # the synthetic flow store (WEEK5_FLOW_STORE=fixture) and the dev flow store
+fastapi>=0.110
+uvicorn>=0.29
+celery>=5.3              # worker (WEEK5_QUEUE_BACKEND=celery)
+redis>=5.0               # Celery's Redis transport
+psycopg[binary]>=3.1     # PostgreSQL driver (bundles libpq; no system packages needed)
+# NOT installed in the image: google-genai (live Gemini calls). The deployment uses the fake model. See Dockerfile.week5, build argument WITH_GENAI.
