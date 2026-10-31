@@ -151,7 +151,7 @@ A development-set dry run should be completed first. Use a dev plan and the docu
 
 1. **Memory for the full system:** on or off. This is a plan field and changes the system being evaluated.
 2. **Identifier aliasing during evaluation:** default off to keep prompts aligned with Week 3/4 development runs. Enable it only if that is the intended evaluation configuration.
-3. **Week 5 evidence safeguard:** implemented and tested against PI-E02. The full-system evaluation must include the current Week 5 routing behaviour, and the chosen configuration must be recorded in the plan before its hash is frozen.
+3. **Week 5 evidence safeguard:** implemented and tested against PI-E02. The full-system evaluation must include the current Week 5 routing behaviour, and the chosen configuration must be recorded in the plan before its hash is frozen. The upgrade adds `evidence-policy-v1` after your W5-RR1 safeguards (`docs/WEEK5_POLICY_CHANGES.md`): a plan made after it records the combined identity `risk-policy-v1+evidence-policy-v1`, and results from plans made before it are NOT comparable with plans made after it. The W5-RR1 functions in `runner.py` are code and are not part of that identity.
 4. **Pricing record:** include one if cost reporting is required; otherwise cost is unavailable.
 5. **Live evaluation path:** the real Gemini clients and live backends must be exercised in a dev-set dry run before any protected-set evaluation.
 

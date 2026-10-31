@@ -17,7 +17,7 @@ from collections import namedtuple
 Signal = namedtuple("Signal", "code detail")
 
 WITHHOLD_CODES = ("secret_pattern", "known_secret", "prompt_leak")
-FLAG_CODES = ("instruction_echo", "control_chars")
+FLAG_CODES = ("instruction_echo", "control_chars", "untrusted_text")
 WITHHELD_TEXT = "[withheld by the response guard: the model's text matched a protection rule]"
 GUARD_REASON = "W5-G1: the response guard flagged the model's text (%s); a case is never closed automatically after that"
 

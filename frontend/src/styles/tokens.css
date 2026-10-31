@@ -1,0 +1,146 @@
+/* CyberSight design tokens. The single source of truth for colour, type, spacing and motion; no component hard-codes a colour.
+   Brand palette (dark first), measured against the surface each colour is used on (WCAG contrast):
+     text #E8F0FC on panel 14.4:1 | secondary #9FB1CB on panel 7.6:1, on elevated 7.0:1 | electric blue #38BDF8 on panel 7.7:1
+     teal #10B981 on panel 6.5:1 | amber #F59E0B on panel 7.7:1 | red #F43F5E on panel 4.5:1 (fills, borders, charts)
+     red as TEXT uses --critical-fg #FB7185 (6.1:1) and violet as text uses --violet-fg #A78BFA (6.1:1); slate #64748B is for fills only (3.5:1)
+     --border-strong (form controls) #5B7396: 3.4:1 on panel, 3.1:1 on elevated (WCAG 1.4.11 needs 3:1)
+   Gradients are used only in the logo mark and the active-nav hairline; there are no glows. Meaning is never carried by colour alone: severity and status always show text.
+   Light theme: [data-theme='light'] below. Every component reads these variables, so one switch re-themes the whole application. */
+:root {
+  color-scheme: dark;
+
+  /* surfaces */
+  --bg: #081426;            /* main canvas */
+  --nav: #0b1220;           /* navigation and page sections */
+  --sidebar: var(--nav);    /* legacy alias */
+  --card: #111f35;          /* cards and data panels */
+  --elevated: #17263d;      /* popovers, selected surfaces */
+  --border: #263750;
+  --border-strong: #5b7396;
+
+  /* text */
+  --text: #e8f0fc;
+  --text-secondary: #9fb1cb;
+  --text-on-accent: #04101f;
+
+  /* accent */
+  --accent: #38bdf8;        /* electric blue: primary interaction */
+  --accent-hover: #7dd3fc;
+  --deep-blue: #2563eb;     /* secondary action and chart accent */
+
+  /* semantic (fills, borders, charts) and their text-safe variants */
+  --success: #10b981;
+  --success-fg: #34d399;
+  --warning: #f59e0b;
+  --warning-fg: #f59e0b;
+  --critical: #f43f5e;
+  --critical-fg: #fb7185;
+  --info: #60a5fa;
+  --info-fg: #60a5fa;
+  --violet: #8b5cf6;        /* AI-related highlights */
+  --violet-fg: #a78bfa;
+  --slate: #64748b;         /* neutral or unavailable */
+
+  /* tinted fills used by badges and banners (flat colour) */
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, var(--card));
+  --success-soft: color-mix(in srgb, var(--success) 14%, var(--card));
+  --warning-soft: color-mix(in srgb, var(--warning) 14%, var(--card));
+  --critical-soft: color-mix(in srgb, var(--critical) 14%, var(--card));
+  --info-soft: color-mix(in srgb, var(--info) 14%, var(--card));
+  --violet-soft: color-mix(in srgb, var(--violet) 16%, var(--card));
+  --neutral-soft: color-mix(in srgb, var(--text-secondary) 14%, var(--card));
+  --row-hover: color-mix(in srgb, var(--text) 4%, var(--card));
+  --row-selected: color-mix(in srgb, var(--accent) 9%, var(--card));
+  --scrim: color-mix(in srgb, var(--bg) 72%, transparent);
+
+  /* severity -> semantic colour (see lib/severity.ts for the rule that picks them) */
+  --sev-critical: var(--critical);
+  --sev-high: var(--critical);
+  --sev-medium: var(--warning);
+  --sev-low: var(--info);
+  --sev-none: var(--success);
+
+  /* chart series (categorical, distinguishable without relying on hue alone: charts always print labels and values) */
+  --chart-1: #38bdf8;
+  --chart-2: #2563eb;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #8b5cf6;
+  --chart-6: #f43f5e;
+  --chart-7: #64748b;
+  --chart-grid: #263750;
+
+  /* type */
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 1.75rem;
+  --lh-tight: 1.25;
+  --lh-base: 1.5;
+
+  /* space (4px grid) */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-10: 2.5rem;
+
+  /* shape */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --border-w: 1px;
+  --shadow-pop: 0 10px 30px color-mix(in srgb, #000 45%, transparent);
+
+  /* layout */
+  --topbar-h: 3.5rem;
+  --content-max: 88rem;
+  --bp-nav: 72rem;          /* below this width the navigation collapses into a menu (CSS media queries cannot read variables; keep in sync with layout.css) */
+
+  /* motion: short and subtle; switched off by prefers-reduced-motion in base.css */
+  --t-fast: 120ms;
+  --focus-ring: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f3f6fb;
+  --nav: #ffffff;
+  --card: #ffffff;
+  --elevated: #eaf0f8;
+  --border: #d3ddeb;
+  --border-strong: #74879f;
+  --text: #0b1b33;
+  --text-secondary: #3f5270;
+  --text-on-accent: #ffffff;
+  --accent: #0369a1;
+  --accent-hover: #075985;
+  --deep-blue: #1d4ed8;
+  --success: #047857;
+  --success-fg: #05664a;
+  --warning: #b45309;
+  --warning-fg: #92400e;
+  --critical: #be123c;
+  --critical-fg: #be123c;
+  --info: #1d4ed8;
+  --info-fg: #1d4ed8;
+  --violet: #6d28d9;
+  --violet-fg: #6d28d9;
+  --slate: #64748b;
+  --shadow-pop: 0 10px 30px color-mix(in srgb, #0b1b33 18%, transparent);
+  --chart-1: #0284c7;
+  --chart-2: #1d4ed8;
+  --chart-3: #047857;
+  --chart-4: #b45309;
+  --chart-5: #6d28d9;
+  --chart-6: #be123c;
+  --chart-7: #64748b;
+  --chart-grid: #d3ddeb;
+}

@@ -1,4 +1,4 @@
-"""The worker: takes one job, runs the Week 4 graph on it, stores the case, records the result.
+﻿"""The worker: takes one job, runs the Week 4 graph on it, stores the case, records the result.
 
 One job, start to finish (process_claimed):
    claim (the database gives each job to one worker)  ->  GraphRunner.run (time-limited)  ->  repository.ingest_case (idempotent)  ->  store.complete
@@ -24,7 +24,7 @@ import sys
 import threading
 import time
 
-from week4.db.repository import PgRepository
+from week5.db.repository import Week5PgRepository as PgRepository
 
 from . import errors, queues, settings as settings_module
 from .jobs import DbError, PgJobStore
@@ -119,7 +119,15 @@ class Worker:
             done = self.store.complete(job_id, self.worker_id, ingest["case_id"], result, timings, outcome.usage)
             self.log("job_finished", job_id=job_id, attempt=attempt, outcome=done["outcome"], ingest=ingest["outcome"])
             return done["outcome"]
-        except Exception as error:      # classified below; KeyboardInterrupt/SystemExit are not swallowed
+        except Exception as error:    
+            # classified below; KeyboardInterrupt/SystemExit are not swallowed
+            print(
+        f"WORKER_ERROR job_id={job_id} "
+        f"type={type(error).__name__} "
+        f"sqlstate={getattr(error, 'sqlstate', None)} "
+        f"error={error}",
+        flush=True,
+    )
             return self._fail(job, attempt, error)
 
     def _fail(self, job, attempt, error):
@@ -224,7 +232,8 @@ def build_worker(settings=None, env=None, timeout_mode=None):
         raise settings_module.ConfigError("WEEK5_QUEUE_BACKEND=memory is for tests only and cannot be used by a worker process")
     dispatcher = queues.Dispatcher(store, queue, settings, log=_log_to_stderr)
     mode = timeout_mode or ("none" if settings.queue_backend == "celery" else "thread")
-    return Worker(settings, store, PgRepository(driver), GraphRunner.from_settings(settings, env), dispatcher, timeout_mode=mode)
+    repository = PgRepository(driver)
+    return Worker(settings, store, repository, GraphRunner.from_settings(settings, env).attach_repository(repository), dispatcher, timeout_mode=mode)
 
 
 ENV_HEARTBEAT = "WEEK5_HEARTBEAT_FILE"
@@ -281,3 +290,4 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
+

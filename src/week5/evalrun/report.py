@@ -15,11 +15,13 @@ KEY_ROWS = [("precision_valid_only", "precision (valid verdicts only)"), ("recal
             ("verdict_coverage", "verdict coverage"), ("final_parse_failure_rate", "final parse-failure rate"), ("model_error_rate", "model-error rate"),
             ("attack_type_accuracy_on_valid_attacks", "attack-type accuracy"), ("mitre_accuracy", "MITRE accuracy (all attacks; no-verdict wrong)"),
             ("auto_close_rate", "auto-close rate"), ("review_queue_rate", "review-queue rate"), ("attacks_auto_closed_count", "TRUE ATTACKS AUTO-CLOSED (count)"),
+            ("false_positive_rate", "false-positive rate (valid verdicts)"), ("false_negative_rate", "false-negative rate (valid verdicts)"), ("false_negatives_valid_only", "false negatives = missed attacks (valid verdicts)"),
+            ("alerts_needing_a_retry", "alerts needing a parse retry"), ("model_calls_total", "model calls (all)"),
             ("latency_median_s", "latency per alert, median (s)"), ("latency_p95_s", "latency per alert, p95 (s)"), ("throughput_alerts_per_s", "throughput (alerts/s)"), ("total_tokens", "total tokens")]
 RAW_ROWS = [("precision", "precision"), ("recall", "recall"), ("f1", "F1"), ("specificity", "specificity"), ("false_positives", "false positives"), ("false_negatives", "false negatives")]
 
 
-COUNTS = {"attacks_missed_failures_escalated", "attacks_auto_closed_count", "total_tokens", "false_positives", "false_negatives"}
+COUNTS = {"false_negatives_valid_only", "alerts_needing_a_retry", "model_calls_total", "attacks_missed_failures_escalated", "attacks_auto_closed_count", "total_tokens", "false_positives", "false_negatives"}
 
 
 def f(v, digits=4, count=False):
@@ -147,7 +149,23 @@ def render(result):
         rows.append((config, a["alerts_identical_in_all_runs"], a["alerts_with_a_different_outcome_in_some_run"], f(a["share_identical"])))
     add(table(rows, ("configuration", "alerts identical in all runs", "alerts that changed", "share identical")))
     add("")
-    add("## 8. Sources of non-determinism and other limits")
+    add("## 8. Per-class results (run 1 of each model-based configuration; the other runs are in comparison.json)")
+    add("")
+    for config in CONFIGS[1:]:
+        add("**%s**" % config)
+        add("")
+        rows = []
+        for label, c in result["per_run"]["%s/run1" % config]["per_class"].items():
+            hit = c.get("recall_valid_only") or c.get("specificity_valid_only")
+            rows.append((label, c["support"], "attack" if c["is_attack_class"] else "benign", c["no_verdict"], c["called_malicious"], c["called_benign"],
+                         ("%s (%s/%s)" % (f(hit["value"]), hit["numerator"], hit["denominator"])) if hit and hit["value"] is not None else "n/a",
+                         ("%s" % f(c["attack_type_exact"]["value"])) if c.get("attack_type_exact") and c["attack_type_exact"]["value"] is not None else "-",
+                         ", ".join("%s=%s" % kv for kv in sorted((c.get("routing") or {}).items())) or "-"))
+        add(table(rows, ("true class", "alerts", "kind", "no verdict", "called malicious", "called benign", "recall (attacks) or specificity (benign)", "attack-type exact", "routing")))
+        add("")
+    add("A small class has a wide uncertainty: read per-class numbers together with the support column, never alone.")
+    add("")
+    add("## 9. Sources of non-determinism and other limits")
     add("")
     for line in result["nondeterminism"]:
         add("- " + line)

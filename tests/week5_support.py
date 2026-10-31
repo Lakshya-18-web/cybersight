@@ -76,12 +76,16 @@ class Clock:
 class Rig:
     """A complete in-process backend: job store, case repository, fake model, worker, queue, dispatcher. All in memory unless a store/repo is passed."""
 
-    def __init__(self, settings=None, store=None, repo=None, provider=None, queue=None, timeout_mode="thread", **settings_over):
+    def __init__(self, settings=None, store=None, repo=None, provider=None, queue=None, timeout_mode="thread", sensor=False, threat_intel=None, **settings_over):
         self.settings = settings or test_settings(**settings_over)
         self.store = store or jobs.MemoryJobStore()
         self.repo = repo or MemoryRepository()
         self.provider = provider or models.FakeModel()
-        self.runner = GraphRunner(self.settings, policy_module.load_policy(None), __import__("tools").build_registry(flow_store=fixtures.flow_store()), self.provider)
+        self.runner = GraphRunner(self.settings, policy_module.load_policy(None), __import__("tools").build_registry(flow_store=fixtures.flow_store()), self.provider, threat_intel=threat_intel)
+        if sensor:          # sensor events, notes, feedback and search live in the Week 5 repository layer; the worker reads and writes through the same object
+            from week5 import repo5
+            self.repo = repo5.wrap(self.repo)
+            self.runner.attach_repository(self.repo)
         self.queue = queue if queue is not None else queues.PostgresQueue(self.store)
         self.logs = []
         self.dispatcher = queues.Dispatcher(self.store, self.queue, self.settings, log=lambda e, **k: self.logs.append((e, k)))
@@ -166,7 +170,9 @@ class HttpStub:
                             body = json.loads(raw) if raw else None
                         except ValueError:
                             body = None
-                        res = api.dispatch(name, dict(self.headers), {}, hit.groupdict(), body, raw)
+                        import urllib.parse
+                        query = {k: v[0] for k, v in urllib.parse.parse_qs(urllib.parse.urlsplit(self.path).query).items()}
+                        res = api.dispatch(name, dict(self.headers), query, hit.groupdict(), body, raw)
                         return self._send(res.status, res.body, res.headers)
                 self._send(404, {"error": {"code": "not_found"}}, {})
 

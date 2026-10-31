@@ -15,6 +15,8 @@ x-app: &app
   build:
     context: .
     dockerfile: Dockerfile.week5
+    args:
+      WITH_GENAI: "${WITH_GENAI:-0}"
   init: true
   restart: unless-stopped
   read_only: true
@@ -136,6 +138,11 @@ services:
     environment:
       <<: *common-env
       WEEK5_WORKER_DATABASE_URL: postgresql://soc_worker_login:${WEEK5_WORKER_DB_PASSWORD:?set WEEK5_WORKER_DB_PASSWORD in .env.week5}@postgres:5432/${WEEK5_DB_NAME:-soc}
+      
+      WEEK5_MODEL_MODE: gemini
+      WEEK5_ALLOW_LIVE_MODEL: "1"
+      GEMINI_API_KEY: ${GEMINI_API_KEY:?set GEMINI_API_KEY in .env.week5}
+    networks: [backend, model-egress]
     depends_on:
       migrate:
         condition: service_completed_successfully
@@ -187,6 +194,9 @@ networks:
   backend:
     internal: true
   edge: {}
+  model-egress: {}
 
 volumes:
   soc_week5_pgdata:
+
+

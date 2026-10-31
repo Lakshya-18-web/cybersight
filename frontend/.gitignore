@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+.env
+.env.*
+!.env.example
+*.log
+e2e/shots
+e2e/e2e_results.json

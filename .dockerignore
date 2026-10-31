@@ -9,6 +9,7 @@ venv
 .env
 .env.*
 !.env.week5.example
+!.env.integrations.example
 data
 eval
 models
@@ -21,3 +22,4 @@ runs_tmp
 tests
 docs
 *.md
+reports/

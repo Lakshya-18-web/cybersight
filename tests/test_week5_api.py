@@ -294,6 +294,41 @@ class EndToEnd(unittest.TestCase):
         self.assertEqual(rig.api.dispatch("no_such_route").status, 404)
 
 
+class MeTests(unittest.TestCase):
+    """GET /me: the caller's own identity and what the API would let them do. Read-only; the frontend uses it so it never has to guess a role."""
+
+    def setUp(self):
+        self.rig = W5.ApiRig()
+
+    def test_each_role_sees_its_own_identity_and_permissions(self):
+        expected = {"carol": ("viewer", False, False), "bob": ("analyst", True, False), "alice": ("approver", True, True), "root": ("admin", True, True)}
+        for who, (role, submit, decide) in expected.items():
+            r = self.rig.call("get_me", who)
+            self.assertEqual(r.status, 200, who)
+            self.assertEqual(r.body, {"analyst_id": who, "role": role, "active": True, "permissions": {"read": True, "submit": submit, "decide": decide}}, who)
+
+    def test_permissions_agree_with_what_the_routes_enforce(self):
+        for who in ("carol", "bob", "alice", "root"):
+            perms = self.rig.call("get_me", who).body["permissions"]
+            self.assertEqual(perms["submit"], self.rig.post_alert(100 + len(who), who=who).status == 202, who)
+            denied = self.rig.call("decide", who, body={"decision": "approved", "reason": "x"}, path={"action_id": "33333333-3333-4333-8333-333333333333"})
+            self.assertEqual(perms["decide"], denied.status != 403, who)
+
+    def test_it_needs_a_valid_active_known_credential(self):
+        self.assertEqual(self.rig.call("get_me", None).status, 401)
+        r = self.rig.call("get_me", "bob", token="x" * 40)
+        self.assertEqual((r.status, r.headers["WWW-Authenticate"]), (401, "Bearer"))
+        self.assertEqual(self.rig.call("get_me", "erin").status, 403, "an inactive account is refused")
+        self.assertEqual(self.rig.call("get_me", "ghost").status, 403, "a token with no analyst record is refused")
+
+    def test_it_writes_nothing_and_never_echoes_the_credential(self):
+        before = (self.rig.store.list_jobs()["total"], self.rig.repo.list_cases()["total"])
+        r = self.rig.call("get_me", "bob")
+        self.assertEqual((self.rig.store.list_jobs()["total"], self.rig.repo.list_cases()["total"]), before)
+        self.assertNotIn(W5.TOKENS["bob"], body_text(r))
+        self.assertEqual(sorted(r.body), ["active", "analyst_id", "permissions", "role"])
+
+
 class RouteTableTests(unittest.TestCase):
     def test_every_route_has_a_handler_and_a_known_role(self):
         for r in routes5.ROUTES5:
@@ -309,6 +344,7 @@ class RouteTableTests(unittest.TestCase):
 
     def test_only_the_health_routes_are_public(self):
         self.assertEqual(sorted(r.name for r in routes5.ROUTES5 if r.role is None), ["health_live", "health_ready"])
+        self.assertEqual(routes5.BY_NAME5["get_me"].role, "read")
 
 
 class FakeRequest:

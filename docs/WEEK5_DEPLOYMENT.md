@@ -46,9 +46,24 @@
 9. Fake-model load test against the running API (token in an environment variable, never on the command line):
    `$env:WEEK5_LOADTEST_TOKEN = "<the token from step 2>"`
    `python -m week5.loadtest run --mode http --base-url http://127.0.0.1:8000 --total 100 --concurrency 4 --out-dir runs_tmp\loadtest_http`
-10. Stop (data volume kept) or stop and delete the database volume:
+10. Stop (data volume kept). The second command below DELETES the database volume and every case in it: never run it on a deployment you want to keep, and never as part of an upgrade.
     `docker compose -f docker-compose.week5.yml --env-file .env.week5 down`
     `docker compose -f docker-compose.week5.yml --env-file .env.week5 down -v`
+
+## Additions from the end-to-end upgrade (sensor ingestion, case management, threat intelligence, evaluation)
+Everything below is optional and additive. None of it edits `docker-compose.week5.yml`; each is a separate override file combined with `-f`.
+
+| Need | File | Command suffix |
+|---|---|---|
+| New tables and functions (sensor events, notes, feedback, resolution) | migration `0002_sensor_and_case_management.sql` | applied automatically by the `migrate` service on `up -d --build`; additive and idempotent |
+| Gemini and AbuseIPDB from the worker only, through an allow-list proxy | `docker-compose.egress.yml` + `.env.integrations` (from `.env.integrations.example`) | `-f docker-compose.egress.yml --env-file .env.integrations` (`WEEK5_WITH_GENAI=1` installs the Gemini SDK in the image; needs Docker Compose 2.24+, and removes the worker from any direct network such as `model-egress`) |
+| Evaluation reports on the console's Evaluation page | `docker-compose.reports.yml` | `-f docker-compose.reports.yml` (reads `./reports` read-only) |
+| The web console | `docker-compose.frontend.yml` | `-f docker-compose.frontend.yml` |
+
+A full command with everything enabled (PowerShell, one line):
+`docker compose -f docker-compose.week5.yml -f docker-compose.egress.yml -f docker-compose.reports.yml -f docker-compose.frontend.yml --env-file .env.week5 --env-file .env.integrations up -d --build`
+
+Rules that hold for all of them: the AbuseIPDB key lives only in `.env.integrations` and the Gemini key stays in `.env.week5` (both git-ignored; the `.example` has placeholders and does not define the Gemini key); only the worker receives a key and a route out; the API never calls the model or the threat-intelligence provider; and `docker compose down -v` is never part of an upgrade. Back up first (`WEEK5_OPERATIONS.md` section 2); upgrade, rollback, restore, health checks and troubleshooting are in `WEEK5_OPERATIONS.md`. Sensor ingestion is in `WEEK5_SENSOR_INGESTION.md`; the policy and its semantic changes in `WEEK5_POLICY_CHANGES.md`.
 
 ## First-run checklist (the things I could not observe)
 - [ ] `build` succeeds (all wheels install for Python 3.11; `psycopg[binary]`, `celery`, `redis`, `langgraph` resolve together).
@@ -59,6 +74,8 @@
 - [ ] `docker compose stop redis`, submit alerts (HTTP 202, `dispatch` not sent), start redis: the sweeper publishes them and they complete.
 - [ ] `docker compose exec api id` shows uid 10001; `docker compose exec api touch /app/x` fails (read-only).
 - [ ] From the host, `Test-NetConnection 127.0.0.1 -Port 5432` and `-Port 6379` fail (not published).
+- [ ] Upgrade only: `migrate` log shows migration `0002` applied (or already applied); the console's System > Diagnostics shows the audit chain verified and both policy versions.
+- [ ] Optional overrides only: `docker compose ... config -q` is clean with every `-f` you use; `docker compose exec worker env` shows `HTTPS_PROXY`, `docker compose exec api env` does NOT show any key; a lookup to a host that is not on the allow-list is refused by the proxy.
 - [ ] If any step fails, keep the `docker compose logs <service>` output (it contains no secrets by design) and send it back.
 
 ## Known limits

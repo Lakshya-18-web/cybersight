@@ -1,4 +1,4 @@
-﻿"""The job store: durable state of every submitted alert, as one interface with two implementations (the same pattern as week4.db.repository).
+"""The job store: durable state of every submitted alert, as one interface with two implementations (the same pattern as week4.db.repository).
 
   PgJobStore      the real thing. Every write goes through a SECURITY DEFINER function of Week 5 migration 0001, so the rules (one owner per running job, terminal states are final,
                   bounded attempts, append-only events, no credential-shaped keys) are enforced by PostgreSQL and not by this file.
@@ -132,14 +132,15 @@ class PgJobStore(JobStore):
         return self.db.query_json("SELECT coalesce(jsonb_agg(to_jsonb(t)), '[]'::jsonb) FROM (" + sql + ") t", params) or []
 
     def ping(self):
-        return self.db.scalar("SELECT 1") == 1
+        return self.db.scalar("SELECT 1") in (1, "1")      # psycopg returns an int (your fix), the psql driver the text "1" (the repository's own PostgreSQL tests use it)
 
     def submit(self, alert, alert_set, memory_mode, submitted_by, idempotency_key, payload_sha256, max_attempts, max_queue_depth=None, dispatched=False):
         payload = {"idempotency_key": idempotency_key, "payload_sha256": payload_sha256, "alert": alert, "alert_id": alert["alert_id"], "alert_set": alert_set, "memory_mode": memory_mode,
                    "submitted_by": submitted_by, "max_attempts": int(max_attempts), "dispatched": bool(dispatched)}
         if max_queue_depth is not None:
             payload["max_queue_depth"] = int(max_queue_depth)
-        row = self._row("SELECT * FROM soc.submit_job(%s)", [payload])
+        import json
+        row = self._row("SELECT * FROM soc.submit_job(%s::jsonb)", [json.dumps(payload)])
         return {"outcome": row["outcome"], "job_id": row["o_job_id"], "status": row["o_status"], "detail": row["detail"]}
 
     def get(self, job_id):
@@ -174,8 +175,16 @@ class PgJobStore(JobStore):
         return self.db.scalar("SELECT soc.heartbeat_job(%s::uuid, %s, %s)", [parse_uuid(job_id), worker, int(lease_seconds)]) == "t"
 
     def complete(self, job_id, worker, case_id, result=None, timings=None, usage=None):
-        row = self._row("SELECT * FROM soc.complete_job(%s::uuid, %s, %s::uuid, %s, %s, %s)",
-                        [parse_uuid(job_id), worker, parse_uuid(case_id), result or {}, timings or {}, usage or {}])
+        # Psycopg does not adapt plain Python dicts to PostgreSQL jsonb automatically.
+        # Serialize the JSON payloads and cast the placeholders explicitly.
+        import json
+        row = self._row(
+            "SELECT * FROM soc.complete_job(%s::uuid, %s, %s::uuid, %s::jsonb, %s::jsonb, %s::jsonb)",
+            [parse_uuid(job_id), worker, parse_uuid(case_id),
+             json.dumps(result or {}, allow_nan=False),
+             json.dumps(timings or {}, allow_nan=False),
+             json.dumps(usage or {}, allow_nan=False)],
+        )
         return {"outcome": row["outcome"], "status": row["o_status"]}
 
     def fail(self, job_id, worker, code, detail, retryable, delay_seconds=0, timed_out=False):
@@ -250,7 +259,7 @@ class MemoryJobStore(JobStore):
     def submit(self, alert, alert_set, memory_mode, submitted_by, idempotency_key, payload_sha256, max_attempts, max_queue_depth=None, dispatched=False):
         with self._lock:
             self._check_db()
-            if not (isinstance(alert, dict) and isinstance(idempotency_key, str) and 8 <= len(idempotency_key) <= 200 and alert_set in ("dev", "synthetic") and memory_mode in ("off", "on")
+            if not (isinstance(alert, dict) and isinstance(idempotency_key, str) and 8 <= len(idempotency_key) <= 200 and alert_set in ("dev", "synthetic", "sensor") and memory_mode in ("off", "on")
                     and isinstance(payload_sha256, str) and len(payload_sha256) == 64 and 1 <= int(max_attempts) <= 10):
                 return {"outcome": "invalid", "job_id": None, "status": None, "detail": "the job payload is not valid"}
             existing = self.jobs.get(self.by_key.get(idempotency_key))

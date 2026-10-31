@@ -683,7 +683,7 @@ class ReportTests(Rehearsed):
         self.assertIn("REHEARSAL", text)
         self.assertIn("NOTHING about the detector", text)
         for heading in ("## 1. Validity", "## 2. Definitions", "## 3. Raw detector", "## 4. Comparison", "## 5. Failures kept apart", "## 6. Full system: routing", "## 7. Stability",
-                        "## 8. Sources of non-determinism"):
+                        "## 8. Per-class results", "## 9. Sources of non-determinism"):
             self.assertIn(heading, text)
         self.assertIn("No significance test", text)
         self.assertIn("TRUE ATTACKS AUTO-CLOSED", text)

@@ -1,0 +1,3 @@
+# Live Gemini client. Installed into the image only when it is built with --build-arg WITH_GENAI=1 (see Dockerfile.week5), so the choice persists in the image across rebuilds
+# as long as the same build argument (or WEEK5_WITH_GENAI=1 in .env.integrations) is used. Pin the version you have tested: replace the range with ==X.Y.Z after your first successful live run.
+google-genai>=1.0,<2

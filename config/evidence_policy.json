@@ -1,0 +1,30 @@
+{
+  "evidence_policy_version": "evidence-policy-v1",
+  "description": "Deterministic evidence veto (RR-1). It runs after the Week 4 risk policy and the response guard and can only RAISE caution: auto_close -> needs_review -> escalate. It reads observed and enriched evidence, never the model's text. No rule here can close a case, approve an action or create one.",
+  "sensor": {
+    "escalate_severity_max": 1,
+    "review_severity_max": 2,
+    "escalate_categories": [
+      "A Network Trojan was detected",
+      "Successful Administrator Privilege Gain",
+      "Attempted Administrator Privilege Gain",
+      "Executable code was detected",
+      "Web Application Attack",
+      "Malware Command and Control Activity Detected"
+    ],
+    "require_flow_for_auto_close": true
+  },
+  "beacon": {
+    "candidate_floor": "needs_review"
+  },
+  "scan": {
+    "min_flows": 20,
+    "min_distinct_destination_ports": 20,
+    "floor": "needs_review"
+  },
+  "threat_intel": {
+    "escalate_min_score": 75,
+    "escalate_min_reports": 3,
+    "review_min_score": 25
+  }
+}

@@ -51,9 +51,9 @@ def create_app5(api):
     app = week4_app.create_app(api)
     app.title = "SOC Triage - ingestion and approval API"
     app.version = VERSION
-    limit = api.settings.max_body_bytes
-
     def endpoint_for(route):
+        limit = api.body_limit(route.name)
+
         async def endpoint(request: Request):
             raw = None
             if route.method == "POST":
@@ -70,7 +70,7 @@ def create_app5(api):
     for route in routes5.ROUTES5:
         params = [{"name": n, "in": "query", "required": False, "description": d, "schema": {"type": "string"}} for n, d in route.query]
         for part in re.findall(r"{(\w+)}", route.path):
-            params.append({"name": part, "in": "path", "required": True, "schema": {"type": "string", "format": "uuid"}})
+            params.append({"name": part, "in": "path", "required": True, "schema": {"type": "string", "format": "uuid"} if part.endswith("_id") else {"type": "string"}})
         extra = {}
         if route.name == "submit_alert":
             params.append({"name": "Idempotency-Key", "in": "header", "required": False, "schema": {"type": "string", "minLength": 8, "maxLength": 200}})

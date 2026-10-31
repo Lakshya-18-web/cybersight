@@ -1,0 +1,33 @@
+{
+ "alerts_expected": 24,
+ "alerts_recorded": 24,
+ "concurrency": 1,
+ "config": "raw_detector",
+ "fake_model": false,
+ "finished_utc": "2026-10-18T07:58:48Z",
+ "inputs": {
+  "alert_count": 24,
+  "alert_ids_sha256": "fc92929cb3e3fb8ec534a76af9bb44659cacbb8c31064e10dcfcbc747b516c0e",
+  "alerts_sha256": "5ccdd81c4de09167807e282e7019e298a7d85b7b26c454a73a597171051bb3b7",
+  "flows_sha256": "19b8961025586be3174a70cfb19258909b8e8110808313d9d2f15757bc33a7ca",
+  "labels_sha256": "315458ccb38748b155f71a7da3c05d226e31f97fd903c96546a1a39751b1a0c4",
+  "set": "fixture"
+ },
+ "model": null,
+ "nondeterminism": [
+  "Model replies can differ between runs even at temperature 0 and a fixed seed (provider-side non-determinism).",
+  "Latency depends on provider load, network and the calls-per-minute gate, not only on the system.",
+  "Runs are sequential; no concurrency effects are introduced by this tool."
+ ],
+ "observed": null,
+ "plan_id": "rehearsal",
+ "plan_sha256": "ef13b79ce9a79f1804802098f6bbecfd2cb655d314d37f7c63920606d32a1fa9",
+ "run_id": "rehearsal-raw_detector-r3-b5f62f44",
+ "run_index": 3,
+ "schema": "week5-evalrun-run-meta-v1",
+ "set": "fixture",
+ "started_utc": "2026-10-18T07:58:48Z",
+ "status": "complete",
+ "threshold": 0.00459436746314168,
+ "wall_seconds": 0.002
+}

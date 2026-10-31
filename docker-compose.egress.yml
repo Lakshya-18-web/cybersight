@@ -1,0 +1,81 @@
+# Optional override: lets ONLY the worker reach Gemini and AbuseIPDB, through an allow-list proxy. Everything else keeps no route to the internet.
+#   docker compose -f docker-compose.week5.yml -f docker-compose.egress.yml --env-file .env.week5 --env-file .env.integrations config -q
+#   docker compose -f docker-compose.week5.yml -f docker-compose.egress.yml --env-file .env.week5 --env-file .env.integrations up -d --build
+# (.env.integrations is separate from .env.week5 so a key can be added or removed without touching the database secrets. Never run `docker compose down -v`: it deletes the database volume.)
+#
+# What this adds
+#   egress-proxy   python -m week5.egress.proxy. Allows CONNECT to WEEK5_EGRESS_ALLOW hosts on port 443 only; refuses IP literals and private/loopback/link-local answers. Sees host names, never content.
+#   soc-egress-out the only network with a route out. Only egress-proxy is on it. `backend` stays internal.
+#   worker         receives HTTPS_PROXY (the proxy) and the threat-intelligence settings, and is taken OFF any other network (see below). The API, sweeper, migrate, postgres and redis receive NO key and NO proxy setting.
+#
+# What this deliberately does NOT touch: the worker's model switches and GEMINI_API_KEY. They stay exactly as your base file sets them (a base that already runs Gemini keeps running Gemini;
+# a base without them keeps the fake model). An earlier draft of this file set WEEK5_MODEL_MODE itself and would have reset a live Gemini worker to the fake model.
+#
+# Your base file may already put the worker on a direct-internet network (for example `model-egress`). With that network the proxy would be bypassed, so the worker's network list is REPLACED below
+# with `!override [backend]`. That tag needs Docker Compose 2.24 or newer (check: `docker compose version`). On an older Compose, delete the line `networks: !override [backend]` and instead remove
+# `model-egress` from the worker's `networks:` in your base file by hand, then run `docker compose ... config` and confirm the worker lists only `backend`.
+x-egress-keys: &egress-env
+  HTTPS_PROXY: http://egress-proxy:3128
+  https_proxy: http://egress-proxy:3128
+  NO_PROXY: postgres,redis,egress-proxy,localhost,127.0.0.1
+  no_proxy: postgres,redis,egress-proxy,localhost,127.0.0.1
+
+services:
+  egress-proxy:
+    image: soc-week5:local
+    build: &build
+      context: .
+      dockerfile: Dockerfile.week5
+      args:
+        WITH_GENAI: ${WEEK5_WITH_GENAI:-0}
+    init: true
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    command: ["python", "-m", "week5.egress.proxy"]
+    environment:
+      WEEK5_EGRESS_ALLOW: ${WEEK5_EGRESS_ALLOW:-generativelanguage.googleapis.com,api.abuseipdb.com}
+      WEEK5_EGRESS_PORTS: "443"
+      WEEK5_EGRESS_LISTEN: 0.0.0.0:3128
+      WEEK5_EGRESS_MAX_TUNNELS: ${WEEK5_EGRESS_MAX_TUNNELS:-32}
+    networks: [backend, soc-egress-out]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,socket,sys; s=socket.create_connection(('127.0.0.1',3128),3); s.sendall(b'GET /healthz HTTP/1.1\\r\\n\\r\\n'); sys.exit(0 if s.recv(32).startswith(b'HTTP/1.1 200') else 1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 128M
+          pids: 128
+
+  worker:
+    build: *build
+    environment:
+      <<: *egress-env
+      SOC_REPUTATION_API_KEY: ${SOC_REPUTATION_API_KEY:-}
+      SOC_REPUTATION_TIMEOUT: ${SOC_REPUTATION_TIMEOUT:-5}
+      WEEK5_TI_ALERT_SETS: ${WEEK5_TI_ALERT_SETS:-sensor}
+      WEEK5_TI_DAILY_BUDGET: ${WEEK5_TI_DAILY_BUDGET:-500}
+    networks: !override [backend]          # no direct route out: everything leaves through egress-proxy
+    depends_on:
+      egress-proxy:
+        condition: service_healthy
+
+  # Every service that uses the shared image gets the same build argument, so the image tag soc-week5:local cannot flip between "with" and "without" the Gemini library
+  # depending on which service Compose builds last.
+  api:
+    build: *build
+  migrate:
+    build: *build
+  sweeper:
+    build: *build
+
+networks:
+  soc-egress-out: {}

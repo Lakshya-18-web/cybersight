@@ -11,7 +11,7 @@ from dataclasses import dataclass, fields
 QUEUE_BACKENDS = ("postgres", "celery", "memory")
 ENGINES = ("langgraph", "instrumented")
 MODEL_MODES = ("fake", "gemini")
-ALERT_SETS = ("synthetic", "dev")
+ALERT_SETS = ("synthetic", "dev")          # the alert set the CIC-style /alerts intake stamps; sensor alerts are always "sensor" (set by the EVE ingestion, never by a request)
 FLOW_STORES = ("dev", "none", "fixture")      # fixture = the small invented traffic table in week5.fixtures (Docker demo, no data files needed)
 MEMORY_MODES = ("off", "on")
 
@@ -99,6 +99,8 @@ class Settings:
     memory_dir: str = ""
     memory_k: int = 5
     max_body_bytes: int = 16384
+    max_eve_body_bytes: int = 2097152
+    eval_report_dir: str = ""
     max_attempts: int = 3
     job_timeout_seconds: float = 120.0
     lease_seconds: int = 300
@@ -141,6 +143,8 @@ def from_env(env=None):
         memory_dir=(env.get("WEEK5_MEMORY_DIR") or "").strip(),
         memory_k=_int(env, "WEEK5_MEMORY_K", d.memory_k, 1, 50, problems),
         max_body_bytes=_int(env, "WEEK5_MAX_BODY_BYTES", d.max_body_bytes, 512, 1048576, problems),
+        max_eve_body_bytes=_int(env, "WEEK5_MAX_EVE_BODY_BYTES", d.max_eve_body_bytes, 4096, 16777216, problems),
+        eval_report_dir=(env.get("WEEK5_EVAL_REPORT_DIR") or "").strip(),
         max_attempts=_int(env, "WEEK5_MAX_ATTEMPTS", d.max_attempts, 1, 10, problems),
         job_timeout_seconds=_float(env, "WEEK5_JOB_TIMEOUT_SECONDS", d.job_timeout_seconds, 1, 3600, problems),
         lease_seconds=_int(env, "WEEK5_LEASE_SECONDS", d.lease_seconds, 5, 86400, problems),

@@ -33,8 +33,16 @@ def _read(name):
         return fh.read()
 
 
+PAYLOAD_FILES = ("payloads.json", "payloads_evidence.json")          # the second file is optional: it holds the payloads added with the evidence policy, so the first file (which you may have edited) is never replaced
+
+
 def load_payloads():
-    return json.loads(_read("payloads.json").decode("utf-8"))
+    out = []
+    for name in PAYLOAD_FILES:
+        if name != "payloads.json" and not os.path.exists(os.path.join(DATA_DIR, name)):
+            continue
+        out.extend(json.loads(_read(name).decode("utf-8")))
+    return out
 
 
 def load_criteria():
@@ -42,7 +50,8 @@ def load_criteria():
 
 
 def data_hashes():
-    return {n: hashlib.sha256(_read(n).replace(b"\r\n", b"\n")).hexdigest() for n in ("criteria.json", "payloads.json")}
+    names = ["criteria.json"] + [n for n in PAYLOAD_FILES if n == "payloads.json" or os.path.exists(os.path.join(DATA_DIR, n))]
+    return {n: hashlib.sha256(_read(n).replace(b"\r\n", b"\n")).hexdigest() for n in names}
 
 
 def validate_payloads(payloads):
@@ -50,8 +59,8 @@ def validate_payloads(payloads):
     problems, seen = [], set()
     adv = [p for p in payloads if p.get("kind") == "adversarial"]
     ctl = [p for p in payloads if p.get("kind") == "benign_control"]
-    if not 30 <= len(adv) <= 50:
-        problems.append("the suite needs 30 to 50 adversarial payloads, found %d" % len(adv))
+    if not 30 <= len(adv) <= 60:
+        problems.append("the suite needs 30 to 60 adversarial payloads, found %d" % len(adv))
     if len(ctl) < 10:
         problems.append("the suite needs at least 10 benign controls, found %d" % len(ctl))
     for p in payloads:

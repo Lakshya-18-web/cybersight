@@ -22,7 +22,9 @@ SCALARS = {
                      ("f1", ["verdict", "valid_only", "detector", "f1"]), ("specificity", ["verdict", "valid_only", "detector", "specificity", "value"]),
                      ("false_positives", ["verdict", "valid_only", "detector_confusion", "fp"]), ("false_negatives", ["verdict", "valid_only", "detector_confusion", "fn"])],
 }
-MODEL_SCALARS = [("precision_valid_only", ["verdict", "valid_only", "llm", "precision", "value"]), ("recall_valid_only", ["verdict", "valid_only", "llm", "recall", "value"]),
+MODEL_SCALARS = [("false_positive_rate", ["error_rates", "false_positive_rate", "value"]), ("false_negative_rate", ["error_rates", "false_negative_rate", "value"]),
+                 ("false_negatives_valid_only", ["error_rates", "fn"]), ("alerts_needing_a_retry", ["retries", "alerts_needing_a_retry"]), ("model_calls_total", ["retries", "model_calls_total"]),
+                 ("precision_valid_only", ["verdict", "valid_only", "llm", "precision", "value"]), ("recall_valid_only", ["verdict", "valid_only", "llm", "recall", "value"]),
                  ("f1_valid_only", ["verdict", "valid_only", "llm", "f1"]), ("specificity_valid_only", ["verdict", "valid_only", "llm", "specificity", "value"]),
                  ("precision_failures_wrong", ["verdict", "failures_wrong", "llm", "precision", "value"]), ("recall_failures_wrong", ["verdict", "failures_wrong", "llm", "recall", "value"]),
                  ("f1_failures_wrong", ["verdict", "failures_wrong", "llm", "f1"]), ("recall_failures_escalated", ["verdict", "failures_escalated", "llm", "recall", "value"]),
@@ -79,6 +81,48 @@ def throughput(run, latest):
             "per_alert_wall_median_s": float(np.median(walls)) if walls else None, "per_alert_wall_p95_s": float(np.percentile(walls, 95)) if walls else None, "concurrency": run.meta.get("concurrency")}
 
 
+def rate(num, den):
+    return {"numerator": int(num), "denominator": int(den), "value": (float(num) / den) if den else None}
+
+
+def error_rates(df):
+    """Binary errors among alerts that received a valid verdict. A missing verdict is NOT counted here (see failure_breakdown)."""
+    valid = df[df["has_verdict"]]
+    tp = int(((valid["pred_malicious"] == True) & valid["is_attack"]).sum())          # noqa: E712
+    fp = int(((valid["pred_malicious"] == True) & ~valid["is_attack"]).sum())         # noqa: E712
+    fn = int(((valid["pred_malicious"] == False) & valid["is_attack"]).sum())         # noqa: E712
+    tn = int(((valid["pred_malicious"] == False) & ~valid["is_attack"]).sum())        # noqa: E712
+    return {"valid_verdicts": int(len(valid)), "tp": tp, "fp": fp, "fn": fn, "tn": tn, "false_positive_rate": rate(fp, fp + tn), "false_negative_rate": rate(fn, fn + tp),
+            "missed_attack_alert_ids": sorted(valid.loc[(valid["pred_malicious"] == False) & valid["is_attack"], "alert_id"].tolist())}      # noqa: E712
+
+
+def per_class(df):
+    """One row per TRUE class: how many alerts, how many the verdict called malicious, how often the attack type was exactly right, how many had no verdict and, for the full system, how each was routed."""
+    out = {}
+    for label, g in df.groupby("label", sort=True):
+        valid = g[g["has_verdict"]]
+        row = {"support": int(len(g)), "is_attack_class": bool(g["is_attack"].iloc[0]), "no_verdict": int((~g["has_verdict"]).sum()), "valid_verdicts": int(len(valid)),
+               "called_malicious": int((valid["pred_malicious"] == True).sum()),         # noqa: E712
+               "called_benign": int((valid["pred_malicious"] == False).sum())}          # noqa: E712
+        if row["is_attack_class"]:
+            row["recall_valid_only"] = rate(row["called_malicious"], row["valid_verdicts"])
+            row["attack_type_exact"] = rate(int((valid["pred_attack_type"] == label).sum()), row["valid_verdicts"])
+        else:
+            row["specificity_valid_only"] = rate(row["called_benign"], row["valid_verdicts"])
+        if "routing" in g.columns:
+            row["routing"] = {k: int(v) for k, v in g["routing"].value_counts().items()}
+        out[str(label)] = row
+    return out
+
+
+def retry_summary(df, run):
+    attempts = df["attempts"].dropna()
+    calls = df["model_calls"].dropna()
+    return {"attempts_total": int(attempts.sum()) if len(attempts) else None, "model_calls_total": int(calls.sum()) if len(calls) else None,
+            "alerts_needing_a_retry": int((attempts > 1).sum()) if len(attempts) else None, "malformed_first_try": int(df["malformed_first_try"].fillna(False).astype(bool).sum()),
+            "note": "attempts count the parse retries the plan allows; they are not infrastructure retries (those are job attempts, measured by the load tests)."}
+
+
 def run_metrics(run, data, pricing=None):
     df, latest = build_df(run, data)
     if run.config == "raw_detector":
@@ -99,6 +143,10 @@ def run_metrics(run, data, pricing=None):
                 for s in r.get("guard_signals") or []:
                     m["guard_signals"][s] = m["guard_signals"].get(s, 0) + 1
     m["failure_breakdown"] = failure_breakdown(run, df)
+    if run.config != "raw_detector":
+        m["error_rates"] = error_rates(df)
+        m["per_class"] = per_class(df)
+        m["retries"] = retry_summary(df, run)
     m["throughput"] = throughput(run, latest)
     m["run"] = {"run_id": run.meta["run_id"], "run_index": run.index, "started_utc": run.meta["started_utc"], "finished_utc": run.meta["finished_utc"], "fake_model": bool(run.meta.get("fake_model"))}
     return m, df

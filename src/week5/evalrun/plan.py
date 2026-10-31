@@ -36,20 +36,23 @@ def project_defaults():
         raise RuntimeError("cannot read the project settings (%s); create the plan from a checkout that has the Week 2 files" % type(error).__name__)
     sizes = llm_config.models()
     pol = policy_module.load_policy(None)
+    from week5 import evidence_policy
+    _, combined_sha = evidence_policy.combined_identity(pol, evidence_policy.load())          # the identity the runner stamps on every routing decision (risk policy + evidence policy)
     return {
         "threshold": config.ACCEPTED_THRESHOLD,
         "model": {"name": str(sizes["small"]), "fake": False, "temperature": llm_config.TEMPERATURE, "max_output_tokens": llm_config.MAX_OUTPUT_TOKENS, "seed": rb.GENERATION_SEED,
                   "parse_retries": llm_config.MAX_RETRIES},
         "baseline_prompt_version": prompt_registry.DEFAULT_VERSION,
-        "policy_sha256": pol.sha256,
+        "policy_sha256": combined_sha,
         "week4_version": W4,
     }
 
 
 def rehearsal_defaults():
     from week4 import policy as policy_module
+    from week5 import evidence_policy
     return {"threshold": 0.00459436746314168, "model": {"name": "FAKE:rehearsal", "fake": True, "temperature": 0.0, "max_output_tokens": 1024, "seed": 42, "parse_retries": 2},
-            "baseline_prompt_version": "baseline_v1", "policy_sha256": policy_module.load_policy(None).sha256, "week4_version": "n/a"}
+            "baseline_prompt_version": "baseline_v1", "policy_sha256": evidence_policy.combined_identity(policy_module.load_policy(None), evidence_policy.load())[1], "week4_version": "n/a"}
 
 
 def make_plan(plan_id, set_name="fixture", defaults=None, memory="off", alias_ids=False, engine="langgraph", pricing=None, notes=()):

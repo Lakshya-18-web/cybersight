@@ -1,0 +1,638 @@
+{
+  "counts": {
+    "duplicates_recognised": 0,
+    "failed": 0,
+    "http_status": {
+      "202": 300
+    },
+    "jobs_created": 300,
+    "rejected_or_failed_requests": 0,
+    "retried_jobs": 0,
+    "submissions": 300,
+    "succeeded": 300,
+    "timed_out": 0,
+    "unfinished_at_drain_timeout": 0
+  },
+  "errors": {
+    "by_error_code": {},
+    "http_non_success": {}
+  },
+  "honesty": [
+    "Percentiles are nearest-rank; a percentile with too few samples is listed in low_sample and equals (or nearly equals) the maximum.",
+    "The model is a FAKE with a SIMULATED delay. These numbers describe this software's own overhead plus that delay. They say nothing about Gemini's real latency, quota or cost.",
+    "No token counts and no cost are reported: a fake model has none, and nothing was estimated.",
+    "In-process mode calls the API handlers directly (no HTTP, no network, no database) and runs the workers as threads of one Python process, so it cannot show true parallel speed-up of CPU work.",
+    "Results are for one machine and one run; repeat it (different seeds) before drawing conclusions, and never compare runs made with different settings."
+  ],
+  "latency": {
+    "api_submit_ms": {
+      "low_sample": [],
+      "max": 91.656,
+      "mean": 27.189577,
+      "min": 0.215,
+      "n": 300,
+      "p50": 29.033,
+      "p90": 54.86,
+      "p95": 68.903,
+      "p99": 79.831,
+      "unit": "ms"
+    },
+    "client_lag_s": {
+      "low_sample": [],
+      "max": 0.0,
+      "mean": 0.0,
+      "min": 0.0,
+      "n": 300,
+      "p50": 0.0,
+      "p90": 0.0,
+      "p95": 0.0,
+      "p99": 0.0,
+      "unit": "seconds"
+    },
+    "end_to_end_s": {
+      "low_sample": [],
+      "max": 9.083957,
+      "mean": 4.641626,
+      "min": 0.148238,
+      "n": 300,
+      "p50": 4.554679,
+      "p90": 8.309776,
+      "p95": 8.759182,
+      "p99": 9.047611,
+      "unit": "seconds"
+    },
+    "processing_s": {
+      "low_sample": [],
+      "max": 0.235132,
+      "mean": 0.126927,
+      "min": 0.042572,
+      "n": 300,
+      "p50": 0.121876,
+      "p90": 0.186572,
+      "p95": 0.202697,
+      "p99": 0.215595,
+      "unit": "seconds"
+    },
+    "queue_wait_s": {
+      "low_sample": [],
+      "max": 9.018587,
+      "mean": 4.514699,
+      "min": 0.005893,
+      "n": 300,
+      "p50": 4.455848,
+      "p90": 8.173626,
+      "p95": 8.65001,
+      "p99": 8.964949,
+      "unit": "seconds"
+    }
+  },
+  "meta": {
+    "backend": {
+      "api_rate_limit_per_minute": 0,
+      "engine": "instrumented",
+      "failure_mix": "none",
+      "job_timeout_s": 30.0,
+      "max_attempts": 3,
+      "model": "FAKE:canned (simulated latency)",
+      "queue": "in-memory job store polled by worker threads",
+      "retry_backoff_s": [
+        0.05,
+        0.1,
+        0.2
+      ],
+      "simulated_model_delay_s": 0.05,
+      "simulated_model_jitter_s": 0.02,
+      "worker_poll_s": 0.005,
+      "workers": 4
+    },
+    "cpu_count": 2,
+    "fake_model": true,
+    "finished_at": "2026-10-16T20:25:55Z",
+    "mode": "inprocess",
+    "model": "FAKE:canned",
+    "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39",
+    "python": "3.13.16",
+    "started_at": "2026-10-16T20:25:45Z",
+    "week5_version": "week5-v1"
+  },
+  "outcomes": {
+    "routing_decision": {
+      "escalate": 300
+    },
+    "verdict_status": {
+      "ok": 300
+    }
+  },
+  "parameters": {
+    "client_threads": 16,
+    "drain_timeout_s": 120.0,
+    "duplicate_fraction": 0.0,
+    "label": "closed_loop_4w (sandbox, fake model)",
+    "pattern": "closed loop",
+    "rate_per_s": 0.0,
+    "seed": 11,
+    "total_alerts": 300
+  },
+  "per_node": {
+    "c2_beacon_analyst": {
+      "calls_per_job": {
+        "low_sample": [],
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0,
+        "n": 225,
+        "p50": 1.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "p99": 1.0,
+        "unit": "calls"
+      },
+      "seconds_per_job": {
+        "low_sample": [],
+        "max": 0.051841,
+        "mean": 0.01031,
+        "min": 0.004408,
+        "n": 225,
+        "p50": 0.006719,
+        "p90": 0.021743,
+        "p95": 0.031474,
+        "p99": 0.044804,
+        "unit": "seconds"
+      }
+    },
+    "enrichment_agent": {
+      "calls_per_job": {
+        "low_sample": [],
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0,
+        "n": 300,
+        "p50": 1.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "p99": 1.0,
+        "unit": "calls"
+      },
+      "seconds_per_job": {
+        "low_sample": [],
+        "max": 0.033057,
+        "mean": 0.004214,
+        "min": 0.001755,
+        "n": 300,
+        "p50": 0.002994,
+        "p90": 0.005975,
+        "p95": 0.01113,
+        "p99": 0.026045,
+        "unit": "seconds"
+      }
+    },
+    "supervisor": {
+      "calls_per_job": {
+        "low_sample": [],
+        "max": 5.0,
+        "mean": 4.75,
+        "min": 4.0,
+        "n": 300,
+        "p50": 5.0,
+        "p90": 5.0,
+        "p95": 5.0,
+        "p99": 5.0,
+        "unit": "calls"
+      },
+      "seconds_per_job": {
+        "low_sample": [],
+        "max": 0.000672,
+        "mean": 9.7e-05,
+        "min": 6.6e-05,
+        "n": 300,
+        "p50": 9e-05,
+        "p90": 0.000112,
+        "p95": 0.000134,
+        "p99": 0.000258,
+        "unit": "seconds"
+      }
+    },
+    "traffic_analyst": {
+      "calls_per_job": {
+        "low_sample": [],
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0,
+        "n": 300,
+        "p50": 1.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "p99": 1.0,
+        "unit": "calls"
+      },
+      "seconds_per_job": {
+        "low_sample": [],
+        "max": 0.126937,
+        "mean": 0.037546,
+        "min": 0.001799,
+        "n": 300,
+        "p50": 0.028877,
+        "p90": 0.083099,
+        "p95": 0.100232,
+        "p99": 0.121012,
+        "unit": "seconds"
+      }
+    },
+    "verdict_node": {
+      "calls_per_job": {
+        "low_sample": [],
+        "max": 1.0,
+        "mean": 1.0,
+        "min": 1.0,
+        "n": 300,
+        "p50": 1.0,
+        "p90": 1.0,
+        "p95": 1.0,
+        "p99": 1.0,
+        "unit": "calls"
+      },
+      "seconds_per_job": {
+        "low_sample": [],
+        "max": 0.112184,
+        "mean": 0.056828,
+        "min": 0.031626,
+        "n": 300,
+        "p50": 0.05644,
+        "p90": 0.073844,
+        "p95": 0.078611,
+        "p99": 0.09342,
+        "unit": "seconds"
+      }
+    }
+  },
+  "queue_depth_samples": [
+    [
+      0.0,
+      0
+    ],
+    [
+      0.149,
+      51
+    ],
+    [
+      0.279,
+      132
+    ],
+    [
+      0.411,
+      201
+    ],
+    [
+      0.523,
+      253
+    ],
+    [
+      0.632,
+      283
+    ],
+    [
+      0.762,
+      280
+    ],
+    [
+      0.866,
+      276
+    ],
+    [
+      0.977,
+      273
+    ],
+    [
+      1.101,
+      268
+    ],
+    [
+      1.202,
+      266
+    ],
+    [
+      1.304,
+      262
+    ],
+    [
+      1.411,
+      259
+    ],
+    [
+      1.538,
+      255
+    ],
+    [
+      1.676,
+      251
+    ],
+    [
+      1.807,
+      246
+    ],
+    [
+      1.951,
+      241
+    ],
+    [
+      2.058,
+      239
+    ],
+    [
+      2.205,
+      235
+    ],
+    [
+      2.313,
+      231
+    ],
+    [
+      2.416,
+      227
+    ],
+    [
+      2.522,
+      225
+    ],
+    [
+      2.628,
+      221
+    ],
+    [
+      2.735,
+      217
+    ],
+    [
+      2.841,
+      215
+    ],
+    [
+      2.942,
+      212
+    ],
+    [
+      3.081,
+      207
+    ],
+    [
+      3.204,
+      204
+    ],
+    [
+      3.329,
+      201
+    ],
+    [
+      3.448,
+      196
+    ],
+    [
+      3.554,
+      193
+    ],
+    [
+      3.662,
+      190
+    ],
+    [
+      3.763,
+      188
+    ],
+    [
+      3.864,
+      184
+    ],
+    [
+      3.974,
+      180
+    ],
+    [
+      4.089,
+      176
+    ],
+    [
+      4.192,
+      172
+    ],
+    [
+      4.312,
+      168
+    ],
+    [
+      4.415,
+      165
+    ],
+    [
+      4.527,
+      161
+    ],
+    [
+      4.645,
+      158
+    ],
+    [
+      4.745,
+      155
+    ],
+    [
+      4.853,
+      151
+    ],
+    [
+      4.958,
+      146
+    ],
+    [
+      5.059,
+      144
+    ],
+    [
+      5.162,
+      140
+    ],
+    [
+      5.267,
+      136
+    ],
+    [
+      5.38,
+      134
+    ],
+    [
+      5.492,
+      131
+    ],
+    [
+      5.613,
+      128
+    ],
+    [
+      5.762,
+      124
+    ],
+    [
+      5.883,
+      120
+    ],
+    [
+      5.987,
+      116
+    ],
+    [
+      6.091,
+      114
+    ],
+    [
+      6.197,
+      111
+    ],
+    [
+      6.298,
+      109
+    ],
+    [
+      6.399,
+      104
+    ],
+    [
+      6.509,
+      101
+    ],
+    [
+      6.614,
+      100
+    ],
+    [
+      6.742,
+      95
+    ],
+    [
+      6.843,
+      92
+    ],
+    [
+      6.982,
+      88
+    ],
+    [
+      7.09,
+      84
+    ],
+    [
+      7.218,
+      81
+    ],
+    [
+      7.323,
+      78
+    ],
+    [
+      7.445,
+      75
+    ],
+    [
+      7.562,
+      71
+    ],
+    [
+      7.667,
+      67
+    ],
+    [
+      7.778,
+      66
+    ],
+    [
+      7.889,
+      62
+    ],
+    [
+      7.99,
+      59
+    ],
+    [
+      8.095,
+      55
+    ],
+    [
+      8.201,
+      52
+    ],
+    [
+      8.302,
+      48
+    ],
+    [
+      8.41,
+      44
+    ],
+    [
+      8.532,
+      39
+    ],
+    [
+      8.634,
+      37
+    ],
+    [
+      8.736,
+      34
+    ],
+    [
+      8.838,
+      30
+    ],
+    [
+      8.938,
+      28
+    ],
+    [
+      9.049,
+      24
+    ],
+    [
+      9.151,
+      22
+    ],
+    [
+      9.255,
+      18
+    ],
+    [
+      9.374,
+      14
+    ],
+    [
+      9.48,
+      10
+    ],
+    [
+      9.589,
+      7
+    ],
+    [
+      9.689,
+      2
+    ]
+  ],
+  "schema": "week5-loadtest-results-v1",
+  "throughput": {
+    "accepted_per_s": 454.3268,
+    "completed_per_s": 30.9229,
+    "makespan_s": 9.701542,
+    "max_in_flight_observed": 283,
+    "note": "completed_per_s = succeeded jobs / (last finish - first enqueue), from the job store's timestamps",
+    "submit_window_s": 0.6603
+  },
+  "usage": {
+    "cost_note": "unavailable: cost needs real token counts and a priced, sourced pricing file; a fake model has neither",
+    "cost_usd": null,
+    "model_calls": 300,
+    "output_tokens": null,
+    "prompt_tokens": null,
+    "thinking_tokens": null,
+    "tokens_available": false,
+    "tokens_note": "a fake model reports no token counts",
+    "total_tokens": null
+  }
+}

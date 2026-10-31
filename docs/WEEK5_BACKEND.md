@@ -166,7 +166,8 @@ The PostgreSQL tests clone a migrated template database per class and drop it af
 
 ## 9. Load-test, security-test and evaluation instructions
 - Load test (fake model, JSON/CSV/Markdown output): `WEEK5_LOAD_TESTING.md`.
-- Prompt-injection suite (61 payloads, 9 gates): `python -m week5.security.injection run --out-dir runs_tmp\injection`; see `WEEK5_SECURITY.md`.
+- Evaluation overview (what is synthetic, what is real, reproducible commands, what each result can and cannot say): `WEEK5_EVALUATION_GUIDE.md`. Labelled sensor-pipeline suite: `python -m week5.evalrun.sensor_suite --out runs_tmp\sensor_eval`.
+- Prompt-injection suite (63 payloads including 12 controls, 9 gates): `python -m week5.security.injection run --out-dir runs_tmp\injection`; see `WEEK5_SECURITY.md`.
 - Final evaluation (raw detector vs single-LLM baseline vs full system, 3 runs each): `WEEK5_FINAL_EVALUATION.md`. **The protected-data gate is closed by default.** `python -m week5.evalrun rehearse` runs the whole pipeline on synthetic data and never touches protected data; `gate-status` reports the gate without reading anything. Opening it needs the unlock variable, a written authorisation file that matches the frozen plan's hash, and an explicit acknowledgement flag, and writes a ledger line first. None of that has been done.
 
 ## 10. Troubleshooting
@@ -189,8 +190,8 @@ The PostgreSQL tests clone a migrated template database per class and drop it af
 ## 11. Known limitations and operational assumptions
 - **Not exactly-once.** A crash can repeat a model call. The case is stored once.
 - **Fake model by default.** The live Gemini provider exists but requires `WEEK5_ALLOW_LIVE_MODEL=1` and `WEEK5_MODEL_MODE=gemini` and the `google-genai` package; it was never exercised. Evaluation tooling's live backends are likewise unexercised.
-- **RR-1 (declared, not fixed):** a fully compromised model that returns clean "benign" text for a low-score alert is auto-closed by Week 4 rule R9. A deterministic evidence veto was designed but **not** implemented: it would change routing and therefore the evaluation, so it needs your decision before the evaluation plan is frozen.
-- **RR-2:** specialist-tool statements reach the model verbatim; safe only while they are template-generated from numbers.
+- **RR-1 (partly closed in Phase 2):** a deterministic evidence veto (docs/WEEK5_POLICY_CHANGES.md) stops a compromised model's "benign" from closing a case when the flow evidence shows a beacon, a scan or a sensor-severity signal. It cannot help when there is no evidence at all (payload PI-E12). Sensor alerts are never auto-closed.
+- **RR-2 (closed for the new paths):** sensor and analyst free text is wrapped in a type that refuses to enter a prompt; see docs/WEEK5_SECURITY.md.
 - **Audit gap:** 401/403 denials are logged but not written to the tamper-evident audit chain.
 - Alert content is the 21-field schema only; free text is limited to the identifier fields and is aliased before the model sees it.
 - The API's unexpected-exception behaviour (an uncaught bug inside a handler) relies on the web framework's default 500 and was not exercised here (FastAPI was not installed in the sandbox).

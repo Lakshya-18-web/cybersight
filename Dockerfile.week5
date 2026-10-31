@@ -1,34 +1,53 @@
+
 # syntax=docker/dockerfile:1
 # Week 5 image: one image, three roles (API, Celery worker, sweeper), chosen by the command in docker-compose.week5.yml.
 #   - Runs as an unprivileged user (uid 10001). Source files are owned by root and read-only to that user.
 #   - Contains NO secret, NO .env file, NO data, NO model key. Everything secret arrives as an environment variable at run time.
-#   - Live Gemini calls are not installed (build argument WITH_GENAI=1 adds the client library; the code still refuses to call it unless WEEK5_ALLOW_LIVE_MODEL=1).
-# Build:  docker build -f Dockerfile.week5 -t soc-week5:local .
+#   - Live Gemini calls are not installed by default. Build argument WITH_GENAI=1 installs requirements-genai.txt and FAILS THE BUILD if the library is not importable afterwards;
+#     the code still refuses to call the model unless WEEK5_MODEL_MODE=gemini and WEEK5_ALLOW_LIVE_MODEL=1.
+# Build: docker build -f Dockerfile.week5 -t soc-week5:local .
+
 ARG PYTHON_VERSION=3.11
 
 FROM python:${PYTHON_VERSION}-slim AS build
 ARG WITH_GENAI=0
-ENV PIP_NO_CACHE_DIR=1 PIP_DISABLE_PIP_VERSION_CHECK=1
+
+ENV PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
 RUN python -m venv /opt/venv
+
 COPY requirements-week5.txt /tmp/requirements-week5.txt
+COPY requirements-genai.txt /tmp/requirements-genai.txt
+
 RUN /opt/venv/bin/pip install -r /tmp/requirements-week5.txt \
-    && if [ "$WITH_GENAI" = "1" ]; then /opt/venv/bin/pip install "google-genai>=1.0"; fi
+    && if [ "$WITH_GENAI" = "1" ]; then /opt/venv/bin/pip install -r /tmp/requirements-genai.txt; fi \
+    && /opt/venv/bin/python -c "import importlib.util,sys; s=importlib.util.find_spec('google'); ok=bool(s and importlib.util.find_spec('google.genai')); sys.exit(0 if ok or '$WITH_GENAI' != '1' else 1)"
 
 FROM python:${PYTHON_VERSION}-slim AS runtime
+
 RUN groupadd --gid 10001 soc \
     && useradd --uid 10001 --gid 10001 --no-create-home --home-dir /nonexistent --shell /usr/sbin/nologin soc
+
 COPY --from=build /opt/venv /opt/venv
+
 WORKDIR /app
+
 COPY src/ /app/src/
 COPY config/ /app/config/
 COPY docker/ /app/docker/
+
 ENV PATH=/opt/venv/bin:$PATH \
     PYTHONPATH=/app/src \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     WEEK5_HEARTBEAT_FILE=/tmp/week5-heartbeat
+
 USER 10001:10001
+
 EXPOSE 8000
+
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD ["python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=5).status == 200 else 1)"]
+
 CMD ["python", "-m", "week5.api.serve5", "--host", "0.0.0.0", "--port", "8000"]

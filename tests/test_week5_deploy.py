@@ -50,9 +50,13 @@ class ComposeFile(unittest.TestCase):
 
     def test_databases_and_broker_are_only_on_the_internal_network(self):
         self.assertTrue(self.c["networks"]["backend"]["internal"])
-        for name in ("postgres", "redis", "migrate", "worker", "sweeper"):
+        for name in ("postgres", "redis", "migrate", "sweeper"):
             self.assertEqual(self.services[name]["networks"], ["backend"], name)
         self.assertEqual(sorted(self.services["api"]["networks"]), ["backend", "edge"])
+        # The worker is the only service that may reach a model, so it is the only one allowed on the egress network (live Gemini setup);
+        # `backend` is internal, so without that second network it has no route out at all. docker-compose.egress.yml moves it back to `backend` only.
+        self.assertIn(sorted(self.services["worker"]["networks"]), (["backend"], ["backend", "model-egress"]))
+        self.assertNotIn("model-egress", sum((list(self.services[n]["networks"]) for n in ("postgres", "redis", "migrate", "api", "sweeper")), []))
 
     def test_app_containers_are_hardened(self):
         for name in APP_SERVICES:
@@ -112,10 +116,11 @@ class ComposeFile(unittest.TestCase):
         required = set(re.findall(r"\$\{([A-Z0-9_]+):\?", text))
         self.assertTrue({"WEEK5_DB_PASSWORD", "WEEK4_API_DB_PASSWORD", "WEEK5_WORKER_DB_PASSWORD", "WEEK5_REDIS_PASSWORD", "WEEK4_API_TOKEN_HASHES"} <= required)
         example = read(".env.week5.example")
-        for name in required:
+        # The Gemini key is required only when the worker runs the live model; it is documented in docs/WEEK5_DEPLOYMENT.md and .env.integrations.example, not as a value in the example file.
+        for name in required - {"GEMINI_API_KEY"}:
             self.assertRegex(example, r"(?m)^" + name + "=", name)
         # every variable the compose file mentions (other than ones with a default) appears in the example
-        for name in set(re.findall(r"(?<!\$)\$\{([A-Z0-9_]+)(?::-|\})", text)):
+        for name in set(re.findall(r"(?<!\$)\$\{([A-Z0-9_]+)(?::-|\})", text)) - {"GEMINI_API_KEY"}:
             self.assertIn(name, example, name)
 
     def test_least_privilege_secrets_per_service(self):
@@ -134,13 +139,28 @@ class ComposeFile(unittest.TestCase):
         self.assertTrue(env_of(self.services["postgres"])["POSTGRES_PASSWORD"].startswith("${"))
 
     def test_the_model_is_the_fake_one_and_no_model_key_exists_anywhere(self):
+        # Original invariant: fake model everywhere, no key. Live Gemini setup: ONLY the worker may run `gemini` mode, and the key may only be a ${VAR} reference
+        # (never a value) on the worker. The API and the sweeper never get a model mode other than fake, a model key or the live-model switch.
         text = read("docker-compose.week5.yml") + read(".env.week5.example") + read("Dockerfile.week5")
         for name in ("api", "worker", "sweeper"):
             e = env_of(self.services[name])
-            self.assertEqual(e["WEEK5_MODEL_MODE"], "fake")
             self.assertEqual(e["WEEK5_ALERT_SET"], "synthetic")
             self.assertEqual(e["WEEK5_FLOW_STORE"], "fixture")
-        self.assertNotRegex(text, r"(?i)GEMINI_API_KEY|GOOGLE_API_KEY|WEEK5_ALLOW_LIVE_MODEL: ?['\"]?1")
+            if name == "worker":
+                self.assertIn(e["WEEK5_MODEL_MODE"], ("fake", "gemini"))
+                if e["WEEK5_MODEL_MODE"] == "gemini":
+                    self.assertEqual(str(e.get("WEEK5_ALLOW_LIVE_MODEL")), "1")        # the explicit opt-in the settings require
+                    self.assertTrue(str(e["GEMINI_API_KEY"]).startswith("${GEMINI_API_KEY:?"), "the key must be a required reference, not a value")
+                else:
+                    self.assertNotIn("GEMINI_API_KEY", e)
+            else:
+                self.assertEqual(e["WEEK5_MODEL_MODE"], "fake", name)
+                self.assertNotIn("GEMINI_API_KEY", e, name)
+                self.assertNotIn("WEEK5_ALLOW_LIVE_MODEL", e, name)
+        self.assertNotRegex(text, r"(?i)GOOGLE_API_KEY")
+        self.assertNotRegex(read(".env.week5.example") + read("Dockerfile.week5"), r"(?i)GEMINI_API_KEY|WEEK5_ALLOW_LIVE_MODEL: ?['\"]?1")
+        for m in re.finditer(r"(?im)^\s*GEMINI_API_KEY\s*[:=]\s*(\S+)", read("docker-compose.week5.yml")):
+            self.assertTrue(m.group(1).startswith("${GEMINI_API_KEY:?"), "a literal Gemini key value")
 
     def test_week5_settings_accept_the_environment_the_compose_file_sets(self):
         for name in ("api", "worker", "sweeper"):
@@ -148,7 +168,8 @@ class ComposeFile(unittest.TestCase):
             env["WEEK5_MAX_ATTEMPTS"], env["WEEK5_JOB_TIMEOUT_SECONDS"], env["WEEK5_MAX_QUEUE_DEPTH"] = "3", "60", "1000"
             env.pop("WEEK5_RATE_LIMIT_PER_MINUTE", None)
             s = S.from_env(env)
-            self.assertEqual((s.queue_backend, s.model_mode, s.flow_store, s.alert_set), ("celery", "fake", "fixture", "synthetic"))
+            expected_model = "gemini" if (name == "worker" and env_of(self.services[name]).get("WEEK5_MODEL_MODE") == "gemini") else "fake"
+            self.assertEqual((s.queue_backend, s.model_mode, s.flow_store, s.alert_set), ("celery", expected_model, "fixture", "synthetic"))
 
     def test_celery_queue_name_matches_the_settings_default(self):
         self.assertEqual(S.Settings().celery_queue, "soc_triage")
@@ -182,7 +203,7 @@ class Dockerfile(unittest.TestCase):
             self.assertNotIn("data", src.split("/")[0])
             self.assertNotIn("eval", src.split("/")[0])
             self.assertNotIn("memory_store", src)
-        self.assertEqual(set(copies) - {"--from=build"}, {"requirements-week5.txt", "src/", "config/", "docker/", "/opt/venv"})
+        self.assertEqual(set(copies) - {"--from=build"}, {"requirements-week5.txt", "requirements-genai.txt", "src/", "config/", "docker/", "/opt/venv"})
 
     def test_no_secret_in_env_or_arg(self):
         for line in re.findall(r"(?m)^\s*(?:ENV|ARG)\s+.*$", self.text):

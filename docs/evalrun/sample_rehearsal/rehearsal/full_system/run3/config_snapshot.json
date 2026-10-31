@@ -1,0 +1,59 @@
+{
+ "config": "full_system",
+ "config_settings": {
+  "alias_ids": false,
+  "engine": "instrumented",
+  "memory": "off",
+  "policy_sha256": "c36b7083c232069af2dc39cd93d4b97cb5b624dfeec0033ea6a5c9a5a481ceae",
+  "uses_model": true,
+  "week4_version": "n/a"
+ },
+ "model": {
+  "fake": true,
+  "max_output_tokens": 1024,
+  "name": "FAKE:rehearsal",
+  "parse_retries": 2,
+  "seed": 42,
+  "temperature": 0.0
+ },
+ "pandas": "3.0.5",
+ "plan": {
+  "configs": {
+   "full_system": {
+    "alias_ids": false,
+    "engine": "instrumented",
+    "memory": "off",
+    "policy_sha256": "c36b7083c232069af2dc39cd93d4b97cb5b624dfeec0033ea6a5c9a5a481ceae",
+    "uses_model": true,
+    "week4_version": "n/a"
+   },
+   "raw_detector": {
+    "decision": "every alert is a detector alert, so the raw detector's decision on every alert is 'malicious' (Week 2 definition)",
+    "uses_model": false
+   },
+   "single_llm_baseline": {
+    "prompt_version": "baseline_v1",
+    "uses_model": true
+   }
+  },
+  "model": {
+   "fake": true,
+   "max_output_tokens": 1024,
+   "name": "FAKE:rehearsal",
+   "parse_retries": 2,
+   "seed": 42,
+   "temperature": 0.0
+  },
+  "notes": [
+   "REHEARSAL on synthetic data with fake models"
+  ],
+  "plan_id": "rehearsal",
+  "pricing": null,
+  "runs_per_config": 3,
+  "schema": "week5-evalrun-plan-v1",
+  "set": "fixture",
+  "threshold": 0.00459436746314168
+ },
+ "plan_sha256": "ef13b79ce9a79f1804802098f6bbecfd2cb655d314d37f7c63920606d32a1fa9",
+ "python": "3.13.16"
+}

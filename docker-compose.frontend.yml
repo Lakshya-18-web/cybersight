@@ -1,0 +1,43 @@
+# Adds the analyst console to the Week 5 stack WITHOUT modifying docker-compose.week5.yml.
+#   docker compose -f docker-compose.week5.yml -f docker-compose.frontend.yml --env-file .env.week5 config -q
+#   docker compose -f docker-compose.week5.yml -f docker-compose.frontend.yml --env-file .env.week5 up -d --build
+# Then open http://127.0.0.1:8080 (override with WEEK5_UI_PORT) and sign in with an analyst token.
+# The console is the only thing that talks to the browser; it forwards /api/* to the `api` service over the `edge` network.
+# No secret appears here: the token is entered by the analyst at sign-in.
+name: soc-week5
+
+services:
+  frontend:
+    image: soc-week5-ui:local
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: /api
+    init: true
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+      - /var/cache/nginx:size=32m,mode=1777
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    networks: [edge]
+    ports:
+      - "127.0.0.1:${WEEK5_UI_PORT:-8080}:8080"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:8080/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 128M
+          pids: 64

@@ -1,0 +1,3944 @@
+{
+ "lazy_benign": [
+  {
+   "alert_id": "EVE-16fbf18e125196dbf40d7f47",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-00",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.035191
+  },
+  {
+   "alert_id": "EVE-9ca3cdb8606badbb4511aa6d",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-01",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.042566
+  },
+  {
+   "alert_id": "EVE-01bee621a93e2681087ed1ec",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-02",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.040779
+  },
+  {
+   "alert_id": "EVE-236145414b261dd3cdb2faf5",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-03",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.043238
+  },
+  {
+   "alert_id": "EVE-ad5f007ebc3b6df0097607db",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-04",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.041565
+  },
+  {
+   "alert_id": "EVE-d2bc97dcf53c77482e43d1cd",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-05",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.035965
+  },
+  {
+   "alert_id": "EVE-859397a9a9ef2583b5ed8eb2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-00",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.030761
+  },
+  {
+   "alert_id": "EVE-f59c0f819827fc461d537c6b",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-01",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.026685
+  },
+  {
+   "alert_id": "EVE-1ce3557387d830118a7df2e4",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-02",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.026449
+  },
+  {
+   "alert_id": "EVE-4b048b71b64b03ec9e9d7f63",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-03",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.035929
+  },
+  {
+   "alert_id": "EVE-fcf1667444b9784d1fd0d2c0",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-04",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.038905
+  },
+  {
+   "alert_id": "EVE-fad7807ede03a66adc4da832",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-05",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.037347
+  },
+  {
+   "alert_id": "EVE-9c03e3739703b7b61a887810",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "escalate",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-00",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.049821
+  },
+  {
+   "alert_id": "EVE-3f406c5f057dbdd868a813bf",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "escalate",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-01",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.040619
+  },
+  {
+   "alert_id": "EVE-1f3143396e62ad6676d93044",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "escalate",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-02",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.032912
+  },
+  {
+   "alert_id": "EVE-0377389b465c32d9f70eff49",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "escalate",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-03",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.031477
+  },
+  {
+   "alert_id": "EVE-c8437489062786d45bdcc70b",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "escalate",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-04",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.034611
+  },
+  {
+   "alert_id": "EVE-080fad8c420e33be2b4dc0f8",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "escalate",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-05",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.041075
+  },
+  {
+   "alert_id": "EVE-c2917366f25ea25d7a34d6b7",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-00",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.038831
+  },
+  {
+   "alert_id": "EVE-2c5bbc32243c5cd2012468e7",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-01",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.037847
+  },
+  {
+   "alert_id": "EVE-f7cbf5bc6a8c9dbcf6606f4e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-02",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.039896
+  },
+  {
+   "alert_id": "EVE-29d5f82806148469ebe28b8f",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-03",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.036849
+  },
+  {
+   "alert_id": "EVE-ca077ba7d30ebbc43c8668cc",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-00",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.039023
+  },
+  {
+   "alert_id": "EVE-86efb2c4f0c6cc98f1594f35",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-01",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.037184
+  },
+  {
+   "alert_id": "EVE-18e3026bd6d8e9386f2ba0ef",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-02",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.037694
+  },
+  {
+   "alert_id": "EVE-eba619f20cab48d0373f5c46",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-03",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.03135
+  },
+  {
+   "alert_id": "EVE-83c457dad57c60689a472963",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-00",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.023237
+  },
+  {
+   "alert_id": "EVE-b09c27375c06fbd270a5ac8e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-01",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.020956
+  },
+  {
+   "alert_id": "EVE-ddf386dcc268c1c8ecfd86e3",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-02",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.021317
+  },
+  {
+   "alert_id": "EVE-ef10e9c36bf3bae27f44ba95",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-03",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.021205
+  },
+  {
+   "alert_id": "EVE-b2fea8af39d9c9ae89ab2429",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022326
+  },
+  {
+   "alert_id": "EVE-b78ca33e857fe4211875a95d",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02171
+  },
+  {
+   "alert_id": "EVE-e9c661d75276a4c6e1730825",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020345
+  },
+  {
+   "alert_id": "EVE-cb8063facb96bccf34e4cc41",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021666
+  },
+  {
+   "alert_id": "EVE-64fca3dcb596402d226a8cc2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-04",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020952
+  },
+  {
+   "alert_id": "EVE-bdbecec599c76c9c1c1cfe68",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-05",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020343
+  },
+  {
+   "alert_id": "EVE-a9aebee26c15db57e0bb9311",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-06",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021665
+  },
+  {
+   "alert_id": "EVE-b484c3ca87ca6209b595f410",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-07",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.024253
+  },
+  {
+   "alert_id": "EVE-d37cb9913d42ecfd7ca1045c",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-08",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.023503
+  },
+  {
+   "alert_id": "EVE-f2e75093bf2b4a7cd2817bd9",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-09",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.023344
+  },
+  {
+   "alert_id": "EVE-5d53b03542dabec9a4009ae9",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022141
+  },
+  {
+   "alert_id": "EVE-440bd8998e2d96d8e3e6eaab",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02297
+  },
+  {
+   "alert_id": "EVE-7a076b5dfc2993dee942602a",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022099
+  },
+  {
+   "alert_id": "EVE-ebfaa5803db376264f693e53",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02212
+  },
+  {
+   "alert_id": "EVE-4d9d3a42666eca5b5848c5c2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-04",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.024401
+  },
+  {
+   "alert_id": "EVE-ca2c1fbd2439b7d402fa6d27",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-05",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02405
+  },
+  {
+   "alert_id": "EVE-b1a82caacad46cfc45f483bb",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.023059
+  },
+  {
+   "alert_id": "EVE-0d39bb5aaa74ad3e9b11853e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022554
+  },
+  {
+   "alert_id": "EVE-c1229720c561ed5672a3a009",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02368
+  },
+  {
+   "alert_id": "EVE-4650683a80a1ed753b25f605",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.024092
+  },
+  {
+   "alert_id": "EVE-c9b209e49ca6497e199c34f3",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_inventory_scanner",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_inventory_scanner-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.030761
+  },
+  {
+   "alert_id": "EVE-6af6c4809eec4552ace36f7e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_inventory_scanner",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_inventory_scanner-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.032637
+  },
+  {
+   "alert_id": "EVE-9d02c7c9779882b03ec954cc",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02477
+  },
+  {
+   "alert_id": "EVE-15a94a64bc203105b341e371",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02545
+  },
+  {
+   "alert_id": "EVE-6a2ee66c6d1649d4efe78d18",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.028875
+  },
+  {
+   "alert_id": "EVE-3aabb58ae21ec5ee956837d4",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.024156
+  }
+ ],
+ "noisy": [
+  {
+   "alert_id": "EVE-16fbf18e125196dbf40d7f47",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-00",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.029102
+  },
+  {
+   "alert_id": "EVE-9ca3cdb8606badbb4511aa6d",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-01",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.04027
+  },
+  {
+   "alert_id": "EVE-01bee621a93e2681087ed1ec",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-02",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.042039
+  },
+  {
+   "alert_id": "EVE-236145414b261dd3cdb2faf5",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-03",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.038253
+  },
+  {
+   "alert_id": "EVE-ad5f007ebc3b6df0097607db",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-04",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.041684
+  },
+  {
+   "alert_id": "EVE-d2bc97dcf53c77482e43d1cd",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-05",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.037963
+  },
+  {
+   "alert_id": "EVE-859397a9a9ef2583b5ed8eb2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-00",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.036366
+  },
+  {
+   "alert_id": "EVE-f59c0f819827fc461d537c6b",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-01",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.028205
+  },
+  {
+   "alert_id": "EVE-1ce3557387d830118a7df2e4",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-02",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.03125
+  },
+  {
+   "alert_id": "EVE-4b048b71b64b03ec9e9d7f63",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-03",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.02948
+  },
+  {
+   "alert_id": "EVE-fcf1667444b9784d1fd0d2c0",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-04",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.027928
+  },
+  {
+   "alert_id": "EVE-fad7807ede03a66adc4da832",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-05",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.026376
+  },
+  {
+   "alert_id": "EVE-9c03e3739703b7b61a887810",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "escalate",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-00",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.028905
+  },
+  {
+   "alert_id": "EVE-3f406c5f057dbdd868a813bf",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-01",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.029872
+  },
+  {
+   "alert_id": "EVE-1f3143396e62ad6676d93044",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-02",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.030022
+  },
+  {
+   "alert_id": "EVE-0377389b465c32d9f70eff49",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-03",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.0293
+  },
+  {
+   "alert_id": "EVE-c8437489062786d45bdcc70b",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-04",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.031378
+  },
+  {
+   "alert_id": "EVE-080fad8c420e33be2b4dc0f8",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-05",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.03216
+  },
+  {
+   "alert_id": "EVE-c2917366f25ea25d7a34d6b7",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "DoS Hulk",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-00",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.031547
+  },
+  {
+   "alert_id": "EVE-2c5bbc32243c5cd2012468e7",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-01",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.031268
+  },
+  {
+   "alert_id": "EVE-f7cbf5bc6a8c9dbcf6606f4e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-02",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.029379
+  },
+  {
+   "alert_id": "EVE-29d5f82806148469ebe28b8f",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "DoS Hulk",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-03",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.030099
+  },
+  {
+   "alert_id": "EVE-ca077ba7d30ebbc43c8668cc",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-00",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.029838
+  },
+  {
+   "alert_id": "EVE-86efb2c4f0c6cc98f1594f35",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-01",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.029284
+  },
+  {
+   "alert_id": "EVE-18e3026bd6d8e9386f2ba0ef",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-02",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.033636
+  },
+  {
+   "alert_id": "EVE-eba619f20cab48d0373f5c46",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-03",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.029398
+  },
+  {
+   "alert_id": "EVE-83c457dad57c60689a472963",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Web Attack - Brute Force",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-00",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.021219
+  },
+  {
+   "alert_id": "EVE-b09c27375c06fbd270a5ac8e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Web Attack - Brute Force",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-01",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.0216
+  },
+  {
+   "alert_id": "EVE-ddf386dcc268c1c8ecfd86e3",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Web Attack - Brute Force",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-02",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.019988
+  },
+  {
+   "alert_id": "EVE-ef10e9c36bf3bae27f44ba95",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Web Attack - Brute Force",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-03",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.020347
+  },
+  {
+   "alert_id": "EVE-b2fea8af39d9c9ae89ab2429",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021202
+  },
+  {
+   "alert_id": "EVE-b78ca33e857fe4211875a95d",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.0208
+  },
+  {
+   "alert_id": "EVE-e9c661d75276a4c6e1730825",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021881
+  },
+  {
+   "alert_id": "EVE-cb8063facb96bccf34e4cc41",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020139
+  },
+  {
+   "alert_id": "EVE-64fca3dcb596402d226a8cc2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-04",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022614
+  },
+  {
+   "alert_id": "EVE-bdbecec599c76c9c1c1cfe68",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-05",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020485
+  },
+  {
+   "alert_id": "EVE-a9aebee26c15db57e0bb9311",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-06",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022283
+  },
+  {
+   "alert_id": "EVE-b484c3ca87ca6209b595f410",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-07",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021076
+  },
+  {
+   "alert_id": "EVE-d37cb9913d42ecfd7ca1045c",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-08",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.019268
+  },
+  {
+   "alert_id": "EVE-f2e75093bf2b4a7cd2817bd9",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-09",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020798
+  },
+  {
+   "alert_id": "EVE-5d53b03542dabec9a4009ae9",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020926
+  },
+  {
+   "alert_id": "EVE-440bd8998e2d96d8e3e6eaab",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021241
+  },
+  {
+   "alert_id": "EVE-7a076b5dfc2993dee942602a",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.023253
+  },
+  {
+   "alert_id": "EVE-ebfaa5803db376264f693e53",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.031877
+  },
+  {
+   "alert_id": "EVE-4d9d3a42666eca5b5848c5c2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-04",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022313
+  },
+  {
+   "alert_id": "EVE-ca2c1fbd2439b7d402fa6d27",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-05",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.030404
+  },
+  {
+   "alert_id": "EVE-b1a82caacad46cfc45f483bb",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.031872
+  },
+  {
+   "alert_id": "EVE-0d39bb5aaa74ad3e9b11853e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02266
+  },
+  {
+   "alert_id": "EVE-c1229720c561ed5672a3a009",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022751
+  },
+  {
+   "alert_id": "EVE-4650683a80a1ed753b25f605",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.024573
+  },
+  {
+   "alert_id": "EVE-c9b209e49ca6497e199c34f3",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "benign_inventory_scanner",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_inventory_scanner-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.028134
+  },
+  {
+   "alert_id": "EVE-6af6c4809eec4552ace36f7e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_inventory_scanner",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_inventory_scanner-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.03248
+  },
+  {
+   "alert_id": "EVE-9d02c7c9779882b03ec954cc",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.024573
+  },
+  {
+   "alert_id": "EVE-15a94a64bc203105b341e371",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.023779
+  },
+  {
+   "alert_id": "EVE-6a2ee66c6d1649d4efe78d18",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.023555
+  },
+  {
+   "alert_id": "EVE-3aabb58ae21ec5ee956837d4",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.02599
+  }
+ ],
+ "oracle": [
+  {
+   "alert_id": "EVE-16fbf18e125196dbf40d7f47",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-00",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.034651
+  },
+  {
+   "alert_id": "EVE-9ca3cdb8606badbb4511aa6d",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-01",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.02943
+  },
+  {
+   "alert_id": "EVE-01bee621a93e2681087ed1ec",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-02",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.030182
+  },
+  {
+   "alert_id": "EVE-236145414b261dd3cdb2faf5",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-03",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.035367
+  },
+  {
+   "alert_id": "EVE-ad5f007ebc3b6df0097607db",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-04",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.033629
+  },
+  {
+   "alert_id": "EVE-d2bc97dcf53c77482e43d1cd",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "SSH-Patator",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "ssh_brute",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "ssh_brute-05",
+   "suricata_severity": 2,
+   "true_class": "SSH-Patator",
+   "wall_seconds": 0.035638
+  },
+  {
+   "alert_id": "EVE-859397a9a9ef2583b5ed8eb2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-00",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.032484
+  },
+  {
+   "alert_id": "EVE-f59c0f819827fc461d537c6b",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-01",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.031044
+  },
+  {
+   "alert_id": "EVE-1ce3557387d830118a7df2e4",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-02",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.027523
+  },
+  {
+   "alert_id": "EVE-4b048b71b64b03ec9e9d7f63",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-03",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.027481
+  },
+  {
+   "alert_id": "EVE-fcf1667444b9784d1fd0d2c0",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-04",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.026123
+  },
+  {
+   "alert_id": "EVE-fad7807ede03a66adc4da832",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "PortScan",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E4"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "port_scan",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "port_scan-05",
+   "suricata_severity": 2,
+   "true_class": "PortScan",
+   "wall_seconds": 0.025263
+  },
+  {
+   "alert_id": "EVE-9c03e3739703b7b61a887810",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-00",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.028295
+  },
+  {
+   "alert_id": "EVE-3f406c5f057dbdd868a813bf",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-01",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.028282
+  },
+  {
+   "alert_id": "EVE-1f3143396e62ad6676d93044",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-02",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.032326
+  },
+  {
+   "alert_id": "EVE-0377389b465c32d9f70eff49",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-03",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.033967
+  },
+  {
+   "alert_id": "EVE-c8437489062786d45bdcc70b",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-04",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.030673
+  },
+  {
+   "alert_id": "EVE-080fad8c420e33be2b4dc0f8",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1",
+     "E2",
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "c2_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "c2_beacon-05",
+   "suricata_severity": 1,
+   "true_class": "Bot",
+   "wall_seconds": 0.030498
+  },
+  {
+   "alert_id": "EVE-c2917366f25ea25d7a34d6b7",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "DoS Hulk",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-00",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.028243
+  },
+  {
+   "alert_id": "EVE-2c5bbc32243c5cd2012468e7",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "DoS Hulk",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-01",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.040242
+  },
+  {
+   "alert_id": "EVE-f7cbf5bc6a8c9dbcf6606f4e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "DoS Hulk",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-02",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.028777
+  },
+  {
+   "alert_id": "EVE-29d5f82806148469ebe28b8f",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "DoS Hulk",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E1"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "high",
+    "verdict_status": "ok"
+   },
+   "family": "dos_flood",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "dos_flood-03",
+   "suricata_severity": 2,
+   "true_class": "DoS Hulk",
+   "wall_seconds": 0.031012
+  },
+  {
+   "alert_id": "EVE-ca077ba7d30ebbc43c8668cc",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-00",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.029725
+  },
+  {
+   "alert_id": "EVE-86efb2c4f0c6cc98f1594f35",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-01",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.028343
+  },
+  {
+   "alert_id": "EVE-18e3026bd6d8e9386f2ba0ef",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-02",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.027724
+  },
+  {
+   "alert_id": "EVE-eba619f20cab48d0373f5c46",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Bot",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [
+     "E3"
+    ],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "stealth_beacon",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "stealth_beacon-03",
+   "suricata_severity": 3,
+   "true_class": "Bot",
+   "wall_seconds": 0.027491
+  },
+  {
+   "alert_id": "EVE-83c457dad57c60689a472963",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Web Attack - Brute Force",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-00",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.029003
+  },
+  {
+   "alert_id": "EVE-b09c27375c06fbd270a5ac8e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Web Attack - Brute Force",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-01",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.021742
+  },
+  {
+   "alert_id": "EVE-ddf386dcc268c1c8ecfd86e3",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Web Attack - Brute Force",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-02",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.026466
+  },
+  {
+   "alert_id": "EVE-ef10e9c36bf3bae27f44ba95",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "Web Attack - Brute Force",
+    "decision": "escalate",
+    "decision_before_evidence": "escalate",
+    "evidence_rules": [],
+    "is_malicious": true,
+    "proposed_actions": 1,
+    "risk_level": "medium",
+    "verdict_status": "ok"
+   },
+   "family": "quiet_attack",
+   "job_status": "succeeded",
+   "label": "attack",
+   "scenario": "quiet_attack-03",
+   "suricata_severity": 3,
+   "true_class": "Web Attack - Brute Force",
+   "wall_seconds": 0.020489
+  },
+  {
+   "alert_id": "EVE-b2fea8af39d9c9ae89ab2429",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022402
+  },
+  {
+   "alert_id": "EVE-b78ca33e857fe4211875a95d",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021234
+  },
+  {
+   "alert_id": "EVE-e9c661d75276a4c6e1730825",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.023155
+  },
+  {
+   "alert_id": "EVE-cb8063facb96bccf34e4cc41",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022043
+  },
+  {
+   "alert_id": "EVE-64fca3dcb596402d226a8cc2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-04",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020793
+  },
+  {
+   "alert_id": "EVE-bdbecec599c76c9c1c1cfe68",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-05",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021222
+  },
+  {
+   "alert_id": "EVE-a9aebee26c15db57e0bb9311",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-06",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021757
+  },
+  {
+   "alert_id": "EVE-b484c3ca87ca6209b595f410",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-07",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021989
+  },
+  {
+   "alert_id": "EVE-d37cb9913d42ecfd7ca1045c",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-08",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020777
+  },
+  {
+   "alert_id": "EVE-f2e75093bf2b4a7cd2817bd9",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_tls",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_tls-09",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.023514
+  },
+  {
+   "alert_id": "EVE-5d53b03542dabec9a4009ae9",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022189
+  },
+  {
+   "alert_id": "EVE-440bd8998e2d96d8e3e6eaab",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.024972
+  },
+  {
+   "alert_id": "EVE-7a076b5dfc2993dee942602a",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.026901
+  },
+  {
+   "alert_id": "EVE-ebfaa5803db376264f693e53",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021809
+  },
+  {
+   "alert_id": "EVE-4d9d3a42666eca5b5848c5c2",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-04",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020531
+  },
+  {
+   "alert_id": "EVE-ca2c1fbd2439b7d402fa6d27",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_http",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_http-05",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.018447
+  },
+  {
+   "alert_id": "EVE-b1a82caacad46cfc45f483bb",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021162
+  },
+  {
+   "alert_id": "EVE-0d39bb5aaa74ad3e9b11853e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021656
+  },
+  {
+   "alert_id": "EVE-c1229720c561ed5672a3a009",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020411
+  },
+  {
+   "alert_id": "EVE-4650683a80a1ed753b25f605",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_update_poller",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_update_poller-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021699
+  },
+  {
+   "alert_id": "EVE-c9b209e49ca6497e199c34f3",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_inventory_scanner",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_inventory_scanner-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.028091
+  },
+  {
+   "alert_id": "EVE-6af6c4809eec4552ace36f7e",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [
+     "E4"
+    ],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_inventory_scanner",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_inventory_scanner-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.026472
+  },
+  {
+   "alert_id": "EVE-9d02c7c9779882b03ec954cc",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-00",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.020582
+  },
+  {
+   "alert_id": "EVE-15a94a64bc203105b341e371",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-01",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022141
+  },
+  {
+   "alert_id": "EVE-6a2ee66c6d1649d4efe78d18",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-02",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.021564
+  },
+  {
+   "alert_id": "EVE-3aabb58ae21ec5ee956837d4",
+   "attempts": 1,
+   "case": {
+    "approved_or_executed_actions": 0,
+    "attack_type": "BENIGN",
+    "decision": "needs_review",
+    "decision_before_evidence": "needs_review",
+    "evidence_rules": [],
+    "is_malicious": false,
+    "proposed_actions": 0,
+    "risk_level": "unknown",
+    "verdict_status": "ok"
+   },
+   "family": "benign_hostile_signature_text",
+   "job_status": "succeeded",
+   "label": "benign",
+   "scenario": "benign_hostile_signature_text-03",
+   "suricata_severity": 3,
+   "true_class": "BENIGN",
+   "wall_seconds": 0.022664
+  }
+ ]
+}

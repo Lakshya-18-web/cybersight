@@ -11,3 +11,41 @@ eval/flow_store_*.parquet
 .env.week4
 # Week 5: local secrets
 .env.week5
+
+# CyberSight local configuration
+.env.integrations
+.env.integrations.*
+!.env.integrations.example
+
+# Local backups and temporary artifacts
+*_backup_*/
+*.patch
+*.diff
+*.zip
+*.log
+pg-debug.log
+diag.py
+psql-wrapper.py
+apply_day5_retry_fix.py
+apply_day5_retry_guidance_week3.py
+audit_day5_step1.py
+
+# Generated evaluation reports and runs
+reports/
+runs/
+runs_tmp/
+
+# Local runtime data — never publish
+memory_store/
+week5_debug_bundle.txt
+
+# Local runtime data — never publish
+memory_store/
+week5_debug_bundle.txt
+
+# Local backup copies and test output
+*.bak
+*.pre-audit-backup
+*.pre_rr1_scan_veto
+*.day5-retry-backup
+week5-test-results.txt

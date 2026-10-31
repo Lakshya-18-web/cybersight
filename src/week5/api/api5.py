@@ -17,6 +17,7 @@ from week4.db.repository import MAX_PAGE
 from week5 import intake, jobs as jobs_module
 
 from . import routes5
+from .api6 import Api6Mixin
 
 SUBMIT_ROLES = ("analyst", "approver", "admin")
 JSON_TYPES = ("application/json",)
@@ -58,7 +59,7 @@ class RateLimiter:
             self.buckets.pop(next(iter(self.buckets)))
 
 
-class Api5(h.Api):
+class Api5(Api6Mixin, h.Api):
     def __init__(self, repo, auth_config, job_store, dispatcher, settings, service=None, log=None, clock=time.monotonic):
         super().__init__(repo, auth_config, service=service, log=log)
         self.jobs, self.dispatcher, self.settings = job_store, dispatcher, settings
@@ -89,7 +90,12 @@ class Api5(h.Api):
             return getattr(self, "_" + name)(principal, headers, query, path_params, body, raw_body)
         except ValueError as exc:
             return h.error(422, "invalid_input", str(exc))
-        except DbError:
+        except DbError as exc:
+            print(
+                f"DATABASE_ERROR type={type(exc).__name__} "
+                f"sqlstate={getattr(exc, 'sqlstate', None)} error={str(exc)}",
+                flush=True,
+            )
             return self._unavailable()
 
     # ------------------------------------------------------------------ health
@@ -105,6 +111,13 @@ class Api5(h.Api):
             return h.error(503, "not_ready", "the database is not reachable")
         broker_ok, _detail = self.dispatcher.queue.ready()
         return h.ok({"status": "ok" if broker_ok else "degraded", "database": True, "broker": bool(broker_ok), "queue_backend": self.dispatcher.queue.name})
+
+    # ------------------------------------------------------------------ identity
+    def _get_me(self, principal, headers, query, path_params, body, raw_body):
+        """The caller's own stored identity. Writes nothing (no audit row, no job), reveals nothing about anyone else, and never echoes the credential.
+        "permissions" is derived here from the same rules the routes enforce, so a client never has to copy them."""
+        return h.ok({"analyst_id": principal.analyst_id, "role": principal.role, "active": bool(principal.active),
+                     "permissions": {"read": principal.can_read(), "submit": principal.role in SUBMIT_ROLES, "decide": principal.can_decide()}})
 
     # ------------------------------------------------------------------ jobs
     def _get_job(self, principal, headers, query, path_params, body, raw_body):

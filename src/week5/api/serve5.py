@@ -13,7 +13,7 @@ import os
 import sys
 
 from week4.api import auth
-from week4.db.repository import PgRepository
+from week5.db.repository import Week5PgRepository as PgRepository
 
 from week5 import jobs, queues, settings as settings_module
 from week5.db.driver import ResilientDriver, choose_kind
@@ -43,8 +43,20 @@ def build(env=None, driver=None):
         raise settings_module.ConfigError("WEEK5_QUEUE_BACKEND=memory is for tests only and cannot be used by the API")
     dispatcher = queues.Dispatcher(store, queue, settings)
     repo = PgRepository(driver)
-    repo.ping = lambda: driver.scalar("SELECT 1") in (1, "1")
-    return config, Api5(repo, config, store, dispatcher, settings)
+    repo.ping = lambda: driver.scalar("SELECT 1") in (1, "1")      # kept from the live repository: psycopg returns an int, the psql driver a string
+    api = Api5(repo, config, store, dispatcher, settings)
+    # Non-secret context for the typed case analysis, /providers, /diagnostics and /evaluation/reports. The API never holds the model or threat-intelligence keys (the worker does),
+    # so api.threat_intel stays None and /providers says so; the lookup outcomes it shows come from the stored cases.
+    from week4 import policy as w4_policy
+    from week5 import evidence_policy
+    api.risk_policy = w4_policy.load_policy(None)
+    api.evidence = evidence_policy.load(env.get(evidence_policy.ENV_PATH) or None)
+    if settings.model_mode == "gemini":
+        import llm_config
+        api.model_name = llm_config.models().get("small")
+    else:
+        api.model_name = "fake (no model is called)"
+    return config, api
 
 
 def main(argv=None):
@@ -79,3 +91,4 @@ def main(argv=None):
 
 if __name__ == "__main__":
     sys.exit(main())
+

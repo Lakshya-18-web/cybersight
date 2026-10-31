@@ -1,0 +1,15 @@
+src/week5/security/injection/harness.py:generic-api-key:203
+src/week5/security/injection/harness.py:generic-api-key:205
+tests/test_week5_hardening.py:generic-api-key:77
+tests/test_week5_hardening.py:generic-api-key:116
+tests/test_week5_hardening.py:generic-api-key:139
+tests/test_week5_hardening.py:generic-api-key:141
+tests/test_week5_hardening.py:generic-api-key:148
+tests/test_week5_hardening.py:generic-api-key:384
+frontend/e2e/scenario.mjs:generic-api-key:181
+616a2fefccdd0ed45062d8b6277a1b266d624809:src/week5/security/injection/harness.py:generic-api-key:194
+616a2fefccdd0ed45062d8b6277a1b266d624809:src/week5/security/injection/harness.py:generic-api-key:196
+616a2fefccdd0ed45062d8b6277a1b266d624809:tests/test_week5_hardening.py:generic-api-key:382
+7db810d0f76cbc57ff0fc5377570cc059cd95f74:reports/week4_memory_lock.json:generic-api-key:1996
+7db810d0f76cbc57ff0fc5377570cc059cd95f74:reports/week4_memory_lock.json:generic-api-key:2035
+c78ec4a38e236cfdf19a1fb68660c9853bf16cc2:reports/week2_day6/three_run_summary.json:generic-api-key:347

@@ -1,0 +1,2 @@
+{"alert_id": "EV-000005", "error_code": "no_json", "error_detail": "the reply contains no JSON object", "failure_kind": "parse_failure", "status": "parse_failed"}
+{"alert_id": "EV-000011", "error_code": "model_unavailable", "error_detail": "the model call failed 5 times", "failure_kind": "model_unavailable", "status": "model_error"}

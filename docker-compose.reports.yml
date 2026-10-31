@@ -1,0 +1,11 @@
+# Optional override: lets the console's Evaluation page read report files. The API container gets ONE read-only folder; nothing else changes.
+#   mkdir reports      (then copy evaluation output files into it: sensor_eval.json, SENSOR_EVAL_REPORT.md, ...)
+#   docker compose -f docker-compose.week5.yml -f docker-compose.reports.yml --env-file .env.week5 up -d
+# Combine with the egress override by listing both -f files. Only *.json and *.md files with plain names are served; symlinks and files over the size limit are refused by the API.
+# Reports are results of runs on synthetic data unless you produced them from real labelled data yourself; the page says so. The frozen evaluation set is never read by these tools.
+services:
+  api:
+    environment:
+      WEEK5_EVAL_REPORT_DIR: /reports
+    volumes:
+      - ./reports:/reports:ro
