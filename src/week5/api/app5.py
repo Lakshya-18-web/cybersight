@@ -49,6 +49,16 @@ def create_app5(api):
     if not isinstance(api, Api5):
         raise TypeError("create_app5 needs an Api5")
     app = week4_app.create_app(api)
+    
+    from fastapi.middleware.cors import CORSMiddleware
+
+    app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://cybersight-nine.vercel.app"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
     app.title = "SOC Triage - ingestion and approval API"
     app.version = VERSION
     def endpoint_for(route):
