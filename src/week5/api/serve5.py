@@ -2,7 +2,9 @@
 
 Environment (nothing is hard-coded, secrets are never printed):
   WEEK5_API_DATABASE_URL (or WEEK4_DATABASE_URL)   connection string of the API's login role (member of soc_api)
-  WEEK4_API_TOKEN_HASHES[_FILE]                    token hashes (python -m week4.api.auth new-token), or WEEK4_API_DEV_MODE=1 on a developer's own machine, loopback only
+  WEEK4_API_TOKEN_HASHES[_FILE]                    token hashes (python -m week4.api.auth new-token), or WEEK4_API_DEV_MODE=1 on a developer's own machine, loopback only.
+                                                   Optional when web sign-in is on (the default): people then sign in with a username and password (migration 0003), tokens stay for machines.
+  WEEK5_WEB_AUTH, WEEK5_ALLOWED_ORIGINS, WEEK5_BOOTSTRAP_TOKEN, ...   web sign-in: see week5.auth.settings and docs/AUTHENTICATION.md
   WEEK5_*                                          see week5.settings (queue backend, limits, ...)
   WEEK5_CELERY_BROKER_URL                          only for WEEK5_QUEUE_BACKEND=celery
 --check validates the configuration and the database connection, prints one line and exits (0 ok, 2 not ok) without starting a server.
@@ -13,6 +15,9 @@ import os
 import sys
 
 from week4.api import auth
+from week5.auth import settings as auth_settings, web as auth_web
+from week5.auth.service import AuthService
+from week5.auth.store import PgAuthStore
 from week5.db.repository import Week5PgRepository as PgRepository
 
 from week5 import jobs, queues, settings as settings_module
@@ -27,7 +32,14 @@ def build(env=None, driver=None):
     from .api5 import Api5
     env = os.environ if env is None else env
     settings = settings_module.from_env(env)
-    config = auth.from_env(env)
+    web_on = auth_settings.enabled(env)
+    web_settings = auth_settings.from_env(env) if web_on else None
+    try:
+        config = auth.from_env(env)
+    except auth.ConfigError:
+        if not web_on:
+            raise
+        config = auth_web.NoBearer()          # no API token and no dev mode: only browser sessions can sign in (this is the normal setup of the console)
     if driver is None:
         dsn = env.get(ENV_DB) or env.get("WEEK4_DATABASE_URL")
         if not dsn:
@@ -44,7 +56,11 @@ def build(env=None, driver=None):
     dispatcher = queues.Dispatcher(store, queue, settings)
     repo = PgRepository(driver)
     repo.ping = lambda: driver.scalar("SELECT 1") in (1, "1")      # kept from the live repository: psycopg returns an int, the psql driver a string
-    api = Api5(repo, config, store, dispatcher, settings)
+    web = None
+    if web_on:
+        web = AuthService(PgAuthStore(driver), web_settings)         # raises RuntimeError at start-up when Argon2 is configured but argon2-cffi is not installed
+        config = auth_web.SessionAuth(config, web)
+    api = Api5(repo, config, store, dispatcher, settings, web_auth=web)
     # Non-secret context for the typed case analysis, /providers, /diagnostics and /evaluation/reports. The API never holds the model or threat-intelligence keys (the worker does),
     # so api.threat_intel stays None and /providers says so; the lookup outcomes it shows come from the stored cases.
     from week4 import policy as w4_policy
@@ -72,7 +88,16 @@ def main(argv=None):
         if args.check:
             api.repo.ping()
             api.jobs.ping()
-            print("OK: configuration valid, database reachable, queue backend " + api.dispatcher.queue.name + ", auth mode " + config.mode)
+            line = "OK: configuration valid, database reachable, queue backend " + api.dispatcher.queue.name + ", auth mode " + config.mode
+            if api.web_auth is not None:
+                try:
+                    line += ", web sign-in on (setup %s)" % ("OPEN: create the first administrator" if api.web_auth.bootstrap_available() else "closed or disabled")
+                except Exception:
+                    print("STOPPED: web sign-in is on but the database has no sign-in tables. Apply Week 5 migration 0003 (see docs/AUTHENTICATION.md).")
+                    return 2
+            else:
+                line += ", web sign-in off"
+            print(line)
             return 0
         from .app5 import create_app5
         app = create_app5(api)

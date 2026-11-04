@@ -49,16 +49,23 @@ def create_app5(api):
     if not isinstance(api, Api5):
         raise TypeError("create_app5 needs an Api5")
     app = week4_app.create_app(api)
-    
-    from fastapi.middleware.cors import CORSMiddleware
 
+    from fastapi.middleware.cors import CORSMiddleware
+    from week5.auth import web as web_module
+
+    web_settings = api.web_auth.settings if api.web_auth is not None else None
+    # CORS: exactly the configured console origins (never a wildcard), with credentials so the browser sends the session cookie. This is NOT the CSRF defence: Api5 checks Origin and the
+    # CSRF token itself (week5.auth.web).
     app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["https://cybersight-nine.vercel.app"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+        CORSMiddleware,
+        allow_origins=list(web_settings.allowed_origins) if web_settings else ["https://cybersight-nine.vercel.app"],
+        allow_credentials=True,
+        allow_methods=["GET", "POST", "PATCH", "OPTIONS"],
+        allow_headers=["Content-Type", "Accept", "Authorization", "Idempotency-Key", "X-CSRF-Token"],
+        expose_headers=["Retry-After", "Location"],
+        max_age=600,
+    )
+    hops = web_settings.trusted_proxy_hops if web_settings else 1
     app.title = "SOC Triage - ingestion and approval API"
     app.version = VERSION
     def endpoint_for(route):
@@ -66,13 +73,15 @@ def create_app5(api):
 
         async def endpoint(request: Request):
             raw = None
-            if route.method == "POST":
+            if route.method in ("POST", "PATCH"):
                 try:
                     raw = await read_limited(request, limit)
                 except BodyTooLarge:
                     result = http_error(413, "too_large", "the request body is larger than %d bytes" % limit)
                     return JSONResponse(result.body, status_code=result.status, headers=result.headers)
-            result = await run_in_threadpool(api.dispatch, route.name, dict(request.headers), dict(request.query_params), dict(request.path_params), None, raw)
+            headers = {k: v for k, v in request.headers.items() if k.lower() != web_module.CLIENT_IP_HEADER}      # a caller can never supply the address the rate limit uses
+            headers[web_module.CLIENT_IP_HEADER] = web_module.client_ip(request.headers.get("x-forwarded-for"), request.client.host if request.client else None, hops)
+            result = await run_in_threadpool(api.dispatch, route.name, headers, dict(request.query_params), dict(request.path_params), None, raw)
             return JSONResponse(result.body, status_code=result.status, headers=result.headers)
         endpoint.__name__ = route.name
         return endpoint
@@ -88,8 +97,20 @@ def create_app5(api):
                                                                                                     "properties": {"alert": {"type": "object"}, "memory": {"type": "string", "enum": ["off", "on"]}}}}}}
         if params:
             extra["parameters"] = params
-        if route.role is not None:
+        if route.role in ("read", "submit", "decide"):
             extra["security"] = [{"bearerAuth": []}]
+        elif route.role in ("session", "admin"):
+            extra["security"] = [{"sessionCookie": []}]
+        if route.name in ("auth_login", "auth_bootstrap", "auth_change_password", "auth_create_user", "auth_update_user", "auth_reset_password"):
+            extra["requestBody"] = {"required": True, "content": {"application/json": {"schema": {"type": "object"}}}}
         app.add_api_route(route.path, endpoint_for(route), methods=[route.method], summary=route.summary, name=route.name, openapi_extra=extra or None, status_code=None)
+    cookie_name = web_settings.cookie_name if web_settings else "cybersight_session"
+    week4_openapi = app.openapi
+
+    def openapi5():
+        schema = week4_openapi()
+        schema.setdefault("components", {}).setdefault("securitySchemes", {})["sessionCookie"] = {"type": "apiKey", "in": "cookie", "name": cookie_name}
+        return schema
+    app.openapi = openapi5
     app.openapi_schema = None
     return app

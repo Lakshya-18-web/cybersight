@@ -5,9 +5,9 @@ import { describe, expect, it, vi } from 'vitest';
 const mocks = vi.hoisted(() => ({ submitAlert: vi.fn(), submit: { value: true } }));
 vi.mock('../api', () => ({
   api: { submitAlert: mocks.submitAlert, getJob: vi.fn().mockResolvedValue({ job_id: 'j1', status: 'queued', attempts: 0, max_attempts: 3, alert_id: 'A-1', alert_set: 's', memory_mode: 'off', submitted_by: 'bob', enqueued_at: null, first_started_at: null, started_at: null, finished_at: null, not_before: null, case_id: null, error_code: null, error_detail: null, result: null, timings: null, usage: null }) },
-  credentialStore: { get: () => null, set: () => undefined, onUnauthorized: () => undefined },
+  sessionStore: { csrf: () => null, setCsrf: () => undefined, onUnauthorized: () => undefined, onCsrfRefresh: () => undefined },
 }));
-vi.mock('../auth/AuthContext', () => ({ usePermissions: () => ({ read: true, submit: mocks.submit.value, decide: false }) }));
+vi.mock('../auth/AuthContext', () => ({ usePermissions: () => ({ read: true, submit: mocks.submit.value, decide: false, admin: false }) }));
 
 import { Router } from '../lib/router';
 import { SubmitAlertPage } from './SubmitAlertPage';

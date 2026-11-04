@@ -1,7 +1,5 @@
 import { ApiError } from './errors';
 
-export type Credentials = { kind: 'bearer'; token: string } | { kind: 'dev'; analyst: string };
-
 export type QueryValue = string | number | boolean | null | undefined;
 
 export interface RequestOptions {
@@ -10,6 +8,8 @@ export interface RequestOptions {
   headers?: Record<string, string>;
   signal?: AbortSignal | undefined;
   timeoutMs?: number;
+  /** The request is part of signing in or of checking the session: a 401 is an expected answer, not "your session ended", so the unauthorized handler is not called. */
+  anonymous?: boolean;
 }
 
 export interface ApiResponse<T> {
@@ -23,12 +23,16 @@ export interface ClientOptions {
   fetchImpl?: typeof fetch;
   /** Default per-request limit. */
   timeoutMs?: number;
-  getCredentials?: () => Credentials | null;
-  /** Called when a request that carried credentials came back 401. */
+  /** The CSRF token of the current session (from POST /auth/login or GET /auth/session), or null. Sent as X-CSRF-Token on every state-changing request. */
+  getCsrfToken?: () => string | null;
+  /** Called after the server refused a state-changing request for a missing or wrong CSRF token. Fetch a fresh token and return true to have the request tried once more. */
+  refreshCsrf?: () => Promise<boolean>;
+  /** Called when a request that is not part of signing in came back 401: the session ended (expired, revoked, signed out elsewhere). */
   onUnauthorized?: () => void;
 }
 
 export const DEFAULT_TIMEOUT_MS = 20_000;
+const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
 
 /** base + path + query as one string. The base may be a path ("/api") or a full URL; query values that are empty are left out. */
 export function buildUrl(baseUrl: string, path: string, query?: Record<string, QueryValue>): string {
@@ -65,6 +69,18 @@ export class HttpClient {
   get baseUrl(): string { return this.opts.baseUrl; }
 
   async request<T>(method: string, path: string, options: RequestOptions = {}): Promise<ApiResponse<T>> {
+    try {
+      return await this.send<T>(method, path, options);
+    } catch (error) {
+      // A stale or missing CSRF token is refused before anything is done, so one retry with a fresh token is safe.
+      if (error instanceof ApiError && error.status === 403 && error.code === 'csrf_failed' && !SAFE_METHODS.has(method) && !options.anonymous && this.opts.refreshCsrf) {
+        if (await this.opts.refreshCsrf()) return this.send<T>(method, path, options);
+      }
+      throw error;
+    }
+  }
+
+  private async send<T>(method: string, path: string, options: RequestOptions): Promise<ApiResponse<T>> {
     const { signal: outer } = options;
     if (outer?.aborted) throw new ApiError({ kind: 'aborted', message: 'Request cancelled' });
 
@@ -75,9 +91,10 @@ export class HttpClient {
     outer?.addEventListener('abort', onOuterAbort, { once: true });
 
     const headers: Record<string, string> = { Accept: 'application/json', ...options.headers };
-    const credentials = this.opts.getCredentials?.() ?? null;
-    if (credentials?.kind === 'bearer') headers.Authorization = `Bearer ${credentials.token}`;
-    else if (credentials?.kind === 'dev') headers['X-Dev-Analyst'] = credentials.analyst;
+    if (!SAFE_METHODS.has(method)) {
+      const csrf = this.opts.getCsrfToken?.() ?? null;
+      if (csrf) headers['X-CSRF-Token'] = csrf;
+    }
     let body: string | undefined;
     if (options.body !== undefined) {
       headers['Content-Type'] = 'application/json';
@@ -88,7 +105,7 @@ export class HttpClient {
       let response: Response;
       try {
         const init: RequestInit = {
-          method, headers, signal: controller.signal, cache: 'no-store', credentials: 'omit', referrerPolicy: 'no-referrer',
+          method, headers, signal: controller.signal, cache: 'no-store', credentials: 'include', referrerPolicy: 'no-referrer',
         };
         if (body !== undefined) init.body = body;
         response = await this.fetchImpl(buildUrl(this.opts.baseUrl, path, options.query), init);
@@ -115,7 +132,7 @@ export class HttpClient {
       }
 
       if (!response.ok) {
-        if (response.status === 401 && credentials) this.opts.onUnauthorized?.();
+        if (response.status === 401 && !options.anonymous) this.opts.onUnauthorized?.();
         const err = !parseFailed && isRecord(parsed) && isRecord(parsed.error) ? parsed.error : {};
         throw new ApiError({
           kind: 'http',

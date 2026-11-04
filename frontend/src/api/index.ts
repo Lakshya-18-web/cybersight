@@ -1,20 +1,24 @@
 import { config } from '../config';
-import { HttpClient, type Credentials } from './client';
+import { HttpClient } from './client';
 import { createApi } from './endpoints';
 
-// The one client the app uses. Credentials live in this module's memory only (see auth/AuthContext for the optional per-tab copy).
-let credentials: Credentials | null = null;
+// The one client the app uses. Signing in is a cookie: the server sets an HttpOnly session cookie that this code cannot read and the browser sends by itself (credentials: 'include').
+// The only thing kept here, in memory and nowhere else, is the CSRF token the server returned with the session; nothing is written to localStorage, sessionStorage or a readable cookie.
+let csrf: string | null = null;
 let unauthorizedHandler: (() => void) | null = null;
+let csrfRefresher: (() => Promise<boolean>) | null = null;
 
-export const credentialStore = {
-  get: () => credentials,
-  set: (next: Credentials | null) => { credentials = next; },
+export const sessionStore = {
+  csrf: () => csrf,
+  setCsrf: (next: string | null) => { csrf = next; },
   onUnauthorized: (handler: (() => void) | null) => { unauthorizedHandler = handler; },
+  onCsrfRefresh: (handler: (() => Promise<boolean>) | null) => { csrfRefresher = handler; },
 };
 
 export const client = new HttpClient({
   baseUrl: config.apiBaseUrl,
-  getCredentials: () => credentials,
+  getCsrfToken: () => csrf,
+  refreshCsrf: () => (csrfRefresher ? csrfRefresher() : Promise.resolve(false)),
   onUnauthorized: () => unauthorizedHandler?.(),
 });
 

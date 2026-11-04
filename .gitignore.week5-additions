@@ -1,0 +1,6 @@
+# Week 5: local secrets
+.env.week5
+.env.integrations
+
+# Week 5: evaluation report files served read-only to the console (docker-compose.reports.yml); keep results out of git unless you choose to commit them
+reports/

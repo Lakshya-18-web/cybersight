@@ -53,7 +53,7 @@ class Upgrade(unittest.TestCase):
         case = repo.ingest_case(make_payload())
         self.assertEqual(case["outcome"], "created")
         before = db.scalar("SELECT count(*) FROM soc.audit_events")
-        self.assertEqual(w5_migrate.apply(db, say=lambda *_: None), ["0002"])
+        self.assertEqual(w5_migrate.apply(db, say=lambda *_: None), ["0002", "0003"])
         self.assertEqual(w5_migrate.apply(db, say=lambda *_: None), [])          # idempotent
         ok, problems = w5_migrate.verify(db)
         self.assertTrue(ok, problems)

@@ -15,6 +15,8 @@ from week4.api import handlers as h
 from week4.db.drivers import DbError
 from week4.db.repository import MAX_PAGE
 from week5 import intake, jobs as jobs_module
+from week5.auth.api_auth import AuthApiMixin
+from week5.auth.routes_auth import AUTH_NAMES
 
 from . import routes5
 from .api6 import Api6Mixin
@@ -59,14 +61,24 @@ class RateLimiter:
             self.buckets.pop(next(iter(self.buckets)))
 
 
-class Api5(Api6Mixin, h.Api):
-    def __init__(self, repo, auth_config, job_store, dispatcher, settings, service=None, log=None, clock=time.monotonic):
+class Api5(AuthApiMixin, Api6Mixin, h.Api):
+    def __init__(self, repo, auth_config, job_store, dispatcher, settings, service=None, log=None, clock=time.monotonic, web_auth=None):
         super().__init__(repo, auth_config, service=service, log=log)
+        self.web_auth = web_auth          # a week5.auth.service.AuthService, or None when web sign-in is off
         self.jobs, self.dispatcher, self.settings = job_store, dispatcher, settings
         self.limiter = RateLimiter(settings.rate_limit_per_minute, settings.rate_burst, clock)
 
     # ------------------------------------------------------------------ dispatch
     def dispatch(self, name, headers=None, query=None, path_params=None, body=None, raw_body=None):
+        if name in AUTH_NAMES:
+            return self._dispatch_auth(name, h.lower_headers(headers), dict(query or {}), dict(path_params or {}), body, raw_body)
+        if self.web_auth is not None:                # a state-changing request authenticated by the session cookie must pass the Origin and CSRF checks
+            refusal = self.web_gate(name, h.lower_headers(headers))
+            if refusal is not None:
+                return refusal
+        return self._dispatch_core(name, headers, query, path_params, body, raw_body)
+
+    def _dispatch_core(self, name, headers=None, query=None, path_params=None, body=None, raw_body=None):
         route = routes5.BY_NAME5.get(name)
         if route is None:
             return super().dispatch(name, headers, query, path_params, body)

@@ -11,4 +11,5 @@ uvicorn>=0.29
 celery>=5.3              # worker (WEEK5_QUEUE_BACKEND=celery)
 redis>=5.0               # Celery's Redis transport
 psycopg[binary]>=3.1     # PostgreSQL driver (bundles libpq; no system packages needed)
+argon2-cffi>=23.1        # Argon2id password hashing for web sign-in (WEEK5_PASSWORD_HASH=argon2id, the default). Wheels exist for all common platforms; no compiler is needed.
 # NOT installed in the image: google-genai (live Gemini calls). The deployment uses the fake model. See Dockerfile.week5, build argument WITH_GENAI.

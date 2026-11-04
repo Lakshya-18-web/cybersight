@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from 'react';
-import { useAuth } from '../../auth/AuthContext';
+import { useAuth, usePermissions } from '../../auth/AuthContext';
 import { useDismiss } from '../../hooks/useDismiss';
 import { Link } from '../../lib/router';
 import { useTheme } from '../../lib/theme';
-import { Activity, ChevronDown, Cpu, FileSearch, LogOut, Moon, Settings, Sun } from '../icons';
+import { Activity, ChevronDown, Cpu, FileSearch, LogOut, Moon, Settings, ShieldCheck, Sun } from '../icons';
 import { Badge } from '../ui/Badge';
 import { Icon } from '../ui/Icon';
 
@@ -16,17 +16,18 @@ function initials(id: string | undefined): string {
 /** The signed-in person (from GET /me), their role, and the pages that are not in the main navigation. */
 export function AccountMenu() {
   const { me, signOut } = useAuth();
+  const { admin } = usePermissions();
   const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
   const box = useRef<HTMLDivElement>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const close = useCallback(() => setOpen(false), []);
   useDismiss(open, close, box, trigger);
-  const name = me?.analyst_id ?? 'Account';
+  const name = me?.display_name || me?.username || me?.analyst_id || 'Account';
   return (
     <div className="popover-wrap" ref={box}>
       <button ref={trigger} type="button" className="account-btn" aria-expanded={open} aria-controls={open ? 'account-panel' : undefined} aria-label={`Account menu for ${name}`} onClick={() => setOpen((v) => !v)}>
-        <span className="avatar" aria-hidden="true">{initials(me?.analyst_id)}</span>
+        <span className="avatar" aria-hidden="true">{initials(name)}</span>
         <span className="account-name hide-narrow">{name}</span>
         <Icon icon={ChevronDown} size={14} />
       </button>
@@ -38,6 +39,7 @@ export function AccountMenu() {
           </div>
           <ul role="list" className="popover-list">
             <li><Link to="/settings" onClick={close} className="popover-link"><Icon icon={Settings} />Settings</Link></li>
+            {admin ? <li><Link to="/admin/users" onClick={close} className="popover-link"><Icon icon={ShieldCheck} />Manage users</Link></li> : null}
             <li><Link to="/system" onClick={close} className="popover-link"><Icon icon={Activity} />System status</Link></li>
             <li><Link to="/jobs" onClick={close} className="popover-link"><Icon icon={Cpu} />Jobs</Link></li>
             <li><Link to="/investigations" onClick={close} className="popover-link"><Icon icon={FileSearch} />Review queues</Link></li>

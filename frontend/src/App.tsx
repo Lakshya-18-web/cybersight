@@ -1,6 +1,9 @@
-import { useAuth } from './auth/AuthContext';
+import { useState } from 'react';
+import { useAuth, usePermissions } from './auth/AuthContext';
+import { ShieldCheck } from './components/icons';
 import { Shell } from './components/layout/Shell';
-import { LoadingRows } from './components/ui/State';
+import { EmptyState, LoadingRows } from './components/ui/State';
+import type { ReactNode } from 'react';
 import { findRoute, Routes, useLocation, type RouteDef } from './lib/router';
 import { AlertsPage } from './pages/AlertsPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
@@ -18,7 +21,9 @@ import { JobsPage } from './pages/JobsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { OverviewPage } from './pages/OverviewPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { SetupPage } from './pages/SetupPage';
 import { SignInPage } from './pages/SignInPage';
+import { UsersPage } from './pages/UsersPage';
 import { SystemPage } from './pages/SystemPage';
 import { SubmitAlertPage } from './pages/SubmitAlertPage';
 
@@ -40,17 +45,32 @@ export const ROUTES: readonly RouteDef[] = [
   { path: '/system', title: 'System', render: () => <SystemPage /> },
   { path: '/evaluation', title: 'Evaluation', render: () => <EvaluationPage /> },
   { path: '/settings', title: 'Settings', render: () => <SettingsPage /> },
+  { path: '/admin/users', title: 'Users', render: () => <AdminOnly><UsersPage /></AdminOnly> },
 ];
+
+/** The API refuses every /auth/users request from a non-administrator; this keeps the page itself from showing to them either. */
+function AdminOnly({ children }: { children: ReactNode }) {
+  const { admin } = usePermissions();
+  if (!admin) return <EmptyState icon={ShieldCheck} title="Administrators only">Your role does not allow managing users.</EmptyState>;
+  return <>{children}</>;
+}
 
 export function App() {
   const { status } = useAuth();
   const { pathname } = useLocation();
   if (status === 'restoring') return <div className="auth-page"><LoadingRows rows={3} label="Starting" /></div>;
-  if (status === 'signedOut') return <SignInPage />;
+  if (status === 'signedOut' || status === 'signingIn') return <SignedOut path={pathname} />;
   const title = findRoute(ROUTES, pathname)?.route.title ?? 'Not found';
   return (
     <Shell title={title}>
       <Routes routes={ROUTES} notFound={() => <NotFoundPage />} />
     </Shell>
   );
+}
+
+/** Everything a person can reach before signing in: the sign-in page, and first-time setup (/setup) which the API only allows once. */
+function SignedOut({ path }: { path: string }) {
+  const [created, setCreated] = useState(false);
+  if (path === '/setup') return <SetupPage onDone={() => setCreated(true)} />;
+  return <SignInPage justCreated={created} />;
 }

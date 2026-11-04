@@ -4,6 +4,7 @@ import { LogOut, RefreshCw } from '../components/icons';
 import { Badge } from '../components/ui/Badge';
 import { Button } from '../components/ui/Button';
 import { Card, CardBody, CardHeader } from '../components/ui/Card';
+import { ChangePasswordCard } from '../features/account/ChangePasswordCard';
 import { KeyValue } from '../components/ui/KeyValue';
 import { PageHeader } from '../components/ui/PageHeader';
 import { Async } from '../components/ui/State';
@@ -20,17 +21,18 @@ export function SettingsPage() {
   const { theme, setTheme } = useTheme();
   return (
     <>
-      <PageHeader title="Settings" description="Your session, appearance and the state of the API. Roles and tokens are managed on the server, not here." />
+      <PageHeader title="Settings" description="Your session, password, appearance and the state of the API. Roles are managed by administrators (Manage users in the account menu)." />
       <div className="grid grid-2">
         <Card>
           <CardHeader title="Session" actions={<Button icon={LogOut} onClick={signOut}>Sign out</Button>} />
           <CardBody>
             <KeyValue items={[
-              ['Signed in as', me?.analyst_id ?? null],
+              ['Signed in as', me ? (me.display_name ? `${me.display_name} (${me.username})` : me.username) : null],
               ['Role', me ? <Badge key="r" tone="accent">{me.role}</Badge> : null],
               ['Can read', me ? (me.permissions.read ? 'Yes' : 'No') : null],
               ['Can submit alerts', me ? (me.permissions.submit ? 'Yes' : 'No') : null],
               ['Can approve and reject', me ? (me.permissions.decide ? 'Yes' : 'No') : null],
+              ['Can manage users', me ? (me.permissions.admin ? 'Yes' : 'No') : null],
             ]} />
           </CardBody>
         </Card>
@@ -53,6 +55,7 @@ export function SettingsPage() {
           </CardBody>
         </Card>
       </div>
+      <ChangePasswordCard />
       <Card>
         <CardHeader title="Appearance" description="Applies to every page. Kept for this browser tab only." />
         <CardBody>
@@ -64,7 +67,7 @@ export function SettingsPage() {
       </Card>
       <Card>
         <CardHeader title="Notifications and other settings" />
-        <CardBody><p className="muted">The bell in the top bar counts pending approvals, escalated and review cases and failed jobs from the API. There are no notification preferences, e-mail or webhook settings in the API, so none are offered. Roles, tokens and the model are managed on the server, outside this console.</p></CardBody>
+        <CardBody><p className="muted">The bell in the top bar counts pending approvals, escalated and review cases and failed jobs from the API. There are no notification preferences, e-mail or webhook settings in the API, so none are offered. The model and the queue are managed on the server, outside this console.</p></CardBody>
       </Card>
       <Card>
         <CardHeader title="About this console" />

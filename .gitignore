@@ -35,11 +35,11 @@ reports/
 runs/
 runs_tmp/
 
-# Local runtime data — never publish
+# Local runtime data - never publish
 memory_store/
 week5_debug_bundle.txt
 
-# Local runtime data — never publish
+# Local runtime data - never publish
 memory_store/
 week5_debug_bundle.txt
 

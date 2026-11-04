@@ -108,6 +108,12 @@ services:
       WEEK5_API_DATABASE_URL: postgresql://soc_api_login:${WEEK4_API_DB_PASSWORD:?set WEEK4_API_DB_PASSWORD in .env.week5}@postgres:5432/${WEEK5_DB_NAME:-soc}
       WEEK4_API_TOKEN_HASHES: ${WEEK4_API_TOKEN_HASHES:?set WEEK4_API_TOKEN_HASHES in .env.week5 (python -m week4.api.auth new-token)}
       WEEK5_RATE_LIMIT_PER_MINUTE: ${WEEK5_RATE_LIMIT_PER_MINUTE:-120}
+      # web sign-in (docs/AUTHENTICATION.md): all optional; the bootstrap token is empty (= setup closed) unless you set it for the one-time creation of the first administrator
+      WEEK5_ALLOWED_ORIGINS: ${WEEK5_ALLOWED_ORIGINS:-https://cybersight-nine.vercel.app}
+      WEEK5_BOOTSTRAP_TOKEN: ${WEEK5_BOOTSTRAP_TOKEN:-}
+      WEEK5_COOKIE_SECURE: ${WEEK5_COOKIE_SECURE:-1}
+      WEEK5_TRUSTED_PROXY_HOPS: ${WEEK5_TRUSTED_PROXY_HOPS:-1}
+      WEEK5_COOKIE_SAMESITE: ${WEEK5_COOKIE_SAMESITE:-None}
     # The API is the only service on the `edge` network, which exists so that one port can be published. It is published on the loopback address only.
     networks: [backend, edge]
     ports:

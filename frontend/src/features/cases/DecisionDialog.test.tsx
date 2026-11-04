@@ -5,7 +5,7 @@ import { ApiError } from '../../api/errors';
 import { IDEMPOTENCY_KEY_RE } from '../../lib/ids';
 
 const mocks = vi.hoisted(() => ({ decide: vi.fn() }));
-vi.mock('../../api', () => ({ api: { decide: mocks.decide }, credentialStore: { get: () => null, set: () => undefined, onUnauthorized: () => undefined } }));
+vi.mock('../../api', () => ({ api: { decide: mocks.decide }, sessionStore: { csrf: () => null, setCsrf: () => undefined, onUnauthorized: () => undefined, onCsrfRefresh: () => undefined } }));
 
 import { DecisionDialog } from './DecisionDialog';
 

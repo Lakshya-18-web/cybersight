@@ -1,7 +1,7 @@
 # Adds the analyst console to the Week 5 stack WITHOUT modifying docker-compose.week5.yml.
 #   docker compose -f docker-compose.week5.yml -f docker-compose.frontend.yml --env-file .env.week5 config -q
 #   docker compose -f docker-compose.week5.yml -f docker-compose.frontend.yml --env-file .env.week5 up -d --build
-# Then open http://127.0.0.1:8080 (override with WEEK5_UI_PORT) and sign in with an analyst token.
+# Then open http://127.0.0.1:8080 (override with WEEK5_UI_PORT) and sign in with your username and password (first run: use "First-time setup", see docs/AUTHENTICATION.md; for plain http set WEEK5_COOKIE_SECURE=0, WEEK5_COOKIE_SAMESITE=Lax and WEEK5_ALLOWED_ORIGINS=http://127.0.0.1:8080).
 # The console is the only thing that talks to the browser; it forwards /api/* to the `api` service over the `edge` network.
 # No secret appears here: the token is entered by the analyst at sign-in.
 name: soc-week5

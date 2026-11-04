@@ -18,4 +18,6 @@ ROUTES5 = [
 ]
 from . import routes6  # noqa: E402
 ROUTES5 = ROUTES5 + routes6.build(Route)
+from week5.auth import routes_auth  # noqa: E402
+ROUTES5 = ROUTES5 + routes_auth.build(Route)
 BY_NAME5 = {r.name: r for r in ROUTES5}

@@ -1,23 +1,52 @@
 import { chromium } from 'playwright';
 export { chromium };
 export const BASE = process.env.BASE || 'http://127.0.0.1:18080';
-export const TOKENS = { alice: 'A'.repeat(40), bob: 'B'.repeat(40), carol: 'C'.repeat(40), root: 'R'.repeat(40), erin: 'E'.repeat(40), ghost: 'G'.repeat(40) };
+// Accounts used by the scenario. The first administrator is created through the setup page itself; the personas are seeded by the harness (POST /__test/seed).
+export const BOOTSTRAP_SECRET = 'e2e-bootstrap-secret-' + 'q'.repeat(24);
+export const FIRST_ADMIN = { username: 'lakshya', password: 'Granite-Lantern-Voyage-2026' };
+export const PASSWORDS = { alice: 'Violet-Harbor-Quartz-4271', bob: 'Maple-Lantern-Orbit-5832', carol: 'Cedar-Falcon-Prism-6943', root: 'Amber-Willow-Comet-7054', erin: 'Slate-Meadow-Ember-8165', lakshya: FIRST_ADMIN.password };
+
+/** A signed-in API client for direct requests (not the browser): signs in with username and password, keeps the session cookie and CSRF token, sends Origin like a browser does. */
+export async function apiSession(who, password = PASSWORDS[who]) {
+  const res = await fetch(BASE + '/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: BASE }, body: JSON.stringify({ username: who, password }) });
+  const body = await res.json().catch(() => ({}));
+  const cookie = (res.headers.get('set-cookie') || '').split(';')[0];
+  const call = (path, init = {}) => {
+    const method = (init.method || 'GET').toUpperCase();
+    const headers = { Origin: BASE, Cookie: cookie, ...(method === 'GET' ? {} : { 'X-CSRF-Token': body.csrf_token || '' }), ...(init.headers || {}) };
+    return fetch(BASE + '/api' + path, { ...init, headers });
+  };
+  return { status: res.status, body, cookie, call, json: async (path, init) => (await call(path, init)).json() };
+}
 
 export async function launch(viewport = { width: 1280, height: 900 }) {
   const browser = await chromium.launch(process.env.E2E_CHROMIUM ? { executablePath: process.env.E2E_CHROMIUM, args: ['--no-sandbox'] } : {});
   const context = await browser.newContext({ viewport });
   const page = await context.newPage();
   const problems = [];
+  const foreign = [];       // every request of the whole run whose origin is not the one the page was served from
+  context.on('request', (r) => { try { if (new URL(r.url()).origin !== new URL(BASE).origin) foreign.push(r.url()); } catch { /* data: and blob: URLs */ } });
   page.on('console', (m) => { if (['error', 'warning'].includes(m.type())) problems.push(`console.${m.type()}: ${m.text()}`); });
   page.on('pageerror', (e) => problems.push(`pageerror: ${e.message}`));
-  return { browser, context, page, problems };
+  return { browser, context, page, problems, foreign };
 }
 
 export async function signIn(page, who) {
   await page.goto(BASE + '/');
-  await page.getByLabel(/API token/).fill(TOKENS[who]);
+  const form = page.getByLabel('Username');
+  const nav = page.getByRole('navigation', { name: 'Main' });
+  await form.or(nav).first().waitFor();
+  if (await nav.isVisible()) {   // the session cookie survives a reload, so end it the way a person would
+    await page.getByRole('button', { name: /^Account menu for/ }).click();
+    const done = page.waitForResponse((r) => r.url().includes('/api/auth/logout'));
+    await page.getByRole('button', { name: 'Sign out' }).click();
+    await done;
+    await form.waitFor();
+  }
+  await form.fill(who);
+  await page.getByLabel(/^Password/).fill(PASSWORDS[who]);
   await page.getByRole('button', { name: 'Sign in' }).click();
-  await page.getByRole('navigation', { name: 'Main' }).waitFor();
+  await nav.waitFor();
 }
 
 /** Colour-contrast audit: every visible text node against the nearest non-transparent background. Returns offenders below the WCAG AA ratio. */

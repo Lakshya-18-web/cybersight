@@ -181,7 +181,38 @@ class StartupTests(unittest.TestCase):
     def test_api_refuses_to_build_without_authentication(self):
         from week4.api import auth
         with self.assertRaises(auth.ConfigError):
-            serve5.build({"WEEK5_API_DATABASE_URL": "postgresql://x/y"}, driver=FlakyDriver())
+            serve5.build({"WEEK5_API_DATABASE_URL": "postgresql://x/y", "WEEK5_WEB_AUTH": "0"}, driver=FlakyDriver())          # no tokens, no dev mode, no web sign-in: nothing can authenticate
+
+    def test_with_web_sign_in_on_the_api_builds_without_api_tokens_and_sessions_are_the_only_way_in(self):
+        config, api = serve5.build({"WEEK5_API_DATABASE_URL": "postgresql://x/y", "WEEK5_PASSWORD_HASH": "scrypt"}, driver=FlakyDriver())
+        self.assertEqual(config.mode, "session")
+        self.assertIsNotNone(api.web_auth)
+        self.assertIsNone(config.authenticate({"authorization": "Bearer " + "A" * 40}))
+        self.assertFalse(api.web_auth.bootstrap_enabled())
+
+    def test_web_sign_in_keeps_api_tokens_for_machines(self):
+        from week4.api import auth
+        env = {"WEEK5_PASSWORD_HASH": "scrypt", "WEEK4_API_TOKEN_HASHES": "sensor1:" + auth.hash_token("S" * 40)}
+        config, api = serve5.build(env, driver=FlakyDriver())
+        self.assertEqual(config.mode, "token")
+        self.assertEqual(config.authenticate({"authorization": "Bearer " + "S" * 40}), "sensor1")
+        env["WEEK5_ALLOW_BEARER_TOKENS"] = "0"
+        config, api = serve5.build(env, driver=FlakyDriver())
+        self.assertIsNone(config.authenticate({"authorization": "Bearer " + "S" * 40}))
+
+    def test_a_bad_web_sign_in_setting_stops_start_up(self):
+        with self.assertRaises(S.ConfigError):
+            serve5.build({"WEEK5_API_DATABASE_URL": "postgresql://x/y", "WEEK5_ALLOWED_ORIGINS": "*"}, driver=FlakyDriver())
+
+    def test_argon2_without_the_library_stops_start_up_with_an_install_hint(self):
+        try:
+            import argon2  # noqa: F401
+        except ImportError:
+            with self.assertRaises(RuntimeError) as ctx:
+                serve5.build({"WEEK5_API_DATABASE_URL": "postgresql://x/y"}, driver=FlakyDriver())
+            self.assertIn("argon2-cffi", str(ctx.exception))
+        else:
+            self.skipTest("argon2-cffi is installed here")
 
     def test_api_needs_a_database_url(self):
         with self.assertRaises(S.ConfigError):
@@ -194,13 +225,13 @@ class StartupTests(unittest.TestCase):
             serve5.build({"WEEK4_API_DEV_MODE": "1", "WEEK5_MODEL_MODE": "gemini"}, driver=FlakyDriver())
 
     def test_api_builds_with_a_driver_and_dev_mode(self):
-        config, api = serve5.build({"WEEK4_API_DEV_MODE": "1"}, driver=FlakyDriver())
+        config, api = serve5.build({"WEEK4_API_DEV_MODE": "1", "WEEK5_WEB_AUTH": "0"}, driver=FlakyDriver())
         self.assertEqual(config.mode, "dev")
         self.assertEqual(api.dispatcher.queue.name, "postgres")
 
     def test_dev_mode_is_refused_off_loopback(self):
         out = io.StringIO()
-        env = {"WEEK4_API_DEV_MODE": "1", "WEEK5_API_DATABASE_URL": "postgresql://x/y"}
+        env = {"WEEK4_API_DEV_MODE": "1", "WEEK5_API_DATABASE_URL": "postgresql://x/y", "WEEK5_WEB_AUTH": "0"}
         with contextlib.redirect_stdout(out), unittest.mock.patch.dict(os.environ, env, clear=False), unittest.mock.patch.object(serve5, "ResilientDriver", lambda *a, **k: FlakyDriver()):
             self.assertEqual(serve5.main(["--host", "0.0.0.0"]), 2)
         self.assertIn("loopback", out.getvalue())

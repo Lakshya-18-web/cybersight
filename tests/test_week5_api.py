@@ -333,7 +333,7 @@ class RouteTableTests(unittest.TestCase):
     def test_every_route_has_a_handler_and_a_known_role(self):
         for r in routes5.ROUTES5:
             self.assertTrue(hasattr(api5.Api5, "_" + r.name), r.name)
-            self.assertIn(r.role, (None, "read", "submit"))
+            self.assertIn(r.role, (None, "read", "submit", "session", "admin"))          # session / admin: the web sign-in routes (tests/test_week5_auth.py)
         self.assertEqual(len(routes5.ROUTES5), len(routes5.BY_NAME5))
 
     def test_week5_names_do_not_shadow_week4_names(self):
@@ -343,7 +343,8 @@ class RouteTableTests(unittest.TestCase):
         self.assertFalse(paths)
 
     def test_only_the_health_routes_are_public(self):
-        self.assertEqual(sorted(r.name for r in routes5.ROUTES5 if r.role is None), ["health_live", "health_ready"])
+        # the health routes, plus the four sign-in routes that must be reachable before anyone is signed in (each is throttled / origin-checked / secret-gated: tests/test_week5_auth.py)
+        self.assertEqual(sorted(r.name for r in routes5.ROUTES5 if r.role is None), ["auth_bootstrap", "auth_login", "auth_logout", "auth_status", "health_live", "health_ready"])
         self.assertEqual(routes5.BY_NAME5["get_me"].role, "read")
 
 

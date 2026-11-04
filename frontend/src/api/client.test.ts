@@ -17,21 +17,58 @@ describe('buildUrl', () => {
 });
 
 describe('HttpClient', () => {
-  it('sends the bearer token and never stores credentials in the request URL', async () => {
+  it('sends the session cookie (credentials: include) and no Authorization header, and never puts anything secret in the URL', async () => {
     const { impl, calls } = mockFetch(() => jsonResponse(200, { ok: true }));
-    const client = new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCredentials: () => ({ kind: 'bearer', token: 'tok-123' }) });
+    const client = new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCsrfToken: () => 'csrf-abc' });
     await client.request('GET', '/me');
-    expect(headerOf(calls[0], 'Authorization')).toBe('Bearer tok-123');
+    expect(calls[0]?.init.credentials).toBe('include');
+    expect(headerOf(calls[0], 'Authorization')).toBeUndefined();
+    expect(headerOf(calls[0], 'X-Dev-Analyst')).toBeUndefined();
     expect(calls[0]?.url).toBe('/api/me');
-    expect(calls[0]?.url).not.toContain('tok-123');
-    expect(calls[0]?.init.credentials).toBe('omit');
     expect(calls[0]?.init.cache).toBe('no-store');
   });
-  it('uses the dev header for a dev credential', async () => {
+  it('sends the CSRF token on state-changing requests only', async () => {
     const { impl, calls } = mockFetch(() => jsonResponse(200, {}));
-    await new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCredentials: () => ({ kind: 'dev', analyst: 'alice' }) }).request('GET', '/me');
-    expect(headerOf(calls[0], 'X-Dev-Analyst')).toBe('alice');
-    expect(headerOf(calls[0], 'Authorization')).toBeUndefined();
+    const client = new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCsrfToken: () => 'csrf-abc' });
+    await client.request('GET', '/cases');
+    await client.request('POST', '/alerts', { body: {} });
+    await client.request('PATCH', '/auth/users/bob', { body: { role: 'viewer' } });
+    expect(headerOf(calls[0], 'X-CSRF-Token')).toBeUndefined();
+    expect(headerOf(calls[1], 'X-CSRF-Token')).toBe('csrf-abc');
+    expect(headerOf(calls[2], 'X-CSRF-Token')).toBe('csrf-abc');
+  });
+  it('sends no CSRF header when there is no session yet', async () => {
+    const { impl, calls } = mockFetch(() => jsonResponse(200, {}));
+    await new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCsrfToken: () => null }).request('POST', '/auth/login', { body: { username: 'a', password: 'b' } });
+    expect(headerOf(calls[0], 'X-CSRF-Token')).toBeUndefined();
+  });
+  it('refreshes the CSRF token and retries a refused state-changing request exactly once', async () => {
+    let token = 'stale';
+    const { impl, calls } = mockFetch((_u, init) => ((init.headers as Record<string, string>)['X-CSRF-Token'] === 'fresh'
+      ? jsonResponse(200, { ok: true }) : jsonResponse(403, { error: { code: 'csrf_failed', message: 'reload' } })));
+    const refreshCsrf = vi.fn(async () => { token = 'fresh'; return true; });
+    const res = await new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCsrfToken: () => token, refreshCsrf }).request('POST', '/alerts', { body: {} });
+    expect(res.data).toEqual({ ok: true });
+    expect(refreshCsrf).toHaveBeenCalledTimes(1);
+    expect(calls).toHaveLength(2);
+  });
+  it('does not retry when the refresh fails, when the method is safe, or when the request is part of signing in', async () => {
+    const refused = () => jsonResponse(403, { error: { code: 'csrf_failed', message: 'reload' } });
+    const { impl, calls } = mockFetch(refused);
+    const refreshCsrf = vi.fn(async () => false);
+    const client = new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCsrfToken: () => 'x', refreshCsrf });
+    expect((await captureError(client.request('POST', '/alerts', { body: {} }))).code).toBe('csrf_failed');
+    expect(calls).toHaveLength(1);
+    await captureError(client.request('GET', '/cases'));
+    await captureError(client.request('POST', '/auth/login', { body: {}, anonymous: true }));
+    expect(refreshCsrf).toHaveBeenCalledTimes(1);
+  });
+  it('does not retry a second time when the retried request is refused again', async () => {
+    const { impl, calls } = mockFetch(() => jsonResponse(403, { error: { code: 'csrf_failed', message: 'reload' } }));
+    const refreshCsrf = vi.fn(async () => true);
+    await captureError(new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCsrfToken: () => 'x', refreshCsrf }).request('POST', '/alerts', { body: {} }));
+    expect(calls).toHaveLength(2);
+    expect(refreshCsrf).toHaveBeenCalledTimes(1);
   });
   it('sends JSON bodies with the right content type', async () => {
     const { impl, calls } = mockFetch(() => jsonResponse(202, { job_id: 'j' }));
@@ -67,13 +104,22 @@ describe('HttpClient', () => {
     expect(e.kind).toBe('network');
     expect(e.isUnreachable).toBe(true);
   });
-  it('calls onUnauthorized only for a 401 on a credentialed request', async () => {
+  it('calls onUnauthorized for a 401 on an ordinary request, but not for the sign-in and session-check requests', async () => {
     const onUnauthorized = vi.fn();
-    const { impl } = mockFetch(() => jsonResponse(401, { error: { code: 'unauthenticated', message: 'a valid credential is required' } }));
-    await captureError(new HttpClient({ baseUrl: '/api', fetchImpl: impl, getCredentials: () => ({ kind: 'bearer', token: 't' }), onUnauthorized }).request('GET', '/cases'));
+    const { impl } = mockFetch(() => jsonResponse(401, { error: { code: 'unauthenticated', message: 'sign in to continue' } }));
+    const client = new HttpClient({ baseUrl: '/api', fetchImpl: impl, onUnauthorized });
+    await captureError(client.request('GET', '/cases'));
     expect(onUnauthorized).toHaveBeenCalledTimes(1);
-    await captureError(new HttpClient({ baseUrl: '/api', fetchImpl: impl, onUnauthorized }).request('GET', '/cases'));
+    await captureError(client.request('POST', '/auth/login', { body: {}, anonymous: true }));
+    await captureError(client.request('GET', '/auth/session', { anonymous: true }));
     expect(onUnauthorized).toHaveBeenCalledTimes(1);
+  });
+  it('treats a 403 as "not allowed", never as a signed-out session', async () => {
+    const onUnauthorized = vi.fn();
+    const { impl } = mockFetch(() => jsonResponse(403, { error: { code: 'forbidden', message: 'your role does not allow this' } }));
+    const e = await captureError(new HttpClient({ baseUrl: '/api', fetchImpl: impl, onUnauthorized }).request('GET', '/auth/users'));
+    expect(e.isForbidden).toBe(true);
+    expect(onUnauthorized).not.toHaveBeenCalled();
   });
   it('rejects with an aborted error when the caller cancels, and does not call the API if already cancelled', async () => {
     const c = new AbortController();

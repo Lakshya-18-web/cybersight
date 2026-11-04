@@ -3,17 +3,19 @@ import unittest
 
 from week4.api import routes as routes4
 from week5.api import routes5
+from week5.auth.routes_auth import AUTH_NAMES
 
 from tests.week5_support import ApiRig
 
 PUBLIC = {"health_live", "health_ready"}
+# The web sign-in routes (/auth/*) are authorised by session and role, not by API token: tests/test_week5_auth.py covers them (anonymous 401, non-admin 403, CSRF, origin).
 APPROVAL = {"decide", "execute_action", "simulate_action"}
 
 
 def routes():
     seen, out = set(), []
     for r in list(routes5.ROUTES5) + list(routes4.ROUTES):
-        if r.name not in seen:
+        if r.name not in seen and r.name not in AUTH_NAMES:
             seen.add(r.name)
             out.append(r)
     return out

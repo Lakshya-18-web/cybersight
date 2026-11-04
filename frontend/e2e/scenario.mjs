@@ -5,20 +5,29 @@ import { execFileSync } from 'node:child_process';
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..', '..');
 const DIST = path.resolve(process.env.E2E_DIST || path.join(HERE, '..', 'dist'));
-import { launch, signIn, contrastAudit, a11yAudit, noHorizontalScroll, BASE, TOKENS, overflowers, overflowChain } from './lib.mjs';
+import { launch, signIn, apiSession, contrastAudit, a11yAudit, noHorizontalScroll, BASE, PASSWORDS, FIRST_ADMIN, BOOTSTRAP_SECRET, overflowers, overflowChain } from './lib.mjs';
 
 const SHOTS = path.join(HERE, 'shots');
 fs.mkdirSync(SHOTS, { recursive: true });
 const results = [];
 let section = '';
 const check = (name, ok, detail = '') => { results.push({ section, name, ok: Boolean(ok), detail }); console.log(`${ok ? 'PASS' : 'FAIL'}  [${section}] ${name}${ok || !detail ? '' : '  -> ' + detail}`); };
-const api = async (who, path, init = {}) => (await fetch(BASE + '/api' + path, { ...init, headers: { Authorization: 'Bearer ' + TOKENS[who], ...(init.headers || {}) } })).json();
+const sessions = {};
+const as = async (who) => (sessions[who] ??= await apiSession(who));
+const api = async (who, path, init = {}) => (await as(who)).json(path, init);
 const demo = JSON.parse(execFileSync(process.env.E2E_PYTHON || 'python', ['-B', '-m', 'week5.fixtures', '100'], { cwd: REPO, env: { ...process.env, PYTHONPATH: ['src', '.'].join(path.delimiter) } }).toString());
 
-const { browser, page, problems } = await launch();
+const { browser, page, problems, foreign } = await launch();
+const signInNoWait = async (pg, who) => {
+  await pg.goto(BASE + '/');
+  const form = pg.getByLabel('Username'); const menu = pg.getByRole('button', { name: /^Account menu for/ });
+  await form.or(menu).first().waitFor();
+  if (await menu.isVisible()) { await menu.click(); const done = pg.waitForResponse((r) => r.url().includes('/api/auth/logout')); await pg.getByRole('button', { name: 'Sign out' }).click(); await done; await form.waitFor(); }   // the cookie outlives a reload
+  await form.fill(who); await pg.getByLabel(/^Password/).fill(PASSWORDS[who]); await pg.getByRole('button', { name: 'Sign in' }).click();
+};
 const settle = (ms = 400) => page.waitForTimeout(ms);
 const goto = async (p) => { await page.evaluate((to) => { history.pushState(null, '', to); dispatchEvent(new PopStateEvent('popstate')); }, p); await settle(600); };
-const signOutUi = async () => { await page.getByRole('button', { name: /^Account menu for/ }).click(); await page.getByRole('button', { name: 'Sign out' }).click(); };
+const signOutUi = async () => { await page.getByRole('button', { name: /^Account menu for/ }).click(); const done = page.waitForResponse((r) => r.url().includes('/api/auth/logout')); await page.getByRole('button', { name: 'Sign out' }).click(); await done; };
 const MORE_ITEMS = ['Threat Intelligence', 'Playbooks', 'Reports', 'Audit Log'];
 // On desktop the four MORE_ITEMS are inside the More menu; in the compact layout they are in the menu panel with the others.
 const nav = async (name) => {
@@ -32,24 +41,207 @@ const nav = async (name) => {
 // ---------------------------------------------------------------- sign-in
 section = 'sign-in';
 await page.goto(BASE + '/');
-check('sign-in screen is shown first', await page.getByRole('heading', { name: 'Sign in' }).isVisible());
+await page.getByRole('heading', { name: 'Sign in to CyberSight' }).waitFor();
+check('sign-in screen is shown first', await page.getByRole('heading', { name: 'Sign in to CyberSight' }).isVisible());
+check('the sign-in form asks for a username and a password and nothing else', await page.getByLabel('Username').isVisible() && await page.getByLabel(/^Password/).isVisible()
+  && (await page.getByLabel(/API token|analyst id|remember/i).count()) === 0 && (await page.locator('input:visible').count()) === 2);
+check('the password is masked, and can be shown and hidden', await page.getByLabel(/^Password/).getAttribute('type') === 'password');
+await page.getByRole('button', { name: 'Show password' }).click();
+check('"Show password" reveals it', await page.getByLabel(/^Password/).getAttribute('type') === 'text');
+await page.getByRole('button', { name: 'Hide password' }).click();
 await page.getByRole('button', { name: /API (ready|degraded|unreachable)/ }).waitFor();
 check('health indicator reports the real API as ready', await page.getByRole('button', { name: /API ready/ }).isVisible());
-await page.getByLabel(/API token/).fill('X'.repeat(40));
 await page.getByRole('button', { name: 'Sign in' }).click();
-await page.getByText('That token was not accepted').waitFor();
-check('a wrong token is refused with a clear message', true);
-check('a wrong token does not sign in', await page.getByRole('heading', { name: 'Sign in' }).isVisible());
-await page.getByLabel(/API token/).fill(TOKENS.erin);
-await page.getByRole('button', { name: 'Sign in' }).click();
-await page.getByText('This account cannot sign in').waitFor();
-check('an inactive account is refused (403) with its own message', true);
-await page.getByLabel(/API token/).fill(TOKENS.ghost);
-await page.getByRole('button', { name: 'Sign in' }).click();
-await page.getByText('This account cannot sign in').waitFor();
-check('a token with no analyst record is refused', true);
+check('empty fields are caught before anything is sent', await page.getByText('Enter your username.').isVisible() && await page.getByText('Enter your password.').isVisible());
+const setupLink = page.getByRole('link', { name: /First-time setup/ });
+await setupLink.waitFor();
+check('the first-time setup link is offered while no administrator exists', await setupLink.isVisible());
+await page.screenshot({ path: SHOTS + '/09-signin.png' });
+
+section = 'first-time setup';
+await setupLink.click();
+await page.getByRole('heading', { name: 'Create the administrator' }).waitFor();
+check('the setup page asks for the secret, a username and a password (twice)', await page.getByLabel(/Setup secret/).isVisible() && await page.getByLabel('Username').inputValue() === 'lakshya' && await page.getByLabel(/^Repeat password/).isVisible());
+await page.getByLabel(/Setup secret/).fill('not-the-secret-' + 'z'.repeat(30));
+await page.getByLabel(/^Password/).fill(FIRST_ADMIN.password);
+await page.getByLabel(/^Repeat password/).fill(FIRST_ADMIN.password);
+await page.getByRole('button', { name: 'Create administrator' }).click();
+await page.getByText('The setup secret is not correct').waitFor();
+check('a wrong setup secret is refused with its own message and creates nothing', (await page.getByRole('heading', { name: 'Create the administrator' }).isVisible()) && (await (await fetch(BASE + '/api/auth/status')).json()).bootstrap_available === true);
+await page.getByLabel(/Setup secret/).fill(BOOTSTRAP_SECRET);
+await page.getByLabel(/^Password/).fill('short');
+await page.getByLabel(/^Repeat password/).fill('short');
+await page.getByRole('button', { name: 'Create administrator' }).click();
+check('a short password is explained before it is sent', await page.getByText('The password must be at least 12 characters.').isVisible());
+await page.getByLabel(/^Password/).fill(FIRST_ADMIN.password);
+await page.getByLabel(/^Repeat password/).fill(FIRST_ADMIN.password + 'x');
+await page.getByRole('button', { name: 'Create administrator' }).click();
+check('mismatching passwords are caught', await page.getByText('The two passwords do not match.').isVisible());
+await page.getByLabel(/^Repeat password/).fill(FIRST_ADMIN.password);
+await page.screenshot({ path: SHOTS + '/09b-setup.png' });
+await page.getByRole('button', { name: 'Create administrator' }).click();
+await page.getByText('Administrator account created').waitFor();
+check('setup creates the administrator and returns to sign-in', await page.getByRole('heading', { name: 'Sign in to CyberSight' }).isVisible());
+check('setup closes itself: the API now says it is not available', (await (await fetch(BASE + '/api/auth/status')).json()).bootstrap_available === false);
+const again = await fetch(BASE + '/api/auth/bootstrap', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: BASE }, body: JSON.stringify({ bootstrap_secret: BOOTSTRAP_SECRET, username: 'intruder', password: 'Another-Long-Password-77' }) });
+check('a second bootstrap with the right secret is refused (409)', again.status === 409);
+await fetch(BASE + '/__test/seed');
+
+section = 'sign-in failures';
+const tryLogin = async (u, p) => { await page.getByLabel('Username').fill(u); await page.getByLabel(/^Password/).fill(p); await page.getByRole('button', { name: 'Sign in' }).click(); };
+await tryLogin('lakshya', 'Totally-Wrong-Password-1');
+await page.getByText('Invalid username or password.').waitFor();
+const wrongPw = await page.locator('.auth-card [role=alert], .auth-card .banner').first().innerText().catch(() => '');
+await tryLogin('nobody.here', 'Totally-Wrong-Password-1');
+await page.getByText('Invalid username or password.').waitFor();
+const wrongUser = await page.locator('.auth-card [role=alert], .auth-card .banner').first().innerText().catch(() => '');
+check('a wrong password and an unknown user get the same generic message', wrongPw === wrongUser && wrongPw.length > 0, `${wrongPw} / ${wrongUser}`);
+check('a wrong sign-in does not sign in and clears the password box', await page.getByRole('heading', { name: 'Sign in to CyberSight' }).isVisible() && await page.getByLabel(/^Password/).inputValue() === '');
+await tryLogin('erin', PASSWORDS.erin);
+await page.getByText('Invalid username or password.').waitFor();
+check('an inactive account cannot sign in and is not told apart from a wrong password', true);
 await page.screenshot({ path: SHOTS + '/10-signin-error.png' });
-check('token never appears in the URL or page text', !page.url().includes('AAAA') && !(await page.content()).includes(TOKENS.erin));
+check('the password never appears in the URL or page text', !page.url().includes('Granite') && !(await page.content()).includes(FIRST_ADMIN.password));
+
+// ---------------------------------------------------------------- session lifecycle
+section = 'session lifecycle (lakshya, admin)';
+await tryLogin('lakshya', FIRST_ADMIN.password);
+await page.getByRole('navigation', { name: 'Main' }).waitFor();
+check('the right username and password sign in', true);
+const cookies = await page.context().cookies();
+const sess = cookies.find((c) => /session/.test(c.name));
+check('the session lives in an HttpOnly cookie the page cannot read', Boolean(sess && sess.httpOnly) && !(await page.evaluate(() => document.cookie)).includes('session'), JSON.stringify(cookies.map((c) => [c.name, c.httpOnly, c.sameSite, c.secure])));
+check('nothing is kept in localStorage or sessionStorage', (await page.evaluate(() => JSON.stringify([Object.entries(sessionStorage), Object.entries(localStorage)]))) === '[[],[]]');
+await page.reload();
+await page.getByRole('navigation', { name: 'Main' }).waitFor();
+check('refreshing the page restores the session without asking again', await page.getByRole('button', { name: /^Account menu for/ }).isVisible());
+await page.getByRole('button', { name: /^Account menu for/ }).click();
+check('the account menu shows the signed-in username and the admin role', await page.getByRole('region', { name: 'Account' }).getByText('admin', { exact: true }).isVisible());
+await page.keyboard.press('Escape');
+await signOutUi();
+await page.getByRole('heading', { name: 'Sign in to CyberSight' }).waitFor();
+check('sign out returns to sign-in', true);
+await page.reload();
+await page.getByRole('heading', { name: 'Sign in to CyberSight' }).waitFor();
+check('after sign out a refresh does not restore anything', await page.getByRole('heading', { name: 'Sign in to CyberSight' }).isVisible());
+await page.goto(BASE + '/cases');
+await page.getByRole('heading', { name: 'Sign in to CyberSight' }).waitFor();
+check('a deep link while signed out shows the sign-in page, not the data', await page.getByRole('heading', { name: 'Sign in to CyberSight' }).isVisible());
+const old = sess ? sess.value : '';
+const replayMe = await fetch(BASE + '/api/me', { headers: { Cookie: `${sess.name}=${old}` } });
+check('the signed-out session cookie is rejected by the API (revoked server-side)', replayMe.status === 401, String(replayMe.status));
+check('a Bearer token header does nothing (no API tokens are configured)', (await fetch(BASE + '/api/me', { headers: { Authorization: 'Bearer ' + 'A'.repeat(40) } })).status === 401);
+
+// ---------------------------------------------------------------- Vercel rewrite (E2E_MODE=vercel only)
+if (process.env.E2E_MODE === 'vercel') {
+  section = 'vercel /api rewrite, production cookie';
+  const front = new URL(BASE);
+  const up = `http://localhost:${Number(front.port) + 1}`;
+  await tryLogin('lakshya', FIRST_ADMIN.password);
+  await page.getByRole('navigation', { name: 'Main' }).waitFor();
+  const jar = await page.context().cookies();
+  const c = jar.find((k) => k.name === '__Host-cybersight_session');
+  check('production cookie in the browser: __Host-cybersight_session, HttpOnly, Secure, SameSite=None, Path=/, host-only', Boolean(c) && c.httpOnly && c.secure && c.sameSite === 'None' && c.path === '/' && c.domain === front.hostname, JSON.stringify(jar.map((k) => [k.name, k.httpOnly, k.secure, k.sameSite, k.path, k.domain])));
+  check('the cookie belongs to the front-end origin only: nothing is stored for the API origin', (await page.context().cookies(up)).filter((k) => k.name.includes('session')).length === 0);
+  await page.reload();
+  await page.getByRole('navigation', { name: 'Main' }).waitFor();
+  check('a refresh restores the session through the rewrite', await page.getByRole('button', { name: /^Account menu for/ }).isVisible());
+  const seen = (await (await fetch(BASE + '/__test/proxied')).json()).proxied;
+  const has = (m, p, u) => seen.some(([mm, pp, uu]) => mm === m && pp === p && uu === u);
+  check('API calls went to /api/... on the front origin and reached the API without the prefix', has('POST', '/api/auth/login', '/auth/login') && has('GET', '/api/auth/session', '/auth/session') && has('GET', '/api/me', '/me'), JSON.stringify(seen.slice(0, 6)));
+  const requests = [];
+  page.on('request', (r) => requests.push(r.url()));
+  await page.getByRole('link', { name: 'Alerts' }).first().click(); await settle(800);
+  check('every API request the page makes is same-origin (nothing goes to the API host)', requests.filter((u) => u.includes('/api/')).every((u) => u.startsWith(BASE + '/api/')) && !requests.some((u) => u.startsWith(up)), requests.slice(0, 5).join(' '));
+  check('the API origin is not reachable from the page by CSP (connect-src self)', await page.evaluate(async (u) => { try { await fetch(u + '/health/live', { mode: 'no-cors' }); return false; } catch { return true; } }, up));
+  for (let i = problems.length - 1; i >= 0; i--) if (problems[i].includes(`${up}/health/live`)) problems.splice(i, 1);   // that console error is the probe above, which is meant to be blocked
+  const noOrigin = await fetch(BASE + '/api/auth/logout', { method: 'POST', headers: { Cookie: `${c.name}=${c.value}` } });
+  check('through the rewrite a state-changing request without Origin or CSRF token is still refused', noOrigin.status === 403, String(noOrigin.status));
+  const spa = await fetch(BASE + '/cases'); const spaText = await spa.text();
+  check('a deep link is answered by the single-page app (rewrite fallback), with the security headers', spa.status === 200 && spaText.includes('id="root"') && (spa.headers.get('content-security-policy') || '').includes("connect-src 'self'"));
+  const apiHeaders = await fetch(BASE + '/api/auth/status');
+  check('API responses through the rewrite are not cacheable', (apiHeaders.headers.get('cache-control') || '').includes('no-store'), apiHeaders.headers.get('cache-control'));
+  await signOutUi();
+}
+
+// ---------------------------------------------------------------- administrator: accounts
+section = 'admin (lakshya): user management';
+const DANA = { username: 'dana.v', password: 'Teal-Orchard-Beacon-9317' };
+await signInNoWait(page, 'lakshya');
+await page.getByRole('navigation', { name: 'Main' }).waitFor();
+await page.getByRole('button', { name: /^Account menu for/ }).click();
+await page.getByRole('link', { name: 'Manage users' }).click();
+await page.getByRole('heading', { name: 'Users', level: 1 }).waitFor();
+await settle(600);
+check('the Users page lists the accounts with role and status, and never a hash or token', await page.getByRole('row', { name: /lakshya/ }).isVisible() && await page.getByRole('row', { name: /alice/ }).isVisible()
+  && !/argon2|scrypt|password_hash|token_hash/i.test(await page.content()));
+await page.screenshot({ path: SHOTS + '/11-users.png', fullPage: true });
+await page.getByRole('button', { name: 'Create user' }).first().click();
+await page.getByLabel('Username').fill(DANA.username);
+await page.getByLabel(/^Initial password/).fill('short');
+await page.getByRole('dialog').getByRole('button', { name: 'Create user' }).click();
+check('a short initial password is explained in the dialog', await page.getByText('The password must be at least 12 characters.').isVisible());
+await page.getByLabel(/^Initial password/).fill(DANA.password);
+await page.getByRole('dialog').getByRole('button', { name: 'Create user' }).click();
+await page.getByText(/Created dana\.v as analyst/).waitFor();
+await settle(500);
+check('the new analyst appears in the list', await page.getByRole('row', { name: /dana\.v/ }).isVisible());
+const dup = await (await as('lakshya')).call('/auth/users', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: DANA.username, role: 'viewer', password: DANA.password + '2' }) });
+check('creating the same username again is refused (409)', dup.status === 409, String(dup.status));
+const noReg = await fetch(BASE + '/api/auth/users', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: BASE }, body: JSON.stringify({ username: 'sneaky', role: 'admin', password: 'Whatever-Long-Password-11' }) });
+check('there is no public registration: creating an account without an admin session is refused', noReg.status === 401, String(noReg.status));
+await signOutUi();
+
+section = 'new analyst (dana.v)';
+await page.getByLabel('Username').fill(DANA.username);
+await page.getByLabel(/^Password/).fill(DANA.password);
+await page.getByRole('button', { name: 'Sign in' }).click();
+await page.getByRole('navigation', { name: 'Main' }).waitFor();
+check('the account created by the administrator can sign in', true);
+await page.getByRole('button', { name: /^Account menu for/ }).click();
+check('an analyst sees their role and no "Manage users" entry', await page.getByRole('region', { name: 'Account' }).getByText('analyst', { exact: true }).isVisible() && (await page.getByRole('link', { name: 'Manage users' }).count()) === 0);
+await page.keyboard.press('Escape');
+check('an analyst can submit alerts (Submit alert is offered)', await page.getByRole('link', { name: 'Submit alert' }).first().isVisible());
+await page.evaluate(() => { history.pushState(null, '', '/admin/users'); dispatchEvent(new PopStateEvent('popstate')); });
+await settle(500);
+check('visiting the admin URL as an analyst shows "Administrators only"', await page.getByText('Administrators only').isVisible());
+const danaApi = await apiSession(DANA.username, DANA.password);
+check('the API refuses an analyst the user list (403)', (await danaApi.call('/auth/users')).status === 403);
+check('the API refuses an analyst creating accounts (403)', (await danaApi.call('/auth/users', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: 'x1x', role: 'admin', password: 'Whatever-Long-Password-11' }) })).status === 403);
+check('the API refuses an analyst a decision (approver role needed)', (await danaApi.call('/actions/00000000-0000-0000-0000-000000000000/decision', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ decision: 'approve' }) })).status === 403);
+const noCsrf = await fetch(BASE + '/api/auth/logout', { method: 'POST', headers: { Origin: BASE, Cookie: danaApi.cookie } });
+check('a state-changing request without the CSRF token is refused (403)', noCsrf.status === 403, String(noCsrf.status));
+const badOrigin = await fetch(BASE + '/api/auth/logout', { method: 'POST', headers: { Origin: 'https://evil.example', Cookie: danaApi.cookie, 'X-CSRF-Token': danaApi.body.csrf_token } });
+check('a request from a foreign Origin is refused (403)', badOrigin.status === 403, String(badOrigin.status));
+await signOutUi();
+
+section = 'admin (lakshya): deactivate and reset';
+await signInNoWait(page, 'lakshya');
+await page.getByRole('navigation', { name: 'Main' }).waitFor();
+await goto('/admin/users');
+await page.getByRole('heading', { name: 'Users', level: 1 }).waitFor();
+const danaRow = () => page.getByRole('row', { name: /dana\.v/ });
+await danaRow().getByRole('button', { name: 'Reset password' }).click();
+await page.getByLabel(/^New password/).fill('Teal-Orchard-Beacon-0000-New');
+await page.getByRole('dialog').getByRole('button', { name: 'Reset password' }).click();
+await page.getByText(/Password of dana\.v reset/).waitFor();
+check('an administrator can reset a password, which ends the person\'s sessions', (await danaApi.call('/me')).status === 401);
+const oldPw = await apiSession(DANA.username, DANA.password);
+check('the old password no longer works and the new one does', oldPw.status === 401 && (await apiSession(DANA.username, 'Teal-Orchard-Beacon-0000-New')).status === 200);
+const danaApi2 = await apiSession(DANA.username, 'Teal-Orchard-Beacon-0000-New');
+await settle(400);
+await danaRow().getByRole('button', { name: 'Deactivate' }).click();
+await page.getByText(/dana\.v is now deactivated/).waitFor();
+check('deactivating an account revokes its live session at once', (await danaApi2.call('/me')).status === 401);
+check('a deactivated account cannot sign in', (await apiSession(DANA.username, 'Teal-Orchard-Beacon-0000-New')).status === 401);
+await settle(400);
+await danaRow().getByRole('button', { name: 'Activate' }).click();
+await page.getByText(/dana\.v is now active/).waitFor();
+check('and can be activated again', (await apiSession(DANA.username, 'Teal-Orchard-Beacon-0000-New')).status === 200);
+const self = await (await as('lakshya')).call('/auth/users/lakshya', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: false }) });
+check('an administrator cannot deactivate or demote themselves (the last administrator stays)', self.status >= 400 && self.status < 500, String(self.status));
+await page.screenshot({ path: SHOTS + '/11b-users-after.png', fullPage: true });
+await signOutUi();
 
 // ---------------------------------------------------------------- viewer
 section = 'viewer (carol)';
@@ -256,7 +448,7 @@ await page.getByLabel('Or paste a case id').fill('not-a-uuid'); await page.getBy
 check('a malformed case id is rejected client-side', await page.getByText(/A case id looks like/).isVisible());
 await goto('/settings');
 await settle(600);
-check('settings shows the signed-in role from /me', await page.locator('main').getByText('bob', { exact: true }).isVisible() && await page.locator('main').getByText('analyst', { exact: true }).isVisible());
+check('settings shows the signed-in role from /me', await page.locator('main').getByText(/\(bob\)/).isVisible() && await page.locator('main').getByText('analyst', { exact: true }).isVisible());
 check('settings shows live readiness details', await page.getByText('Queue backend').isVisible() && await page.getByText('Reachable').first().isVisible());
 const a11y4 = await a11yAudit(page); check('settings: structural accessibility audit', a11y4.length === 0, a11y4.join(' | '));
 const c4 = await contrastAudit(page); check('settings: text contrast meets WCAG AA', c4.length === 0, JSON.stringify(c4.slice(0, 5)));
@@ -264,7 +456,7 @@ const c4 = await contrastAudit(page); check('settings: text contrast meets WCAG 
 // ---------------------------------------------------------------- sensor path
 section = 'sensor path (EVE -> case -> analyst)';
 const ndjson = fs.readFileSync(path.join(REPO, 'samples', 'eve', 'eve_mixed.ndjson'));
-const post = (who, body, type = 'application/x-ndjson') => fetch(BASE + '/api/sensors/sensor-lab-1/eve', { method: 'POST', headers: { ...(who ? { Authorization: 'Bearer ' + TOKENS[who] } : {}), 'Content-Type': type }, body });
+const post = async (who, body, type = 'application/x-ndjson') => (who ? (await as(who)).call('/sensors/sensor-lab-1/eve', { method: 'POST', headers: { 'Content-Type': type }, body }) : fetch(BASE + '/api/sensors/sensor-lab-1/eve', { method: 'POST', headers: { 'Content-Type': type, Origin: BASE }, body }));
 check('ingestion without a token is refused', (await post(null, ndjson)).status === 401);
 check('a viewer cannot ingest', (await post('carol', ndjson)).status === 403);
 const ing = await post('bob', ndjson);
@@ -307,9 +499,9 @@ check('MITRE tab lists reference entries and labels them as not a determination'
 await page.getByRole('tab', { name: /Notes & feedback/ }).click(); await settle(300);
 await page.getByLabel('Add a note').fill('Checked the destination in the asset list; not ours.');
 await page.getByRole('button', { name: 'Add note' }).click();
-await page.getByText('Note added.').waitFor();
+await page.getByText('Note added.').waitFor(); await page.getByText('Checked the destination').waitFor();
 const afterNote = await api('bob', `/cases/${beacon.case.case_id}/analysis`);
-check('the note was stored once, under bob, and shown', afterNote.notes.length === 1 && afterNote.notes[0].author === 'bob' && await page.getByText('Checked the destination').isVisible());
+check('the note was stored once, under bob, and shown', afterNote.notes.length === 1 && afterNote.notes[0].author === 'bob' && await page.getByText('Checked the destination').isVisible(), JSON.stringify(afterNote).slice(0, 300));
 await page.getByRole('button', { name: 'Record feedback' }).click();
 check('feedback without a judgement is blocked client-side', await page.getByText('Say whether the verdict was correct.').isVisible());
 await page.getByLabel('Was the verdict correct?').selectOption('incorrect');
@@ -357,7 +549,7 @@ await page.getByLabel('Search', { exact: true }).fill(beacon.case.alert_id); awa
 await page.getByRole('link', { name: beacon.case.alert_id, exact: true }).click(); await page.getByRole('heading', { name: beacon.case.alert_id, level: 1 }).waitFor();
 await page.getByRole('tab', { name: /Notes & feedback/ }).click();
 check('a viewer sees the notes but has no form', await page.getByText('Checked the destination').isVisible() && (await page.getByRole('button', { name: 'Add note' }).count()) === 0 && await page.getByText(/can read notes but not add them/).isVisible());
-const denied = await fetch(BASE + `/api/cases/${beacon.case.case_id}/notes`, { method: 'POST', headers: { Authorization: 'Bearer ' + TOKENS.carol, 'Content-Type': 'application/json' }, body: JSON.stringify({ body: 'x' }) });
+const denied = await (await as('carol')).call(`/cases/${beacon.case.case_id}/notes`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ body: 'x' }) });
 check('the API itself refuses a viewer\'s note', denied.status === 403);
 await signOutUi();
 await signIn(page, 'alice');
@@ -414,14 +606,21 @@ await nav('Alerts');
 const revoked = await page.evaluate(async () => 1);
 await page.route('**/api/search/cases*', (r) => r.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ error: { code: 'unauthenticated', message: 'a valid credential is required' } }) }));
 await page.getByRole('button', { name: 'Refresh' }).first().click();
-await page.getByText('Your session is no longer valid. Sign in again.').waitFor();
+await page.getByText('Your session has ended. Sign in again.').waitFor();
 check('a 401 mid-session signs the user out with an explanation', await page.getByRole('heading', { name: 'Sign in' }).isVisible() && revoked === 1);
 await page.unroute('**/api/search/cases*');
+await page.getByLabel('Username').fill('bob'); await page.getByLabel(/^Password/).fill(PASSWORDS.bob); await page.getByRole('button', { name: 'Sign in' }).click();
+await page.getByRole('navigation', { name: 'Main' }).waitFor();
+await (await as('lakshya')).call('/auth/users/bob/revoke-sessions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+await page.evaluate(() => dispatchEvent(new Event('focus')));
+await page.getByRole('button', { name: 'Refresh' }).first().click().catch(() => undefined);
+await page.getByText('Your session has ended. Sign in again.').waitFor({ timeout: 8000 });
+check('a session ended by an administrator signs the browser out on the next request', await page.getByRole('heading', { name: 'Sign in' }).isVisible());
 
 // ---------------------------------------------------------------- mobile
 section = 'mobile 375px';
 await page.setViewportSize({ width: 375, height: 800 });
-await page.goto(BASE + '/'); await page.getByLabel(/API token/).fill(TOKENS.alice); await page.getByRole('button', { name: 'Sign in' }).click(); await page.getByRole('button', { name: 'Open navigation' }).waitFor();
+await signInNoWait(page, 'alice'); await page.getByRole('button', { name: 'Open navigation' }).waitFor();
 await settle(800);
 const mainNav = page.getByRole('navigation', { name: 'Main' });
 check('no horizontal page scroll on the dashboard', await noHorizontalScroll(page), JSON.stringify(await overflowers(page)));
@@ -557,7 +756,7 @@ for (const w of [1153, 1200, 1280, 1366, 1464, 1920]) {
   check(`top bar at ${w}px: nothing overlaps, clips or leaves the viewport`, issues.length === 0, issues.join('; '));
 }
 for (const w of [320, 768, 1024, 1180]) {
-  await page.setViewportSize({ width: w, height: 800 }); await page.goto(BASE + '/'); await page.getByLabel(/API token/).fill(TOKENS.alice); await page.getByRole('button', { name: 'Sign in' }).click(); await page.locator('.topnav').waitFor(); await settle(700);
+  await page.setViewportSize({ width: w, height: 800 }); await signInNoWait(page, 'alice'); await page.locator('.topnav').waitFor(); await settle(700);
   check(`no horizontal scroll at ${w}px`, await noHorizontalScroll(page), JSON.stringify(await overflowChain(page)));
   const inline = await mainNavL.isVisible();
   check(`at ${w}px the nav is ${w > 1152 ? 'inline' : 'a menu'}`, inline === (w > 1152), String(inline));
@@ -571,19 +770,22 @@ await signIn(page, 'alice'); await settle(300);
 // ---------------------------------------------------------------- keyboard + CSP
 section = 'keyboard / CSP';
 await page.setViewportSize({ width: 1280, height: 900 });
-await page.goto(BASE + '/'); await page.getByLabel(/API token/).fill(TOKENS.alice); await page.keyboard.press('Enter');
+await page.goto(BASE + '/');
+if (await page.getByRole('button', { name: /^Account menu for/ }).or(page.getByLabel('Username')).first().waitFor().then(() => page.getByRole('button', { name: /^Account menu for/ }).isVisible())) { await signOutUi(); }
+await page.getByLabel('Username').fill('alice'); await page.getByLabel(/^Password/).fill(PASSWORDS.alice); await page.keyboard.press('Enter');
 await page.getByRole('navigation', { name: 'Main' }).waitFor();
 await page.keyboard.press('Tab');
 check('first Tab stop is the skip link', await page.evaluate(() => document.activeElement?.className === 'skip-link'));
 await page.keyboard.press('Enter');
 check('skip link moves focus to the main content', await page.evaluate(() => document.activeElement?.id === 'main'));
 check('current page is marked in the nav (aria-current)', (await page.locator('.nav-link[aria-current=page]:visible').count()) === 1 && (await page.locator('.nav-link[aria-current=page]:visible').innerText()).includes('Dashboard'));
+if (process.env.E2E_MODE === 'vercel') check('in the whole run the browser never sent a single request to another origin (so there is no third-party cookie to block)', foreign.filter((u) => !u.includes('/health/live')).length === 0, foreign.slice(0, 3).join(' '));   // /health/live on the API origin is the deliberate CSP probe above
 const csp = problems.filter((p) => /Content Security Policy|Refused to/i.test(p));
 check('no Content-Security-Policy violations under a strict policy (no inline scripts or styles)', csp.length === 0, csp.join(' | '));
 const real = problems.filter((p) => !/Failed to load resource|401|503/.test(p));
 check('no unexpected console errors or warnings', real.length === 0, real.join(' | '));
 const bundleText = fs.readdirSync(path.join(DIST, 'assets')).filter((f) => f.endsWith('.js')).map((f) => fs.readFileSync(path.join(DIST, 'assets', f), 'utf8')).join('\n');
-check('built bundle contains no token or secret-looking value', !bundleText.includes('A'.repeat(40)) && !/AIza[0-9A-Za-z_-]{30,}/.test(bundleText));
+check('built bundle contains no token or secret-looking value', !bundleText.includes(BOOTSTRAP_SECRET) && !bundleText.includes(FIRST_ADMIN.password) && !/AIza[0-9A-Za-z_-]{30,}/.test(bundleText));
 
 await browser.close();
 const failed = results.filter((r) => !r.ok);

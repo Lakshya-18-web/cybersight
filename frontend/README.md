@@ -16,7 +16,7 @@ Requires Node >= 22.12.
    npm run dev
    ```
 3. Open http://localhost:5173. Vite forwards `/api/*` to `DEV_API_TARGET` (default `http://127.0.0.1:8000`) with the `/api` prefix removed, so the backend needs no CORS configuration.
-4. Sign in with an analyst bearer token. (A development build also offers the `X-Dev-Analyst` header sign-in, only when the backend runs in its dev auth mode; production builds never show it.)
+4. Sign in with your **username and password**. The first time, when the backend was started with `WEEK5_BOOTSTRAP_TOKEN` and no administrator exists yet, the sign-in page offers **First-time setup**. For local development over plain http start the backend with `WEEK5_COOKIE_SECURE=0`, `WEEK5_COOKIE_SAMESITE=Lax` and `WEEK5_ALLOWED_ORIGINS=http://localhost:5173`. There is no token field and no development sign-in shortcut. Details: `docs/AUTHENTICATION.md`.
 
 ## Scripts
 
@@ -52,13 +52,13 @@ docker compose -f docker-compose.week5.yml -f docker-compose.frontend.yml --env-
 docker compose -f docker-compose.week5.yml -f docker-compose.frontend.yml --env-file .env.week5 up -d --build
 ```
 
-Open http://127.0.0.1:8080 (change with `WEEK5_UI_PORT`). nginx serves the build and forwards `/api/*` to the `api` service. The UI image holds no secret; the token is typed at sign-in.
+Open http://127.0.0.1:8080 (change with `WEEK5_UI_PORT`). nginx serves the build and forwards `/api/*` to the `api` service. The UI image holds no secret; the username and password are typed at sign-in and the session lives in an HttpOnly cookie set by the API.
 
 ## Configuration
 
 | Variable | Default | Notes |
 |---|---|---|
-| `VITE_API_BASE_URL` | `/api` | Where the browser sends API calls. Keep it a same-origin path. |
+| `VITE_API_BASE_URL` | `/api` | Where the browser sends API calls (with `credentials: 'include'`). A same-origin path is simplest; on Vercel it is the Render API URL (then the API's `WEEK5_ALLOWED_ORIGINS` must list the Vercel origin) or `/api` with a Vercel rewrite, see `docs/AUTHENTICATION.md`. |
 | `DEV_API_TARGET` | `http://127.0.0.1:8000` | Dev server only; not in the bundle. |
 | `VITE_JOB_POLL_MS` | `2000` | 500 to 60000 |
 | `VITE_HEALTH_POLL_MS` | `30000` | 5000 to 600000 |

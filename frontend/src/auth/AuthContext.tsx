@@ -1,85 +1,102 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
-import { api, credentialStore } from '../api';
-import type { Credentials } from '../api/client';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { api, sessionStore } from '../api';
 import { toApiError, type ApiError } from '../api/errors';
-import type { Me } from '../api/types';
+import type { AuthSession, Me, Permissions } from '../api/types';
 
-type Status = 'restoring' | 'signedOut' | 'signedIn';
+/** restoring: asking the server whether this browser already has a session (page load or refresh). signedOut / signingIn: the sign-in screen. signedIn: the console. */
+export type Status = 'restoring' | 'signedOut' | 'signingIn' | 'signedIn';
 
 interface AuthValue {
   status: Status;
   me: Me | null;
-  /** Why the user is looking at the sign-in screen when it was not their own choice. */
+  /** Why the user is looking at the sign-in screen when it was not their own choice (session ended, server unreachable). */
   notice: string | null;
-  signIn: (credentials: Credentials, remember: boolean) => Promise<void>;
+  /** Sign in with a username and password. Resolves when signed in; rejects with an ApiError (the caller shows it) and leaves the app signed out. */
+  signIn: (username: string, password: string) => Promise<void>;
+  /** End the session on the server and here. Never fails from the person's point of view: they are signed out in the browser either way. */
   signOut: () => void;
 }
 
 const AuthContext = createContext<AuthValue | null>(null);
-const STORAGE_KEY = 'soc.session-token';
+const NO_PERMISSIONS: Permissions = { read: false, submit: false, decide: false, admin: false };
+const REVALIDATE_MS = 60_000;
 
-function readStored(): string | null {
-  try { return window.sessionStorage.getItem(STORAGE_KEY); } catch { return null; }
-}
-function writeStored(token: string | null): void {
-  try {
-    if (token) window.sessionStorage.setItem(STORAGE_KEY, token);
-    else window.sessionStorage.removeItem(STORAGE_KEY);
-  } catch { /* storage unavailable: the token simply stays in memory */ }
+function meFrom(session: AuthSession): Me {
+  const u = session.user;
+  return { analyst_id: u.analyst_id, username: u.username, display_name: u.display_name, role: u.role, active: true, permissions: u.permissions };
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<Status>('restoring');
   const [me, setMe] = useState<Me | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  const lastChecked = useRef(0);
+
+  const apply = useCallback((session: AuthSession) => {
+    sessionStore.setCsrf(session.csrf_token);
+    lastChecked.current = Date.now();
+    setMe(meFrom(session));
+    setNotice(null);
+    setStatus('signedIn');
+  }, []);
 
   const clear = useCallback((why: string | null) => {
-    credentialStore.set(null);
-    writeStored(null);
+    sessionStore.setCsrf(null);
     setMe(null);
     setNotice(why);
     setStatus('signedOut');
   }, []);
 
+  // Any request that comes back 401 means the server no longer accepts the session (idle or absolute expiry, revoked, account deactivated): go back to the sign-in screen.
   useEffect(() => {
-    credentialStore.onUnauthorized(() => clear('Your session is no longer valid. Sign in again.'));
-    return () => credentialStore.onUnauthorized(null);
-  }, [clear]);
+    sessionStore.onUnauthorized(() => clear('Your session has ended. Sign in again.'));
+    sessionStore.onCsrfRefresh(async () => {
+      try { apply(await api.auth.session()); return true; } catch { return false; }
+    });
+    return () => { sessionStore.onUnauthorized(null); sessionStore.onCsrfRefresh(null); };
+  }, [apply, clear]);
 
-  // Pick up a token kept for this tab (the optional "keep me signed in for this tab" choice), and check it still works.
+  // Page load or refresh: the browser still holds the HttpOnly cookie, so ask the server who it belongs to. No token is read from, or written to, any browser storage.
   useEffect(() => {
-    const stored = readStored();
-    if (!stored) { setStatus('signedOut'); return; }
     const controller = new AbortController();
-    credentialStore.set({ kind: 'bearer', token: stored });
-    api.me({ signal: controller.signal }).then(
-      (who) => { setMe(who); setStatus('signedIn'); },
+    api.auth.session({ signal: controller.signal, quiet: true }).then(
+      apply,
       (error: unknown) => {
         const e = toApiError(error);
         if (e.isAborted) return;
-        credentialStore.set(null);
-        writeStored(null);
-        setStatus('signedOut');
+        clear(e.isUnauthorized ? null : e.isUnreachable ? 'The server could not be reached. Check your connection and sign in again.' : null);
       },
     );
     return () => controller.abort();
-  }, []);
+  }, [apply, clear]);
 
-  const signIn = useCallback(async (next: Credentials, remember: boolean) => {
-    credentialStore.set(next);
+  // Coming back to the tab: a session that was ended elsewhere (an administrator revoked it, the password was changed) is noticed now rather than on the next click.
+  useEffect(() => {
+    if (status !== 'signedIn') return;
+    const check = () => {
+      if (document.visibilityState !== 'visible' || Date.now() - lastChecked.current < REVALIDATE_MS) return;
+      lastChecked.current = Date.now();
+      api.auth.session().then(apply, () => { /* a 401 already sent the person to the sign-in screen; other failures are retried on the next focus */ });
+    };
+    document.addEventListener('visibilitychange', check);
+    window.addEventListener('focus', check);
+    return () => { document.removeEventListener('visibilitychange', check); window.removeEventListener('focus', check); };
+  }, [status, apply]);
+
+  const signIn = useCallback(async (username: string, password: string) => {
+    setStatus('signingIn');
     try {
-      const who = await api.me();
-      if (remember && next.kind === 'bearer') writeStored(next.token); else writeStored(null);
-      setMe(who);
-      setNotice(null);
-      setStatus('signedIn');
+      apply(await api.auth.login(username, password));
     } catch (error) {
-      credentialStore.set(null);
+      setStatus('signedOut');
       throw toApiError(error) satisfies ApiError;
     }
-  }, []);
+  }, [apply]);
 
-  const signOut = useCallback(() => clear(null), [clear]);
+  const signOut = useCallback(() => {
+    void api.auth.logout().catch(() => undefined);      // the request is built (cookie + CSRF header) before the token is dropped on the next line
+    clear(null);
+  }, [clear]);
 
   const value = useMemo<AuthValue>(() => ({ status, me, notice, signIn, signOut }), [status, me, notice, signIn, signOut]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -91,8 +108,8 @@ export function useAuth(): AuthValue {
   return ctx;
 }
 
-/** What the signed-in person may do, as the API itself reports it. Everything is false until /me has answered. */
-export function usePermissions(): { read: boolean; submit: boolean; decide: boolean } {
+/** What the signed-in person may do, as the API itself reports it. Everything is false until the session has been restored. */
+export function usePermissions(): Permissions {
   const { me } = useAuth();
-  return me?.permissions ?? { read: false, submit: false, decide: false };
+  return me?.permissions ?? NO_PERMISSIONS;
 }

@@ -261,12 +261,32 @@ export interface JobView {
 export interface Health { status: string; auth_mode: string }
 export interface HealthReady { status: string; database: boolean; broker: boolean; queue_backend: string }
 
+export interface Permissions { read: boolean; submit: boolean; decide: boolean; admin: boolean }
+
+/** The signed-in person. username and display_name come from the sign-in session; permissions are computed by the server from the role. */
 export interface Me {
   analyst_id: string;
   role: string;
   active: boolean;
-  permissions: { read: boolean; submit: boolean; decide: boolean };
+  permissions: Permissions;
+  username: string;
+  display_name: string | null;
 }
+
+export type Role = 'viewer' | 'analyst' | 'approver' | 'admin';
+export const ROLES: readonly Role[] = ['viewer', 'analyst', 'approver', 'admin'];
+
+export interface AuthUser { analyst_id: string; username: string; display_name: string | null; role: string; permissions: Permissions }
+/** What POST /auth/login and GET /auth/session return. The session cookie itself is HttpOnly and never visible to this code. */
+export interface AuthSession { user: AuthUser; csrf_token: string; idle_expires_at: string; absolute_expires_at: string }
+export interface AuthStatus { web_auth: boolean; bootstrap_available: boolean }
+export interface BootstrapBody { bootstrap_secret: string; username: string; display_name?: string; password: string }
+export interface AccountRow {
+  analyst_id: string; username: string | null; display_name: string | null; role: string; active: boolean; has_password: boolean;
+  last_login_at: string | null; created_at: string; active_sessions: number;
+}
+export interface CreateAccountBody { username: string; display_name?: string; role: Role; password: string }
+export interface UpdateAccountBody { role?: Role; active?: boolean; display_name?: string }
 
 export interface SubmitResult {
   job_id: string;

@@ -344,8 +344,10 @@ class Week4Regression(unittest.TestCase):
             ("GET", "/actions/{action_id}", "get_action", "read"), ("POST", "/actions/{action_id}/decision", "decide", "decide"),
             ("POST", "/actions/{action_id}/simulate-execution", "simulate_execution", "decide")])
         self.assertEqual([r.name for r in routes5.ROUTES5][:6], ["submit_alert", "get_job", "list_jobs", "health_live", "health_ready", "get_me"])          # the Week 5 phase 1 routes, unchanged
-        self.assertEqual([r.name for r in routes5.ROUTES5][6:], ["ingest_eve", "list_sensors", "search_cases", "list_actions", "get_overview", "case_analysis", "add_note", "add_feedback", "resolve_case", "get_providers",
+        self.assertEqual([r.name for r in routes5.ROUTES5][6:19], ["ingest_eve", "list_sensors", "search_cases", "list_actions", "get_overview", "case_analysis", "add_note", "add_feedback", "resolve_case", "get_providers",
                                                                   "get_diagnostics", "list_evaluation_reports", "get_evaluation_report"])          # phase 2 additions
+        self.assertEqual([r.name for r in routes5.ROUTES5][19:], ["auth_login", "auth_logout", "auth_session", "auth_status", "auth_bootstrap", "auth_change_password", "auth_users",
+                                                                  "auth_create_user", "auth_update_user", "auth_reset_password", "auth_revoke_sessions"])          # migration 0003: web sign-in, appended after everything else
         self.assertEqual({r.name: r.role for r in routes5.ROUTES5 if r.name in ("submit_alert", "get_job", "list_jobs", "health_live", "health_ready", "get_me")}, {"submit_alert": "submit", "get_job": "read", "list_jobs": "read", "health_live": None, "health_ready": None, "get_me": "read"})
 
     def test_the_payload_builder_drops_labels_outside_the_allow_list(self):
