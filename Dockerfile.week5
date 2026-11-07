@@ -25,6 +25,8 @@ RUN /opt/venv/bin/pip install -r /tmp/requirements-week5.txt \
     && if [ "$WITH_GENAI" = "1" ]; then /opt/venv/bin/pip install -r /tmp/requirements-genai.txt; fi \
     && /opt/venv/bin/python -c "import importlib.util,sys; s=importlib.util.find_spec('google'); ok=bool(s and importlib.util.find_spec('google.genai')); sys.exit(0 if ok or '$WITH_GENAI' != '1' else 1)"
 
+
+RUN /opt/venv/bin/pip install pyarrow
 FROM python:${PYTHON_VERSION}-slim AS runtime
 
 RUN groupadd --gid 10001 soc \
